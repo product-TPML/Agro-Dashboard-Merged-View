@@ -1,0 +1,2141 @@
+{
+  "generatedAt": "2026-06-05T05:14:37.550Z",
+  "locales": [
+    "en",
+    "kn"
+  ],
+  "commodities": {
+    "Alasande Gram": {
+      "en": "Alasande Gram",
+      "kn": "ಅಲಸಂದೆ ಕಾಳು"
+    },
+    "Alasandikai": {
+      "en": "Alasandikai",
+      "kn": "ಅಲಸಂದೆಕಾಯಿ"
+    },
+    "All Flowers": {
+      "en": "All Flowers",
+      "kn": "ಎಲ್ಲಾ ಹೂವುಗಳು"
+    },
+    "Antawala": {
+      "en": "Antawala",
+      "kn": "ಅಂಟವಾಳ"
+    },
+    "Apple": {
+      "en": "Apple",
+      "kn": "ಸೇಬು"
+    },
+    "Arecanut": {
+      "en": "Arecanut",
+      "kn": "ಅಡಿಕೆ"
+    },
+    "Ash Gourd": {
+      "en": "Ash Gourd",
+      "kn": "ಬೂದುಗುಂಬಳಕಾಯಿ"
+    },
+    "Avare": {
+      "en": "Avare",
+      "kn": "ಅವರೆಕಾಳು"
+    },
+    "Avaredal": {
+      "en": "Avaredal",
+      "kn": "ಅವರೆಬೇಳೆ"
+    },
+    "Bajra": {
+      "en": "Bajra",
+      "kn": "ಸಜ್ಜೆ"
+    },
+    "Banana": {
+      "en": "Banana",
+      "kn": "ಬಾಳೆಹಣ್ಣು"
+    },
+    "Banana Green": {
+      "en": "Banana Green",
+      "kn": "ಬಾಳೆಕಾಯಿ"
+    },
+    "Barley": {
+      "en": "Barley",
+      "kn": "ಬಾರ್ಲಿ"
+    },
+    "Beans": {
+      "en": "Beans",
+      "kn": "ಬೀನ್ಸ್"
+    },
+    "Beetroot": {
+      "en": "Beetroot",
+      "kn": "ಬೀಟ್ರೂಟ್"
+    },
+    "Bengal Gramdal": {
+      "en": "Bengal Gramdal",
+      "kn": "ಕಡಲೆಬೇಳೆ"
+    },
+    "Bengalgram": {
+      "en": "Bengalgram",
+      "kn": "ಕಡಲೆಕಾಳು"
+    },
+    "Betal Leaves": {
+      "en": "Betal Leaves",
+      "kn": "ವಿಳ್ಯದೆಲೆ"
+    },
+    "Bitter Gourd": {
+      "en": "Bitter Gourd",
+      "kn": "ಹಾಗಲಕಾಯಿ"
+    },
+    "Black Gramdal": {
+      "en": "Black Gramdal",
+      "kn": "ಉದ್ದಿನಬೇಳೆ"
+    },
+    "Blackgram": {
+      "en": "Blackgram",
+      "kn": "ಉದ್ದಿನಕಾಳು"
+    },
+    "Bottle Gourd": {
+      "en": "Bottle Gourd",
+      "kn": "ಸೋರೆಕಾಯಿ"
+    },
+    "Brinjal": {
+      "en": "Brinjal",
+      "kn": "ಬದನೆಕಾಯಿ"
+    },
+    "Bull (For Each)": {
+      "en": "Bull (For Each)",
+      "kn": "ಎತ್ತು (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Bullar": {
+      "en": "Bullar",
+      "kn": "ಬಳ್ಳಾರ್"
+    },
+    "Bunch Beans": {
+      "en": "Bunch Beans",
+      "kn": "ಗೊಂಚಲು ಬೀನ್ಸ್"
+    },
+    "Cabbage": {
+      "en": "Cabbage",
+      "kn": "ಎಲೆಕೋಸು"
+    },
+    "Calf (For Each)": {
+      "en": "Calf (For Each)",
+      "kn": "ಕರು (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Capsicum": {
+      "en": "Capsicum",
+      "kn": "ದೊಣ್ಣೆ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Carrot": {
+      "en": "Carrot",
+      "kn": "ಕ್ಯಾರೆಟ್"
+    },
+    "Cashewnut": {
+      "en": "Cashewnut",
+      "kn": "ಗೋಡಂಬಿ"
+    },
+    "Castor Seed": {
+      "en": "Castor Seed",
+      "kn": "ಹರಳೆಣ್ಣೆ ಬೀಜ"
+    },
+    "Cauliflower": {
+      "en": "Cauliflower",
+      "kn": "ಹೂಕೋಸು"
+    },
+    "Chapparada Avare": {
+      "en": "Chapparada Avare",
+      "kn": "ಚಪ್ಪರದ ಅವರೆ"
+    },
+    "Chennangidal": {
+      "en": "Chennangidal",
+      "kn": "ಚೆನ್ನಂಗಿ ಬೇಳೆ"
+    },
+    "Chikoos (Sapota)": {
+      "en": "Chikoos (Sapota)",
+      "kn": "ಸಪೋಟ"
+    },
+    "Chilly Capsicum": {
+      "en": "Chilly Capsicum",
+      "kn": "ದೊಣ್ಣೆ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Chilly Red": {
+      "en": "Chilly Red",
+      "kn": "ಒಣ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Coco Brooms": {
+      "en": "Coco Brooms",
+      "kn": "ತೆಂಗಿನ ಕಸಬರಗಿ"
+    },
+    "Coconut (Per 1000)": {
+      "en": "Coconut (Per 1000)",
+      "kn": "ತೆಂಗಿನಕಾಯಿ (೧೦೦೦ ಕ್ಕೆ)"
+    },
+    "Copra": {
+      "en": "Copra",
+      "kn": "ಕೊಬ್ಬರಿ"
+    },
+    "Coriander": {
+      "en": "Coriander",
+      "kn": "ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು"
+    },
+    "Coriander Seed": {
+      "en": "Coriander Seed",
+      "kn": "ಕೊತ್ತಂಬರಿ ಬೀಜ"
+    },
+    "Cotton": {
+      "en": "Cotton",
+      "kn": "ಹತ್ತಿ"
+    },
+    "Cow (For Each)": {
+      "en": "Cow (For Each)",
+      "kn": "ಹಸು (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Cowpea": {
+      "en": "Cowpea",
+      "kn": "ಅಲಸಂದೆ"
+    },
+    "Crysanthamum": {
+      "en": "Crysanthamum",
+      "kn": "ಶೇವಂತಿ ಹೂವು"
+    },
+    "Cucumbar": {
+      "en": "Cucumbar",
+      "kn": "ಸೌತೆಕಾಯಿ"
+    },
+    "Drum Stick": {
+      "en": "Drum Stick",
+      "kn": "ನುಗ್ಗೆಕಾಯಿ"
+    },
+    "Dry Chillies": {
+      "en": "Dry Chillies",
+      "kn": "ಒಣ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Dry Grapes": {
+      "en": "Dry Grapes",
+      "kn": "ಒಣ ದ್ರಾಕ್ಷಿ"
+    },
+    "Duster Beans": {
+      "en": "Duster Beans",
+      "kn": "ಚವಳಿಕಾಯಿ"
+    },
+    "Foxtail Millet": {
+      "en": "Foxtail Millet",
+      "kn": "ನವಣೆ"
+    },
+    "Garlic": {
+      "en": "Garlic",
+      "kn": "ಬೆಳ್ಳುಳ್ಳಿ"
+    },
+    "Gingelly": {
+      "en": "Gingelly",
+      "kn": "ಎಳ್ಳು"
+    },
+    "Ginger": {
+      "en": "Ginger",
+      "kn": "ಶುಂಠಿ"
+    },
+    "Goat (For Each)": {
+      "en": "Goat (For Each)",
+      "kn": "ಮೇಕೆ (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Grapes": {
+      "en": "Grapes",
+      "kn": "ದ್ರಾಕ್ಷಿ"
+    },
+    "Green Chilly": {
+      "en": "Green Chilly",
+      "kn": "ಹಸಿ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Green Ginger": {
+      "en": "Green Ginger",
+      "kn": "ಹಸಿ ಶುಂಠಿ"
+    },
+    "Green Gramdal": {
+      "en": "Green Gramdal",
+      "kn": "ಹೆಸರುಬೇಳೆ"
+    },
+    "Green Peas": {
+      "en": "Green Peas",
+      "kn": "ಹಸಿ ಬಟಾಣಿ"
+    },
+    "Greengram": {
+      "en": "Greengram",
+      "kn": "ಹೆಸರುಕಾಳು"
+    },
+    "Groundnut": {
+      "en": "Groundnut",
+      "kn": "ಕಡಲೆಕಾಯಿ"
+    },
+    "Groundnut Seed": {
+      "en": "Groundnut Seed",
+      "kn": "ಶೇಂಗಾ ಬೀಜ"
+    },
+    "Guava": {
+      "en": "Guava",
+      "kn": "ಸೀಬೆಹಣ್ಣು"
+    },
+    "Gurellu": {
+      "en": "Gurellu",
+      "kn": "ಗುರಳ್ಳು"
+    },
+    "He Baffalo (For Each)": {
+      "en": "He Baffalo (For Each)",
+      "kn": "ಕೋಣ (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Honge Seed": {
+      "en": "Honge Seed",
+      "kn": "ಹೊಂಗೆ ಬೀಜ"
+    },
+    "Horse Gram": {
+      "en": "Horse Gram",
+      "kn": "ಹುರುಳಿ ಕಾಳು"
+    },
+    "Jack Fruit": {
+      "en": "Jack Fruit",
+      "kn": "ಹಲಸಿನ ಹಣ್ಣು"
+    },
+    "Jaggery": {
+      "en": "Jaggery",
+      "kn": "ಬೆಲ್ಲ"
+    },
+    "Jowar": {
+      "en": "Jowar",
+      "kn": "ಜೋಳ"
+    },
+    "Karbuja": {
+      "en": "Karbuja",
+      "kn": "ಕರ್ಬೂಜ"
+    },
+    "Knool Khol": {
+      "en": "Knool Khol",
+      "kn": "ನವಿಲುಕೋಸು"
+    },
+    "Ladies Finger": {
+      "en": "Ladies Finger",
+      "kn": "ಬೆಂಡೆಕಾಯಿ"
+    },
+    "Lime (Lemon)": {
+      "en": "Lime (Lemon)",
+      "kn": "ನಿಂಬೆಹಣ್ಣು"
+    },
+    "Lint": {
+      "en": "Lint",
+      "kn": "ಹತ್ತಿ ನಾರು"
+    },
+    "Maize": {
+      "en": "Maize",
+      "kn": "ಮೆಕ್ಕೆಜೋಳ"
+    },
+    "Mango": {
+      "en": "Mango",
+      "kn": "ಮಾವಿನ ಹಣ್ಣು"
+    },
+    "Mango (Raw-Ripe)": {
+      "en": "Mango (Raw-Ripe)",
+      "kn": "ಮಾವಿನಕಾಯಿ-ಹಣ್ಣು"
+    },
+    "Marygold": {
+      "en": "Marygold",
+      "kn": "ಚೆಂಡು ಹೂವು"
+    },
+    "Mataki": {
+      "en": "Mataki",
+      "kn": "ಮಟಕಿ"
+    },
+    "Methi Seeds": {
+      "en": "Methi Seeds",
+      "kn": "ಮೆಂತ್ಯ ಬೀಜ"
+    },
+    "Moath": {
+      "en": "Moath",
+      "kn": "ಮೋತ್ ಕಾಳು"
+    },
+    "Mousambi": {
+      "en": "Mousambi",
+      "kn": "ಮೋಸಂಬಿ"
+    },
+    "Mustard": {
+      "en": "Mustard",
+      "kn": "ಸಾಸಿವೆ"
+    },
+    "Navane": {
+      "en": "Navane",
+      "kn": "ನವಣೆ"
+    },
+    "Niger Seed": {
+      "en": "Niger Seed",
+      "kn": "ಗುರಳ್ಳು ಬೀಜ"
+    },
+    "Onion": {
+      "en": "Onion",
+      "kn": "ಈರುಳ್ಳಿ"
+    },
+    "Orange": {
+      "en": "Orange",
+      "kn": "ಕಿತ್ತಳೆ ಹಣ್ಣು"
+    },
+    "Ox (For Each)": {
+      "en": "Ox (For Each)",
+      "kn": "ಎತ್ತು (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Paddy": {
+      "en": "Paddy",
+      "kn": "ಭತ್ತ"
+    },
+    "Papaya": {
+      "en": "Papaya",
+      "kn": "ಪಪ್ಪಾಯಿ"
+    },
+    "Peas Wet": {
+      "en": "Peas Wet",
+      "kn": "ಹಸಿ ಬಟಾಣಿ"
+    },
+    "Pepper": {
+      "en": "Pepper",
+      "kn": "ಮೆಣಸು"
+    },
+    "Pine Apple": {
+      "en": "Pine Apple",
+      "kn": "ಅನಾನಸ್"
+    },
+    "Pomagranate": {
+      "en": "Pomagranate",
+      "kn": "ದಾಳಿಂಬೆ"
+    },
+    "Potato": {
+      "en": "Potato",
+      "kn": "ಆಲೂಗಡ್ಡೆ"
+    },
+    "Raddish": {
+      "en": "Raddish",
+      "kn": "ಮೂಲಂಗಿ"
+    },
+    "Ragi": {
+      "en": "Ragi",
+      "kn": "ರಾಗಿ"
+    },
+    "Ram (For Each)": {
+      "en": "Ram (For Each)",
+      "kn": "ಟಗರು (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Redgram": {
+      "en": "Redgram",
+      "kn": "ತೊಗರಿಕಾಳು"
+    },
+    "Rice": {
+      "en": "Rice",
+      "kn": "ಅಕ್ಕಿ"
+    },
+    "Ridgeguard": {
+      "en": "Ridgeguard",
+      "kn": "ಹೀರೆಕಾಯಿ"
+    },
+    "Rose": {
+      "en": "Rose",
+      "kn": "ಗುಲಾಬಿ"
+    },
+    "Safflower": {
+      "en": "Safflower",
+      "kn": "ಕುಸುಬೆ"
+    },
+    "Sajje": {
+      "en": "Sajje",
+      "kn": "ಸಜ್ಜೆ"
+    },
+    "Same/Savi": {
+      "en": "Same/Savi",
+      "kn": "ಸಾಮೆ"
+    },
+    "Seemebadanekai": {
+      "en": "Seemebadanekai",
+      "kn": "ಸೀಮೆಬದನೆಕಾಯಿ"
+    },
+    "Sesamum": {
+      "en": "Sesamum",
+      "kn": "ಎಳ್ಳು"
+    },
+    "She Baffalo (For Each)": {
+      "en": "She Baffalo (For Each)",
+      "kn": "ಎಮ್ಮೆ (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "She Goat (For Each)": {
+      "en": "She Goat (For Each)",
+      "kn": "ಹೆಣ್ಣು ಮೇಕೆ (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Sheep (For Each)": {
+      "en": "Sheep (For Each)",
+      "kn": "ಕುರಿ (ಪ್ರತಿಯೊಂದಕ್ಕೆ)"
+    },
+    "Snakeguard": {
+      "en": "Snakeguard",
+      "kn": "ಪಡವಲಕಾಯಿ"
+    },
+    "Soapnut": {
+      "en": "Soapnut",
+      "kn": "ಸೀಗೆಕಾಯಿ"
+    },
+    "Soyabeen": {
+      "en": "Soyabeen",
+      "kn": "ಸೋಯಾಬೀನ್"
+    },
+    "Sunflower": {
+      "en": "Sunflower",
+      "kn": "ಸೂರ್ಯಕಾಂತಿ"
+    },
+    "Suvarnagadde": {
+      "en": "Suvarnagadde",
+      "kn": "ಸುವರ್ಣಗಡ್ಡೆ"
+    },
+    "Sweet Potato": {
+      "en": "Sweet Potato",
+      "kn": "ಗೆಣಸು"
+    },
+    "Sweet Pumpkin": {
+      "en": "Sweet Pumpkin",
+      "kn": "ಸಿಹಿ ಗುಂಬಳಕಾಯಿ"
+    },
+    "Tamarind Fruit": {
+      "en": "Tamarind Fruit",
+      "kn": "ಹುಣಿಸೇಹಣ್ಣು"
+    },
+    "Tamarind Seed": {
+      "en": "Tamarind Seed",
+      "kn": "ಹುಣಿಸೇ ಬೀಜ"
+    },
+    "Tender Coconut": {
+      "en": "Tender Coconut",
+      "kn": "ಎಳನೀರು"
+    },
+    "Thogarikai": {
+      "en": "Thogarikai",
+      "kn": "ತೊಗರಿಕಾಯಿ"
+    },
+    "Thondekai": {
+      "en": "Thondekai",
+      "kn": "ತೊಂಡೆಕಾಯಿ"
+    },
+    "Tomato": {
+      "en": "Tomato",
+      "kn": "ಟೊಮೇಟೊ"
+    },
+    "Tur": {
+      "en": "Tur",
+      "kn": ""
+    },
+    "Tur Dal": {
+      "en": "Tur Dal",
+      "kn": "ತೊಗರಿ ಬೇಳೆ"
+    },
+    "Turmeric": {
+      "en": "Turmeric",
+      "kn": "ಅರಿಶಿನ"
+    },
+    "Water Melon": {
+      "en": "Water Melon",
+      "kn": "ಕಲ್ಲಂಗಡಿ ಹಣ್ಣು"
+    },
+    "Wheat": {
+      "en": "Wheat",
+      "kn": "ಗೋದಿಗೆ"
+    },
+    "White Pumpkin": {
+      "en": "White Pumpkin",
+      "kn": "ಬೂದು ಗುಂಬಳಕಾಯಿ"
+    }
+  },
+  "markets": {
+    "ANNIGERI": {
+      "en": "ANNIGERI",
+      "kn": "ಅಣ್ಣಿಗೇರಿ"
+    },
+    "ARAKALGUD": {
+      "en": "ARAKALGUD",
+      "kn": "ಅರಕಲಗೂಡು"
+    },
+    "ARSIKERE": {
+      "en": "ARSIKERE",
+      "kn": "ಅರಸೀಕೆರೆ"
+    },
+    "ATHANI": {
+      "en": "ATHANI",
+      "kn": "ಅಥಣಿ"
+    },
+    "AURAD": {
+      "en": "AURAD",
+      "kn": "ಔರಾದ್"
+    },
+    "BADAMI": {
+      "en": "BADAMI",
+      "kn": "ಬಾದಾಮಿ"
+    },
+    "BAGALKOT": {
+      "en": "BAGALKOT",
+      "kn": "ಬಾಗಲಕೋಟೆ"
+    },
+    "BAGEPALLI": {
+      "en": "BAGEPALLI",
+      "kn": "ಬಾಗೇಪಲ್ಲಿ"
+    },
+    "BAILHONGAL": {
+      "en": "BAILHONGAL",
+      "kn": "ಬೈಲಹೊಂಗಲ"
+    },
+    "BALLARI": {
+      "en": "BALLARI",
+      "kn": "ಬಳ್ಳಾರಿ"
+    },
+    "BANGARPET": {
+      "en": "BANGARPET",
+      "kn": "ಬಂಗಾರಪೇಟೆ"
+    },
+    "BANTWALA": {
+      "en": "BANTWALA",
+      "kn": "ಬಂಟ್ವಾಳ"
+    },
+    "BASAVAKALYANA": {
+      "en": "BASAVAKALYANA",
+      "kn": "ಬಸವಕಲ್ಯಾಣ"
+    },
+    "BELAGAVI": {
+      "en": "BELAGAVI",
+      "kn": "ಬೆಳಗಾವಿ"
+    },
+    "BELTHANGADI": {
+      "en": "BELTHANGADI",
+      "kn": "ಬೆಳ್ತಂಗಡಿ"
+    },
+    "BELUR": {
+      "en": "BELUR",
+      "kn": "ಬೇಲೂರು"
+    },
+    "BENGALURU": {
+      "en": "BENGALURU",
+      "kn": "ಬೆಂಗಳೂರು"
+    },
+    "BHADRAVATHI": {
+      "en": "BHADRAVATHI",
+      "kn": "ಭದ್ರಾವತಿ"
+    },
+    "BHALKI": {
+      "en": "BHALKI",
+      "kn": "ಭಲ್ಕಿ"
+    },
+    "BIDAR": {
+      "en": "BIDAR",
+      "kn": "ಬೀದರ್"
+    },
+    "BILAGI": {
+      "en": "BILAGI",
+      "kn": "ಬೀಳಗಿ"
+    },
+    "BINNY MILL (F&V)": {
+      "en": "BINNY MILL (F&V)",
+      "kn": "ಬಿನ್ನಿ ಮಿಲ್ (ಹಣ್ಣು ಮತ್ತು ತರಕಾರಿ)"
+    },
+    "BYADGI": {
+      "en": "BYADGI",
+      "kn": "ಬ್ಯಾಡಗಿ"
+    },
+    "C.R.NAGAR": {
+      "en": "C.R.NAGAR",
+      "kn": "ಚಾಮರಾಜನಗರ"
+    },
+    "C.R.PATNA": {
+      "en": "C.R.PATNA",
+      "kn": "ಚನ್ನರಾಯಪಟ್ಟಣ"
+    },
+    "CHALLAKERE": {
+      "en": "CHALLAKERE",
+      "kn": "ಚಳ್ಳಕೆರೆ"
+    },
+    "CHANNAGIRI": {
+      "en": "CHANNAGIRI",
+      "kn": "ಚನ್ನಗಿರಿ"
+    },
+    "CHANNAPATNA": {
+      "en": "CHANNAPATNA",
+      "kn": "ಚನ್ನಪಟ್ಟಣ"
+    },
+    "CHICKBALLAPUR": {
+      "en": "CHICKBALLAPUR",
+      "kn": "ಚಿಕ್ಕಬಳ್ಳಾಪುರ"
+    },
+    "CHIKKAMAGALURU": {
+      "en": "CHIKKAMAGALURU",
+      "kn": "ಚಿಕ್ಕಮಗಳೂರು"
+    },
+    "CHINCOLI": {
+      "en": "CHINCOLI",
+      "kn": "ಚಿಂಚೋಳಿ"
+    },
+    "CHINTAMANI": {
+      "en": "CHINTAMANI",
+      "kn": "ಚಿಂತಾಮಣಿ"
+    },
+    "CHITRADURGA": {
+      "en": "CHITRADURGA",
+      "kn": "ಚಿತ್ರದುರ್ಗ"
+    },
+    "CHITTAPURA": {
+      "en": "CHITTAPURA",
+      "kn": "ಚಿತ್ತಾಪುರ"
+    },
+    "DAVANAGERE": {
+      "en": "DAVANAGERE",
+      "kn": "ದಾವಣಗೆರೆ"
+    },
+    "DHARWAR": {
+      "en": "DHARWAR",
+      "kn": "ಧಾರವಾಡ"
+    },
+    "DODDABALLAPUR": {
+      "en": "DODDABALLAPUR",
+      "kn": "ದೊಡ್ಡಬಳ್ಳಾಪುರ"
+    },
+    "ENDI": {
+      "en": "ENDI",
+      "kn": "ಇಂಡಿ"
+    },
+    "GADAG": {
+      "en": "GADAG",
+      "kn": "ಗದಗ"
+    },
+    "GANGAVATI": {
+      "en": "GANGAVATI",
+      "kn": "ಗಂಗಾವತಿ"
+    },
+    "GOKAK": {
+      "en": "GOKAK",
+      "kn": "ಗೋಕಾಕ"
+    },
+    "GONIKOPPAL": {
+      "en": "GONIKOPPAL",
+      "kn": "ಗೋಣಿಕೊಪ್ಪಲು"
+    },
+    "GOWRIBIDNUR": {
+      "en": "GOWRIBIDNUR",
+      "kn": "ಗೌರಿಬಿದನೂರು"
+    },
+    "GUBBI": {
+      "en": "GUBBI",
+      "kn": "ಗುಬ್ಬಿ"
+    },
+    "GUNDLUPET": {
+      "en": "GUNDLUPET",
+      "kn": "ಗುಂಡ್ಲುಪೇಟೆ"
+    },
+    "HAGARI BOMMANA HALLI": {
+      "en": "HAGARI BOMMANA HALLI",
+      "kn": "ಹಗರಿಬೊಮ್ಮನಹಳ್ಳಿ"
+    },
+    "HALIYALA": {
+      "en": "HALIYALA",
+      "kn": "ಹಳಿಯಾಳ"
+    },
+    "HANGAL": {
+      "en": "HANGAL",
+      "kn": "ಹಾನಗಲ್"
+    },
+    "HANUR": {
+      "en": "HANUR",
+      "kn": "ಹನೂರು"
+    },
+    "HARAPANAHALLI": {
+      "en": "HARAPANAHALLI",
+      "kn": "ಹರಪನಹಳ್ಳಿ"
+    },
+    "HARIHARA": {
+      "en": "HARIHARA",
+      "kn": "ಹರಿಹರ"
+    },
+    "HASSAN": {
+      "en": "HASSAN",
+      "kn": "ಹಾಸನ"
+    },
+    "HAVERI": {
+      "en": "HAVERI",
+      "kn": "ಹಾವೇರಿ"
+    },
+    "HIREKERUR": {
+      "en": "HIREKERUR",
+      "kn": "ಹಿರೇಕೆರೂರು"
+    },
+    "HIRIYUR": {
+      "en": "HIRIYUR",
+      "kn": "ಹಿರಿಯೂರು"
+    },
+    "HOLALKERE": {
+      "en": "HOLALKERE",
+      "kn": "ಹೊಳಲ್ಕೆರೆ"
+    },
+    "HOLENARASIPUR": {
+      "en": "HOLENARASIPUR",
+      "kn": "ಹೊಳೆನರಸೀಪುರ"
+    },
+    "HONNALI": {
+      "en": "HONNALI",
+      "kn": "ಹೊನ್ನಾಳಿ"
+    },
+    "HONNAVAR": {
+      "en": "HONNAVAR",
+      "kn": "ಹೊನ್ನಾವರ"
+    },
+    "HOOVINAHADAGALI": {
+      "en": "HOOVINAHADAGALI",
+      "kn": "ಹೂವಿನಹಡಗಲಿ"
+    },
+    "HOSADURGA": {
+      "en": "HOSADURGA",
+      "kn": "ಹೊಸದುರ್ಗ"
+    },
+    "HOSANAGAR": {
+      "en": "HOSANAGAR",
+      "kn": "ಹೊಸನಗರ"
+    },
+    "HOSAPETE": {
+      "en": "HOSAPETE",
+      "kn": "ಹೊಸಪೇಟೆ"
+    },
+    "HOSKOTE": {
+      "en": "HOSKOTE",
+      "kn": "ಹೊಸಕೋಟೆ"
+    },
+    "HUBBALLI": {
+      "en": "HUBBALLI",
+      "kn": "ಹುಬ್ಬಳ್ಳಿ"
+    },
+    "HULIYAR": {
+      "en": "HULIYAR",
+      "kn": "ಹುಳಿಯಾರು"
+    },
+    "HUNGUND": {
+      "en": "HUNGUND",
+      "kn": "ಹುನಗುಂದ"
+    },
+    "HUNSUR": {
+      "en": "HUNSUR",
+      "kn": "ಹುಣಸೂರು"
+    },
+    "JAGALUR": {
+      "en": "JAGALUR",
+      "kn": "ಜಗಳೂರು"
+    },
+    "JAMKANDI": {
+      "en": "JAMKANDI",
+      "kn": "ಜಮಖಂಡಿ"
+    },
+    "JEVARGI": {
+      "en": "JEVARGI",
+      "kn": "ಜೇವರ್ಗಿ"
+    },
+    "K.G.F.": {
+      "en": "K.G.F.",
+      "kn": "ಕೆ.ಜಿ.ಎಫ್."
+    },
+    "K.R.NAGAR": {
+      "en": "K.R.NAGAR",
+      "kn": "ಕೆ.ಆರ್. ನಗರ"
+    },
+    "K.R.PET": {
+      "en": "K.R.PET",
+      "kn": "ಕೆ.ಆರ್. ಪೇಟೆ"
+    },
+    "KADUR": {
+      "en": "KADUR",
+      "kn": "ಕಡೂರು"
+    },
+    "KALABURAGI": {
+      "en": "KALABURAGI",
+      "kn": "ಕಲಬುರಗಿ"
+    },
+    "KALGHATGI": {
+      "en": "KALGHATGI",
+      "kn": "ಕಲಘಟಗಿ"
+    },
+    "KAMPLI": {
+      "en": "KAMPLI",
+      "kn": "ಕಂಪ್ಲಿ"
+    },
+    "KANAKAGIRI": {
+      "en": "KANAKAGIRI",
+      "kn": "ಕನಕಗಿರಿ"
+    },
+    "KANAKAPURA": {
+      "en": "KANAKAPURA",
+      "kn": "ಕನಕಪುರ"
+    },
+    "KARKALA": {
+      "en": "KARKALA",
+      "kn": "ಕಾರ್ಕಳ"
+    },
+    "KARTAGI": {
+      "en": "KARTAGI",
+      "kn": "ಕಾರಟಗಿ"
+    },
+    "KARWAR": {
+      "en": "KARWAR",
+      "kn": "ಕಾರವಾರ"
+    },
+    "KOLAR": {
+      "en": "KOLAR",
+      "kn": "ಕೋಲಾರ"
+    },
+    "KOLLEGAL": {
+      "en": "KOLLEGAL",
+      "kn": "ಕೊಳ್ಳೇಗಾಲ"
+    },
+    "KOPPA": {
+      "en": "KOPPA",
+      "kn": "ಕೊಪ್ಪ"
+    },
+    "KOPPAL": {
+      "en": "KOPPAL",
+      "kn": "ಕೊಪ್ಪಳ"
+    },
+    "KOTTUR": {
+      "en": "KOTTUR",
+      "kn": "ಕೊಟ್ಟೂರು"
+    },
+    "KUDCHI": {
+      "en": "KUDCHI",
+      "kn": "ಕುಡಚಿ"
+    },
+    "KUDLIGI": {
+      "en": "KUDLIGI",
+      "kn": "ಕೂಡ್ಲಿಗಿ"
+    },
+    "KUMTA": {
+      "en": "KUMTA",
+      "kn": "ಕುಮಟಾ"
+    },
+    "KUNDAPUR": {
+      "en": "KUNDAPUR",
+      "kn": "ಕುಂದಾಪುರ"
+    },
+    "KUNDGOL": {
+      "en": "KUNDGOL",
+      "kn": "ಕುಂದಗೋಳ"
+    },
+    "KUNIGAL": {
+      "en": "KUNIGAL",
+      "kn": "ಕುಣಿಗಲ್"
+    },
+    "KUSTAGI": {
+      "en": "KUSTAGI",
+      "kn": "ಕುಷ್ಟಗಿ"
+    },
+    "LAXMESHWAR": {
+      "en": "LAXMESHWAR",
+      "kn": "ಲಕ್ಷ್ಮೇಶ್ವರ"
+    },
+    "LINGASARGUR": {
+      "en": "LINGASARGUR",
+      "kn": "ಲಿಂಗಸಗೂರು"
+    },
+    "MADDUR": {
+      "en": "MADDUR",
+      "kn": "ಮದ್ದೂರು"
+    },
+    "MADHUGIRI": {
+      "en": "MADHUGIRI",
+      "kn": "ಮಧುಗಿರಿ"
+    },
+    "MADIKERI": {
+      "en": "MADIKERI",
+      "kn": "ಮಡಿಕೇರಿ"
+    },
+    "MAHALINGAPURA": {
+      "en": "MAHALINGAPURA",
+      "kn": "ಮಹಾಲಿಂಗಪುರ"
+    },
+    "MALAVALLI": {
+      "en": "MALAVALLI",
+      "kn": "ಮಳವಳ್ಳಿ"
+    },
+    "MALUR": {
+      "en": "MALUR",
+      "kn": "ಮಾಲೂರು"
+    },
+    "MANDYA": {
+      "en": "MANDYA",
+      "kn": "ಮಂಡ್ಯ"
+    },
+    "MANGALURU": {
+      "en": "MANGALURU",
+      "kn": "ಮಂಗಳೂರು"
+    },
+    "MANVI": {
+      "en": "MANVI",
+      "kn": "ಮಾನ್ವಿ"
+    },
+    "MUDHOL": {
+      "en": "MUDHOL",
+      "kn": "ಮುಧೋಳ"
+    },
+    "MUDIGERE": {
+      "en": "MUDIGERE",
+      "kn": "ಮೂಡಿಗೆರೆ"
+    },
+    "MULBAGAL": {
+      "en": "MULBAGAL",
+      "kn": "ಮುಳಬಾಗಿಲು"
+    },
+    "MUNDAGOD": {
+      "en": "MUNDAGOD",
+      "kn": "ಮುಂಡಗೋಡ"
+    },
+    "MUNDARGI": {
+      "en": "MUNDARGI",
+      "kn": "ಮುಂಡರಗಿ"
+    },
+    "MYSURU": {
+      "en": "MYSURU",
+      "kn": "ಮೈಸೂರು"
+    },
+    "NAGAMANGALA": {
+      "en": "NAGAMANGALA",
+      "kn": "ನಾಗಮಂಗಲ"
+    },
+    "NANDAGAD": {
+      "en": "NANDAGAD",
+      "kn": "ನಂದಗಡ"
+    },
+    "NANJANGUD": {
+      "en": "NANJANGUD",
+      "kn": "ನಂಜನಗೂಡು"
+    },
+    "NARGUND": {
+      "en": "NARGUND",
+      "kn": "ನರಗುಂದ"
+    },
+    "NIPPANI": {
+      "en": "NIPPANI",
+      "kn": "ನಿಪ್ಪಾಣಿ"
+    },
+    "PANDAVAPURA": {
+      "en": "PANDAVAPURA",
+      "kn": "ಪಾಂಡವಪುರ"
+    },
+    "PERIYAPATNA": {
+      "en": "PERIYAPATNA",
+      "kn": "ಪಿರಿಯಾಪಟ್ಟಣ"
+    },
+    "PUTTUR": {
+      "en": "PUTTUR",
+      "kn": "ಪುತ್ತೂರು"
+    },
+    "RAICHUR": {
+      "en": "RAICHUR",
+      "kn": "ರಾಯಚೂರು"
+    },
+    "RAMANAGARA": {
+      "en": "RAMANAGARA",
+      "kn": "ರಾಮನಗರ"
+    },
+    "RAMDURGA": {
+      "en": "RAMDURGA",
+      "kn": "ರಾಮದುರ್ಗ"
+    },
+    "RAMPURA": {
+      "en": "RAMPURA",
+      "kn": "ರಾಮಪುರ"
+    },
+    "RANIBENNUR": {
+      "en": "RANIBENNUR",
+      "kn": "ರಾಣೆಬೆನ್ನೂರು"
+    },
+    "RONA": {
+      "en": "RONA",
+      "kn": "ರೋಣ"
+    },
+    "SAGAR": {
+      "en": "SAGAR",
+      "kn": "ಸಾಗರ"
+    },
+    "SAKLESHPUR": {
+      "en": "SAKLESHPUR",
+      "kn": "ಸಕಲೇಶಪುರ"
+    },
+    "SANDUR": {
+      "en": "SANDUR",
+      "kn": "ಸಂಡೂರು"
+    },
+    "SANKESHWAR": {
+      "en": "SANKESHWAR",
+      "kn": "ಸಂಕೇಶ್ವರ"
+    },
+    "SANTHESARGUR": {
+      "en": "SANTHESARGUR",
+      "kn": "ಸಂತೆಸರಗೂರು"
+    },
+    "SAVADATTI": {
+      "en": "SAVADATTI",
+      "kn": "ಸವದತ್ತಿ"
+    },
+    "SAVANUR": {
+      "en": "SAVANUR",
+      "kn": "ಸಾವನೂರು"
+    },
+    "SEDAM": {
+      "en": "SEDAM",
+      "kn": "ಸೇಡಂ"
+    },
+    "SHIGGAON": {
+      "en": "SHIGGAON",
+      "kn": "ಶಿಗ್ಗಾಂವ್"
+    },
+    "SHIKARIPUR": {
+      "en": "SHIKARIPUR",
+      "kn": "ಶಿಕಾರಿಪುರ"
+    },
+    "SHIVAMOGGA": {
+      "en": "SHIVAMOGGA",
+      "kn": "ಶಿವಮೊಗ್ಗ"
+    },
+    "SHORAPUR": {
+      "en": "SHORAPUR",
+      "kn": "ಸುರಪುರ"
+    },
+    "SIDDAPURA": {
+      "en": "SIDDAPURA",
+      "kn": "ಸಿದ್ದಾಪುರ"
+    },
+    "SINDAGI": {
+      "en": "SINDAGI",
+      "kn": "ಸಿಂದಗಿ"
+    },
+    "SINDHANUR": {
+      "en": "SINDHANUR",
+      "kn": "ಸಿಂಧನೂರು"
+    },
+    "SIRA": {
+      "en": "SIRA",
+      "kn": "ಶಿರಾ"
+    },
+    "SIRAGUPPA": {
+      "en": "SIRAGUPPA",
+      "kn": "ಸಿರಗುಪ್ಪ"
+    },
+    "SIRSI": {
+      "en": "SIRSI",
+      "kn": "ಶಿರಸಿ"
+    },
+    "SOMWARPET": {
+      "en": "SOMWARPET",
+      "kn": "ಸೋಮವಾರಪೇಟೆ"
+    },
+    "SORABHA": {
+      "en": "SORABHA",
+      "kn": "ಸೊರಬ"
+    },
+    "SRINIVASPUR": {
+      "en": "SRINIVASPUR",
+      "kn": "ಶ್ರೀನಿವಾಸಪುರ"
+    },
+    "SRIRANGAPATNA": {
+      "en": "SRIRANGAPATNA",
+      "kn": "ಶ್ರೀರಂಗಪಟ್ಟಣ"
+    },
+    "SULYA": {
+      "en": "SULYA",
+      "kn": "ಸುಳ್ಯ"
+    },
+    "T.NARSIPUR": {
+      "en": "T.NARSIPUR",
+      "kn": "ಟಿ. ನರಸೀಪುರ"
+    },
+    "TALIKOTE": {
+      "en": "TALIKOTE",
+      "kn": "ತಾಳಿಕೋಟೆ"
+    },
+    "TARIKERE": {
+      "en": "TARIKERE",
+      "kn": "ತರೀಕೆರೆ"
+    },
+    "TIPTUR": {
+      "en": "TIPTUR",
+      "kn": "ತಿಪಟೂರು"
+    },
+    "TIRTHAHALLI": {
+      "en": "TIRTHAHALLI",
+      "kn": "ತೀರ್ಥಹಳ್ಳಿ"
+    },
+    "TUMAKURU": {
+      "en": "TUMAKURU",
+      "kn": "ತುಮಕೂರು"
+    },
+    "TURUVEKERE": {
+      "en": "TURUVEKERE",
+      "kn": "ತುರುವೇಕೆರೆ"
+    },
+    "UDIPI": {
+      "en": "UDIPI",
+      "kn": "ಉಡುಪಿ"
+    },
+    "VIJAYAPURA": {
+      "en": "VIJAYAPURA",
+      "kn": "ವಿಜಯಪುರ"
+    },
+    "YADGIR": {
+      "en": "YADGIR",
+      "kn": "ಯಾದಗಿರಿ"
+    },
+    "YARAGATTI": {
+      "en": "YARAGATTI",
+      "kn": "ಯರಗಟ್ಟಿ"
+    },
+    "YARAHALLI": {
+      "en": "YARAHALLI",
+      "kn": "ಯರಹಳ್ಳಿ"
+    },
+    "YELBURGA": {
+      "en": "YELBURGA",
+      "kn": "ಯಲಬುರ್ಗಾ"
+    },
+    "YELLAPURA": {
+      "en": "YELLAPURA",
+      "kn": "ಯೆಲ್ಲಾಪುರ"
+    }
+  },
+  "varieties": {
+    "ARECANUT-HUSK": {
+      "en": "ARECANUT-HUSK",
+      "kn": "ಅಡಿಕೆ ಸಿಪ್ಪೆ"
+    },
+    "Achhu": {
+      "en": "Achhu",
+      "kn": "ಅಚ್ಚು"
+    },
+    "Alasande Gram": {
+      "en": "Alasande Gram",
+      "kn": "ಅಲಸಂದೆ ಕಾಳು"
+    },
+    "Alasandikai": {
+      "en": "Alasandikai",
+      "kn": "ಅಲಸಂದೆಕಾಯಿ"
+    },
+    "Antawala": {
+      "en": "Antawala",
+      "kn": "ಅಂಟವಾಳ"
+    },
+    "Api": {
+      "en": "Api",
+      "kn": "ಅಪಿ"
+    },
+    "Apple": {
+      "en": "Apple",
+      "kn": "ಸೇಬು"
+    },
+    "Ashgourd": {
+      "en": "Ashgourd",
+      "kn": "ಬೂದುಗುಂಬಳಕಾಯಿ"
+    },
+    "Avare (Whole)": {
+      "en": "Avare (Whole)",
+      "kn": "ಅವರೆಕಾಳು (ಇಡೀ)"
+    },
+    "Avare Dal": {
+      "en": "Avare Dal",
+      "kn": "ಅವರೆಬೇಳೆ"
+    },
+    "Average(Whole)": {
+      "en": "Average(Whole)",
+      "kn": "ಸರಾಸರಿ (ಇಡೀ)"
+    },
+    "BANNI": {
+      "en": "BANNI",
+      "kn": "ಬನ್ನಿ"
+    },
+    "BT": {
+      "en": "BT",
+      "kn": "ಬಿ.ಟಿ"
+    },
+    "Badami": {
+      "en": "Badami",
+      "kn": "ಬಾದಾಮಿ"
+    },
+    "Ball": {
+      "en": "Ball",
+      "kn": "ಉಂಡೆ"
+    },
+    "Banana - Green (Balekai)": {
+      "en": "Banana - Green (Balekai)",
+      "kn": "ಬಾಳೆಕಾಯಿ"
+    },
+    "Bangalore Small": {
+      "en": "Bangalore Small",
+      "kn": "ಬೆಂಗಳೂರು ಸಣ್ಣ"
+    },
+    "Bansi": {
+      "en": "Bansi",
+      "kn": "ಬನ್ಸಿ"
+    },
+    "Beans (Whole)": {
+      "en": "Beans (Whole)",
+      "kn": "ಬೀನ್ಸ್ (ಇಡೀ)"
+    },
+    "Beetroot": {
+      "en": "Beetroot",
+      "kn": "ಬೀಟ್ರೂಟ್"
+    },
+    "Bellary Red": {
+      "en": "Bellary Red",
+      "kn": "ಬಳ್ಳಾರಿ ಕೆಂಪು"
+    },
+    "Bengal Gram Dal": {
+      "en": "Bengal Gram Dal",
+      "kn": "ಕಡಲೆಬೇಳೆ"
+    },
+    "Bette": {
+      "en": "Bette",
+      "kn": "ಬೆಟ್ಟೆ"
+    },
+    "Big": {
+      "en": "Big",
+      "kn": "ದೊಡ್ಡದು"
+    },
+    "Big (With Shell)": {
+      "en": "Big (With Shell)",
+      "kn": "ದೊಡ್ಡದು (ಸಿಪ್ಪೆಯೊಂದಿಗೆ)"
+    },
+    "Bijapur": {
+      "en": "Bijapur",
+      "kn": "ವಿಜಯಪುರ"
+    },
+    "Bilegotu": {
+      "en": "Bilegotu",
+      "kn": "ಬಿಳಿಗೋಟು"
+    },
+    "Bitter Gourd": {
+      "en": "Bitter Gourd",
+      "kn": "ಹಾಗಲಕಾಯಿ"
+    },
+    "Black": {
+      "en": "Black",
+      "kn": "ಕಪ್ಪು"
+    },
+    "Black Gram (Whole)": {
+      "en": "Black Gram (Whole)",
+      "kn": "ಉದ್ದಿನಕಾಳು (ಇಡೀ)"
+    },
+    "Black Gram Dal": {
+      "en": "Black Gram Dal",
+      "kn": "ಉದ್ದಿನಬೇಳೆ"
+    },
+    "Black Pepper": {
+      "en": "Black Pepper",
+      "kn": "ಕಪ್ಪು ಮೆಣಸು"
+    },
+    "Boiled Rice": {
+      "en": "Boiled Rice",
+      "kn": "ಕುಸುಬಲಕ್ಕಿ"
+    },
+    "Bombay (U.P.)": {
+      "en": "Bombay (U.P.)",
+      "kn": "ಬಾಂಬೆ (ಯು.ಪಿ.)"
+    },
+    "Bottle Gourd": {
+      "en": "Bottle Gourd",
+      "kn": "ಸೋರೆಕಾಯಿ"
+    },
+    "Brinjal": {
+      "en": "Brinjal",
+      "kn": "ಬದನೆಕಾಯಿ"
+    },
+    "Broken Rice": {
+      "en": "Broken Rice",
+      "kn": "ನವಣೆ ಅಕ್ಕಿ / ನುಚ್ಚು ಅಕ್ಕಿ"
+    },
+    "Bull": {
+      "en": "Bull",
+      "kn": "ಎತ್ತು"
+    },
+    "Bullar-W": {
+      "en": "Bullar-W",
+      "kn": "ಬಳ್ಳಾರ್-ಬಿಳಿ"
+    },
+    "Bunch Beans": {
+      "en": "Bunch Beans",
+      "kn": "ಗೊಂಚಲು ಬೀನ್ಸ್"
+    },
+    "Byadgi": {
+      "en": "Byadgi",
+      "kn": "ಬ್ಯಾಡಗಿ"
+    },
+    "CR 1009 (Coarse) Boiled": {
+      "en": "CR 1009 (Coarse) Boiled",
+      "kn": "ಸಿ.ಆರ್ ೧೦೦೯ (ದಪ್ಪ) ಕುಸುಬಲಕ್ಕಿ"
+    },
+    "Cabbage": {
+      "en": "Cabbage",
+      "kn": "ಎಲೆಕೋಸು"
+    },
+    "Capsicum": {
+      "en": "Capsicum",
+      "kn": "ದೊಣ್ಣೆ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Carrot": {
+      "en": "Carrot",
+      "kn": "ಕ್ಯಾರೆಟ್"
+    },
+    "Castor seed": {
+      "en": "Castor seed",
+      "kn": "ಹರಳೆಣ್ಣೆ ಬೀಜ"
+    },
+    "Cauliflower": {
+      "en": "Cauliflower",
+      "kn": "ಹೂಕೋಸು"
+    },
+    "Chali": {
+      "en": "Chali",
+      "kn": "ಚಾಲಿ"
+    },
+    "Chapparada Avarekai": {
+      "en": "Chapparada Avarekai",
+      "kn": "ಚಪ್ಪರದ ಅವರೆಕಾಯಿ"
+    },
+    "Chennagidal": {
+      "en": "Chennagidal",
+      "kn": "ಚೆನ್ನಂಗಿ ಬೇಳೆ"
+    },
+    "Chilly Capsicum": {
+      "en": "Chilly Capsicum",
+      "kn": "ದೊಣ್ಣೆ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Chippu": {
+      "en": "Chippu",
+      "kn": "ಚಿಪ್ಪು"
+    },
+    "Churu": {
+      "en": "Churu",
+      "kn": "ಚೂರು"
+    },
+    "Coarse": {
+      "en": "Coarse",
+      "kn": "ದಪ್ಪ"
+    },
+    "Coca": {
+      "en": "Coca",
+      "kn": "ಕೋಕಾ"
+    },
+    "Coco Brooms": {
+      "en": "Coco Brooms",
+      "kn": "ತೆಂಗಿನ ಕಸಬರಗಿ"
+    },
+    "Coconut": {
+      "en": "Coconut",
+      "kn": "ತೆಂಗಿನಕಾಯಿ"
+    },
+    "Copra": {
+      "en": "Copra",
+      "kn": "ಕೊಬ್ಬರಿ"
+    },
+    "Coriander": {
+      "en": "Coriander",
+      "kn": "ಕೊತ್ತಂಬರಿ ಸೊಪ್ಪು"
+    },
+    "Coriander Seed": {
+      "en": "Coriander Seed",
+      "kn": "ಕೊತ್ತಂಬರಿ ಬೀಜ"
+    },
+    "Cotton Ginned": {
+      "en": "Cotton Ginned",
+      "kn": "ಹತ್ತಿ ನಾರು"
+    },
+    "Cow": {
+      "en": "Cow",
+      "kn": "ಹಸು"
+    },
+    "Cowpea (Whole)": {
+      "en": "Cowpea (Whole)",
+      "kn": "ಅಲಸಂದೆ (ಇಡೀ)"
+    },
+    "Cucumbar": {
+      "en": "Cucumbar",
+      "kn": "ಸೌತೆಕಾಯಿ"
+    },
+    "D.C.H.": {
+      "en": "D.C.H.",
+      "kn": "ಡಿ.ಸಿ.ಹೆಚ್."
+    },
+    "Dabbi": {
+      "en": "Dabbi",
+      "kn": "ಡಬ್ಬಿ"
+    },
+    "Dappa": {
+      "en": "Dappa",
+      "kn": "ದಪ್ಪ"
+    },
+    "Drumstick": {
+      "en": "Drumstick",
+      "kn": "ನುಗ್ಗೆಕಾಯಿ"
+    },
+    "Dry": {
+      "en": "Dry",
+      "kn": "ಒಣಗಿದ"
+    },
+    "Dry Grapes": {
+      "en": "Dry Grapes",
+      "kn": "ಒಣ ದ್ರಾಕ್ಷಿ"
+    },
+    "EDI": {
+      "en": "EDI",
+      "kn": "ಇ.ಡಿ.ಐ."
+    },
+    "Elakki Bale": {
+      "en": "Elakki Bale",
+      "kn": "ಏಲಕ್ಕಿ ಬಾಳೆ"
+    },
+    "Factory": {
+      "en": "Factory",
+      "kn": "ಫ್ಯಾಕ್ಟರಿ"
+    },
+    "Fine": {
+      "en": "Fine",
+      "kn": "ಸಣ್ಣ / ಉತ್ತಮ"
+    },
+    "Fine New": {
+      "en": "Fine New",
+      "kn": "ಹೊಸ ಸಣ್ಣ"
+    },
+    "Garlic": {
+      "en": "Garlic",
+      "kn": "ಬೆಳ್ಳುಳ್ಳಿ"
+    },
+    "Gejje": {
+      "en": "Gejje",
+      "kn": "ಗೆಜ್ಜೆ"
+    },
+    "Goat": {
+      "en": "Goat",
+      "kn": "ಮೇಕೆ"
+    },
+    "Gorabalu": {
+      "en": "Gorabalu",
+      "kn": "ಗೊರಬಾಲು"
+    },
+    "Grade- II": {
+      "en": "Grade- II",
+      "kn": "ಗ್ರೇಡ್- ೨"
+    },
+    "Green": {
+      "en": "Green",
+      "kn": "ಹಸಿರು"
+    },
+    "Green Chilly": {
+      "en": "Green Chilly",
+      "kn": "ಹಸಿ ಮೆಣಸಿನಕಾಯಿ"
+    },
+    "Green Ginger": {
+      "en": "Green Ginger",
+      "kn": "ಹಸಿ ಶುಂಠಿ"
+    },
+    "Green Gram (Whole)": {
+      "en": "Green Gram (Whole)",
+      "kn": "ಹೆಸರುಕಾಳು (ಇಡೀ)"
+    },
+    "Green Gram Dal": {
+      "en": "Green Gram Dal",
+      "kn": "ಹೆಸರುಬೇಳೆ"
+    },
+    "Green Peas": {
+      "en": "Green Peas",
+      "kn": "ಹಸಿ ಬಟಾಣಿ"
+    },
+    "Ground Nut Seed": {
+      "en": "Ground Nut Seed",
+      "kn": "ಶೇಂಗಾ ಬೀಜ"
+    },
+    "Guava": {
+      "en": "Guava",
+      "kn": "ಸೀಬೆಹಣ್ಣು"
+    },
+    "Gungri (With Shell)": {
+      "en": "Gungri (With Shell)",
+      "kn": "ಗುಂಗ್ರಿ (ಸಿಪ್ಪೆಯೊಂದಿಗೆ)"
+    },
+    "Guntur": {
+      "en": "Guntur",
+      "kn": "ಗುಂಟೂರು"
+    },
+    "Gurellu": {
+      "en": "Gurellu",
+      "kn": "ಗುರಳ್ಳು"
+    },
+    "H.D.": {
+      "en": "H.D.",
+      "kn": "ಹೆಚ್.ಡಿ."
+    },
+    "HYBRID-44": {
+      "en": "HYBRID-44",
+      "kn": "ಹೈಬ್ರಿಡ್-೪೪"
+    },
+    "Hale Chali": {
+      "en": "Hale Chali",
+      "kn": "ಹಳೇ ಚಾಲಿ"
+    },
+    "Hansa": {
+      "en": "Hansa",
+      "kn": "ಹಂಸ"
+    },
+    "Hapus(Alphaso)": {
+      "en": "Hapus(Alphaso)",
+      "kn": "ಹಾಪುಸ್ (ಆಲ್ಫಾನ್ಸೋ)"
+    },
+    "Hassan Dappa": {
+      "en": "Hassan Dappa",
+      "kn": "ಹಾಸನ ದಪ್ಪ"
+    },
+    "He Baffelo": {
+      "en": "He Baffelo",
+      "kn": "ಕೋಣ"
+    },
+    "Honge Seed": {
+      "en": "Honge Seed",
+      "kn": "ಹೊಂಗೆ ಬೀಜ"
+    },
+    "Horse gram (Whole)": {
+      "en": "Horse gram (Whole)",
+      "kn": "ಹುರುಳಿ ಕಾಳು (ಇಡೀ)"
+    },
+    "Hosa Chali": {
+      "en": "Hosa Chali",
+      "kn": "ಹೊಸ ಚಾಲಿ"
+    },
+    "Hybrid": {
+      "en": "Hybrid",
+      "kn": "ಹೈಬ್ರಿಡ್"
+    },
+    "Hybrid/Local": {
+      "en": "Hybrid/Local",
+      "kn": "ಹೈಬ್ರಿಡ್/ಸ್ಥಳೀಯ"
+    },
+    "I. R. - 64": {
+      "en": "I. R. - 64",
+      "kn": "ಐ. ಆರ್. - ೬೪"
+    },
+    "I.R. 64": {
+      "en": "I.R. 64",
+      "kn": "ಐ.ಆರ್. ೬೪"
+    },
+    "IISort  without Husk": {
+      "en": "IISort  without Husk",
+      "kn": "೨ನೇ ರಕಂ ಸಿಪ್ಪೆ ಇಲ್ಲದ್ದು"
+    },
+    "IR 20": {
+      "en": "IR 20",
+      "kn": "ಐ.ಆರ್. ೨೦"
+    },
+    "Jack Fruit": {
+      "en": "Jack Fruit",
+      "kn": "ಹಲಸಿನ ಹಣ್ಣು"
+    },
+    "Jawari": {
+      "en": "Jawari",
+      "kn": "ಜವಾರಿ"
+    },
+    "Jawari/Local": {
+      "en": "Jawari/Local",
+      "kn": "ಜವಾರಿ/ಸ್ಥಳೀಯ"
+    },
+    "Jaya": {
+      "en": "Jaya",
+      "kn": "ಜಯ"
+    },
+    "Jayadhar (Ginned)": {
+      "en": "Jayadhar (Ginned)",
+      "kn": "ಜಯಧರ್ (ಹತ್ತಿ ನಾರು)"
+    },
+    "Jowar ( White)": {
+      "en": "Jowar ( White)",
+      "kn": "ಬಿಳಿ ಜೋಳ"
+    },
+    "Jowar Hybrid": {
+      "en": "Jowar Hybrid",
+      "kn": "ಹೈಬ್ರಿಡ್ ಜೋಳ"
+    },
+    "Kaddi": {
+      "en": "Kaddi",
+      "kn": "ಕಡ್ಡಿ"
+    },
+    "Kalapad": {
+      "en": "Kalapad",
+      "kn": "ಕಲಾಪಾಡ್"
+    },
+    "Karbhuja": {
+      "en": "Karbhuja",
+      "kn": "ಕರ್ಬೂಜ"
+    },
+    "Kaveri sona": {
+      "en": "Kaveri sona",
+      "kn": "ಕಾವೇರಿ ಸೋನಾ"
+    },
+    "Kempugotu": {
+      "en": "Kempugotu",
+      "kn": "ಕೆಂಪಗೋಟು"
+    },
+    "Knool Khol": {
+      "en": "Knool Khol",
+      "kn": "ನವಿಲುಕೋಸು"
+    },
+    "Kole": {
+      "en": "Kole",
+      "kn": "ಕೋಲೆ"
+    },
+    "Kurikatu": {
+      "en": "Kurikatu",
+      "kn": "ಕುರಿಕಟ್ಟು"
+    },
+    "Ladies Finger": {
+      "en": "Ladies Finger",
+      "kn": "ಬೆಂಡೆಕಾಯಿ"
+    },
+    "Lime (Lemon)": {
+      "en": "Lime (Lemon)",
+      "kn": "ನಿಂಬೆಹಣ್ಣು"
+    },
+    "Local": {
+      "en": "Local",
+      "kn": "ಸ್ಥಳೀಯ"
+    },
+    "Local (Whole)": {
+      "en": "Local (Whole)",
+      "kn": "ಸ್ಥಳೀಯ (ಇಡೀ)"
+    },
+    "Local(Raw)": {
+      "en": "Local(Raw)",
+      "kn": "ಸ್ಥಳೀಯ (ಹಸಿ/ಕಾಯಿ)"
+    },
+    "Malguba": {
+      "en": "Malguba",
+      "kn": "ಮಲ್ಗೋಬಾ"
+    },
+    "Mango": {
+      "en": "Mango",
+      "kn": "ಮಾವಿನ ಹಣ್ಣು"
+    },
+    "Mango - Raw-Ripe": {
+      "en": "Mango - Raw-Ripe",
+      "kn": "ಮಾವಿನಕಾಯಿ-ಹಣ್ಣು"
+    },
+    "Mataki (W)": {
+      "en": "Mataki (W)",
+      "kn": "ಮಟಕಿ (ಇಡೀ)"
+    },
+    "Medium": {
+      "en": "Medium",
+      "kn": "ಮಧ್ಯಮ"
+    },
+    "Methiseeds": {
+      "en": "Methiseeds",
+      "kn": "ಮೆಂತ್ಯ ಬೀಜ"
+    },
+    "Mexican": {
+      "en": "Mexican",
+      "kn": "ಮೆಕ್ಸಿಕನ್"
+    },
+    "Mill Wheat": {
+      "en": "Mill Wheat",
+      "kn": "ಮಿಲ್ ಗೋಧಿ"
+    },
+    "Milling": {
+      "en": "Milling",
+      "kn": "ಮಿಲ್ಲಿಂಗ್"
+    },
+    "Moath (W)": {
+      "en": "Moath (W)",
+      "kn": "ಮೋತ್ ಕಾಳು (ಇಡೀ)"
+    },
+    "Mousambi": {
+      "en": "Mousambi",
+      "kn": "ಮೋಸಂಬಿ"
+    },
+    "Mudde": {
+      "en": "Mudde",
+      "kn": "ಮುದ್ದೆ"
+    },
+    "NH-44 COTTON": {
+      "en": "NH-44 COTTON",
+      "kn": "ಎನ್.ಹೆಚ್-೪೪ ಹತ್ತಿ"
+    },
+    "Nati": {
+      "en": "Nati",
+      "kn": "ನಾಟಿ"
+    },
+    "Natte": {
+      "en": "Natte",
+      "kn": "ನಾಟಿ"
+    },
+    "Nauti Bale": {
+      "en": "Nauti Bale",
+      "kn": "ನಾಟಿ ಬಾಳೆ"
+    },
+    "Navane Hybrid": {
+      "en": "Navane Hybrid",
+      "kn": "ಹೈಬ್ರಿಡ್ ನವಣೆ"
+    },
+    "Nendra Bale": {
+      "en": "Nendra Bale",
+      "kn": "ನೇಂದ್ರ ಬಾಳೆ"
+    },
+    "New Variety": {
+      "en": "New Variety",
+      "kn": "ಹೊಸ ತಳಿ"
+    },
+    "Niger Seed": {
+      "en": "Niger Seed",
+      "kn": "ಗುರಳ್ಳು ಬೀಜ"
+    },
+    "Old Variety": {
+      "en": "Old Variety",
+      "kn": "ಹಳೇ ತಳಿ"
+    },
+    "Onion": {
+      "en": "Onion",
+      "kn": "ಈರುಳ್ಳಿ"
+    },
+    "Orange": {
+      "en": "Orange",
+      "kn": "ಕಿತ್ತಳೆ ಹಣ್ಣು"
+    },
+    "Ordinary (Split)": {
+      "en": "Ordinary (Split)",
+      "kn": "ಸಾಮಾನ್ಯ (ಬೇಳೆ)"
+    },
+    "Other": {
+      "en": "Other",
+      "kn": "ಇತರೆ"
+    },
+    "Others": {
+      "en": "Others",
+      "kn": "ಇತರರು / ಇತರೆ"
+    },
+    "Ox": {
+      "en": "Ox",
+      "kn": "ಎತ್ತು"
+    },
+    "PENTI": {
+      "en": "PENTI",
+      "kn": "ಪೆಂಟಿ"
+    },
+    "PS4": {
+      "en": "PS4",
+      "kn": "ಪಿ.ಎಸ್.೪"
+    },
+    "Pachha Bale": {
+      "en": "Pachha Bale",
+      "kn": "ಪಚ್ಚಬಾಳೆ"
+    },
+    "Paddy": {
+      "en": "Paddy",
+      "kn": "ಭತ್ತ"
+    },
+    "Paddy 1001": {
+      "en": "Paddy 1001",
+      "kn": "ಭತ್ತ ೧೦೦೧"
+    },
+    "Paddy Coarse Variety": {
+      "en": "Paddy Coarse Variety",
+      "kn": "ದಪ್ಪ ಭತ್ತದ ತಳಿ"
+    },
+    "Paddy Dappa": {
+      "en": "Paddy Dappa",
+      "kn": "ದಪ್ಪ ಭತ್ತ"
+    },
+    "Paddy Fine Variety": {
+      "en": "Paddy Fine Variety",
+      "kn": "ಸಣ್ಣ ಭತ್ತದ ತಳಿ"
+    },
+    "Paddy Jyoti": {
+      "en": "Paddy Jyoti",
+      "kn": "ಜ್ಯೋತಿ ಭತ್ತ"
+    },
+    "Paddy Malnad Gidda": {
+      "en": "Paddy Malnad Gidda",
+      "kn": "ಮಲೆನಾಡು ಗಿಡ್ಡ ಭತ್ತ"
+    },
+    "Paddy Medium Variety": {
+      "en": "Paddy Medium Variety",
+      "kn": "ಮಧ್ಯಮ ಭತ್ತದ ತಳಿ"
+    },
+    "Paddy RNR New": {
+      "en": "Paddy RNR New",
+      "kn": "ಆರ್.ಎನ್.ಆರ್ ಹೊಸ ಭತ್ತ"
+    },
+    "Paddy RNR Old": {
+      "en": "Paddy RNR Old",
+      "kn": "ಆರ್.ಎನ್.ಆರ್ ಹಳೇ ಭತ್ತ"
+    },
+    "Paddy Sona": {
+      "en": "Paddy Sona",
+      "kn": "ಸೋನಾ ಭತ್ತ"
+    },
+    "Padma": {
+      "en": "Padma",
+      "kn": "ಪದ್ಮಾ"
+    },
+    "Papaya": {
+      "en": "Papaya",
+      "kn": "ಪಪ್ಪಾಯಿ"
+    },
+    "Peas Wet": {
+      "en": "Peas Wet",
+      "kn": "ಹಸಿ ಬಟಾಣಿ"
+    },
+    "Pine Apple": {
+      "en": "Pine Apple",
+      "kn": "ಅನಾನಸ್"
+    },
+    "Podi": {
+      "en": "Podi",
+      "kn": "ಪುಡಿ"
+    },
+    "Pomogranate": {
+      "en": "Pomogranate",
+      "kn": "ದಾಳಿಂಬೆ"
+    },
+    "Popcorn": {
+      "en": "Popcorn",
+      "kn": "ಪಾಪ್‌ಕಾರ್ನ್"
+    },
+    "Potato": {
+      "en": "Potato",
+      "kn": "ಆಲೂಗಡ್ಡೆ"
+    },
+    "Pudi": {
+      "en": "Pudi",
+      "kn": "ಪುಡಿ"
+    },
+    "Puna": {
+      "en": "Puna",
+      "kn": "ಪುನಾ"
+    },
+    "Pusa-Red": {
+      "en": "Pusa-Red",
+      "kn": "ಪೂಸಾ ಕೆಂಪು"
+    },
+    "Pusakesar": {
+      "en": "Pusakesar",
+      "kn": "ಪೂಸಾ ಕೇಸರ್"
+    },
+    "Raddish": {
+      "en": "Raddish",
+      "kn": "ಮೂಲಂಗಿ"
+    },
+    "Rajahamsa": {
+      "en": "Rajahamsa",
+      "kn": "ರಾಜಹಂಸ"
+    },
+    "Rajgiri": {
+      "en": "Rajgiri",
+      "kn": "ರಾಜಗಿರಿ"
+    },
+    "Ram": {
+      "en": "Ram",
+      "kn": "ಟಗರು"
+    },
+    "Rashi": {
+      "en": "Rashi",
+      "kn": "ರಾಶಿ"
+    },
+    "Raspuri": {
+      "en": "Raspuri",
+      "kn": "ರಸಪೂರಿ"
+    },
+    "Raw": {
+      "en": "Raw",
+      "kn": "ಹಸಿ / ಕಾಯಿ"
+    },
+    "Red": {
+      "en": "Red",
+      "kn": "ಕೆಂಪು"
+    },
+    "Ridgeguard": {
+      "en": "Ridgeguard",
+      "kn": "ಹೀರೆಕಾಯಿ"
+    },
+    "Round": {
+      "en": "Round",
+      "kn": "ಉಂಡೆ / ದುಂಡಗಿನ"
+    },
+    "Round/Long": {
+      "en": "Round/Long",
+      "kn": "ದುಂಡಗಿನ/ಉದ್ದನೆಯ"
+    },
+    "Safflower": {
+      "en": "Safflower",
+      "kn": "ಕುಸುಬೆ"
+    },
+    "Sajje": {
+      "en": "Sajje",
+      "kn": "ಸಜ್ಜೆ"
+    },
+    "Same/Savi Local": {
+      "en": "Same/Savi Local",
+      "kn": "ಸ್ಥಳೀಯ ಸಾಮೆ"
+    },
+    "Sapota": {
+      "en": "Sapota",
+      "kn": "ಸಪೋಟ"
+    },
+    "Saraku": {
+      "en": "Saraku",
+      "kn": "ಸರಕು"
+    },
+    "Seemebadanekai": {
+      "en": "Seemebadanekai",
+      "kn": "ಸೀಮೆಬದನೆಕಾಯಿ"
+    },
+    "Sharabathi": {
+      "en": "Sharabathi",
+      "kn": "ಶರಬತಿ"
+    },
+    "She Baffelo": {
+      "en": "She Baffelo",
+      "kn": "ಎಮ್ಮೆ"
+    },
+    "She Goat": {
+      "en": "She Goat",
+      "kn": "ಹೆಣ್ಣು ಮೇಕೆ"
+    },
+    "Sheep Large": {
+      "en": "Sheep Large",
+      "kn": "ದೊಡ್ಡ ಕುರಿ"
+    },
+    "Sheep Medium": {
+      "en": "Sheep Medium",
+      "kn": "ಮಧ್ಯಮ ಕುರಿ"
+    },
+    "Sheep Small": {
+      "en": "Sheep Small",
+      "kn": "ಸಣ್ಣ ಕುರಿ"
+    },
+    "Sindura": {
+      "en": "Sindura",
+      "kn": "ಸಿಂಧೂರ"
+    },
+    "Sippegotu": {
+      "en": "Sippegotu",
+      "kn": "ಸಿಪ್ಪೆಗೋಟು"
+    },
+    "Small": {
+      "en": "Small",
+      "kn": "ಸಣ್ಣದು"
+    },
+    "Snakeguard": {
+      "en": "Snakeguard",
+      "kn": "ಪಡವಲಕಾಯಿ"
+    },
+    "Sona": {
+      "en": "Sona",
+      "kn": "ಸೋನಾ"
+    },
+    "Sona Mahsuri": {
+      "en": "Sona Mahsuri",
+      "kn": "ಸೋನಾ ಮಸೂರಿ"
+    },
+    "Sona Masuri New": {
+      "en": "Sona Masuri New",
+      "kn": "ಹೊಸ ಸೋನಾ ಮಸೂರಿ"
+    },
+    "Sona Masuri Old": {
+      "en": "Sona Masuri Old",
+      "kn": "ಹಳೇ ಸೋನಾ ಮಸೂರಿ"
+    },
+    "Sona Medium": {
+      "en": "Sona Medium",
+      "kn": "ಮಧ್ಯಮ ಸೋನಾ"
+    },
+    "Soyabeen": {
+      "en": "Soyabeen",
+      "kn": "ಸೋಯಾಬೀನ್"
+    },
+    "Sunflower": {
+      "en": "Sunflower",
+      "kn": "ಸೂರ್ಯಕಾಂತಿ"
+    },
+    "Suvarnagadde": {
+      "en": "Suvarnagadde",
+      "kn": "ಸುವರ್ಣಗಡ್ಡೆ"
+    },
+    "Suyodhar": {
+      "en": "Suyodhar",
+      "kn": "ಸುಯೋಧರ್"
+    },
+    "Sweet Corn (For Biscuits)": {
+      "en": "Sweet Corn (For Biscuits)",
+      "kn": "ಸಿಹಿ ಜೋಳ (ಬಿಸ್ಕತ್ತ್ ಉದ್ದೇಶಕ್ಕೆ)"
+    },
+    "Sweet Potato": {
+      "en": "Sweet Potato",
+      "kn": "ಗೆಣಸು"
+    },
+    "Sweet Pumpkin": {
+      "en": "Sweet Pumpkin",
+      "kn": "ಸಿಹಿ ಗುಂಬಳಕಾಯಿ"
+    },
+    "Tamarind Fruit": {
+      "en": "Tamarind Fruit",
+      "kn": "ಹುಣಿಸೇಹಣ್ಣು"
+    },
+    "Tamarind Seed": {
+      "en": "Tamarind Seed",
+      "kn": "ಹುಣಿಸೇ ಬೀಜ"
+    },
+    "Tattibettee": {
+      "en": "Tattibettee",
+      "kn": "ತಟ್ಟಿಬೆಟ್ಟೆ"
+    },
+    "Tender Coconut": {
+      "en": "Tender Coconut",
+      "kn": "ಎಳನೀರು"
+    },
+    "Thogarikai": {
+      "en": "Thogarikai",
+      "kn": "ತೊಗರಿಕಾಯಿ"
+    },
+    "Thondekai": {
+      "en": "Thondekai",
+      "kn": "ತೊಂಡೆಕಾಯಿ"
+    },
+    "Tomato": {
+      "en": "Tomato",
+      "kn": "ಟೊಮೇಟೊ"
+    },
+    "Totapuri": {
+      "en": "Totapuri",
+      "kn": "ತೋತಾಪುರಿ"
+    },
+    "Tur": {
+      "en": "Tur",
+      "kn": "ತೊಗರಿ"
+    },
+    "Tur Dal": {
+      "en": "Tur Dal",
+      "kn": "ತೊಗರಿ ಬೇಳೆ"
+    },
+    "Turmeric": {
+      "en": "Turmeric",
+      "kn": "ಅರಿಶಿನ"
+    },
+    "Turmeric Stick": {
+      "en": "Turmeric Stick",
+      "kn": "ಅರಿಶಿನ ಕೊಂಬು"
+    },
+    "Unde": {
+      "en": "Unde",
+      "kn": "ಉಂಡೆ"
+    },
+    "Water Melon": {
+      "en": "Water Melon",
+      "kn": "ಕಲ್ಲಂಗಡಿ ಹಣ್ಣು"
+    },
+    "White": {
+      "en": "White",
+      "kn": "ಬಿಳಿ"
+    },
+    "White Pumpkin": {
+      "en": "White Pumpkin",
+      "kn": "ಬೂದು ಗುಂಬಳಕಾಯಿ"
+    },
+    "Yellow": {
+      "en": "Yellow",
+      "kn": "ಹಳದಿ"
+    }
+  }
+}

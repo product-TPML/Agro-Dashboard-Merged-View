@@ -1,0 +1,15 @@
+node_modules/
+.playwright/
+.build/
+dist/
+logs/
+output/
+temp/
+
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+*.log
+Thumbs.db
+.DS_Store

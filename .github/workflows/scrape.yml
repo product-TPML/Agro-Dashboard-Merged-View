@@ -1,0 +1,67 @@
+name: Daily Krama Commodity Scrape
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: [self-hosted, krama-runner]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate AGENTS.md exists and has lessons
+        run: |
+          if [ ! -f AGENTS.md ]; then echo "ERROR: AGENTS.md missing"; exit 1; fi
+          LESSON_COUNT=$(grep -c "^### Lesson" AGENTS.md || true)
+          if [ "$LESSON_COUNT" -lt 1 ]; then echo "ERROR: AGENTS.md has no lessons"; exit 1; fi
+          echo "AGENTS.md OK — $LESSON_COUNT lessons found"
+
+      - name: Syntax check
+        run: node --check scrape_krama.js
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Install xvfb (for headful browser fallback)
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+
+      - name: Run scraper
+        env:
+          OUTPUT_DIR: data
+        run: xvfb-run --auto-servernum --server-args='-screen 0 1280x1024x24' node scrape_krama.js
+
+      - name: Verify output
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          echo "Checking output files for $DATE..."
+          ls -la data/ 2>/dev/null || echo "No data directory"
+          if ls data/krama_commodity_*.json 1>/dev/null 2>&1; then
+            echo "JSON file found"
+            head -20 data/krama_commodity_*.json
+          else
+            echo "WARNING: No JSON output file found"
+          fi
+
+      - name: Upload JSON artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: krama-commodity-${{ github.run_number }}
+          path: data/krama_commodity_*.json
+          retention-days: 30
+
+      - name: Upload CSV artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: krama-commodity-csv-${{ github.run_number }}
+          path: data/krama_commodity_*.csv
+          retention-days: 30

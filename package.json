@@ -1,0 +1,27 @@
+{
+  "name": "commodity-scraping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scrape_krama.js",
+  "scripts": {
+    "scrape": "node scrape_krama.js",
+    "sync-sheets": "node scrape_krama.js --sync-sheets",
+    "build:exe": "powershell -ExecutionPolicy Bypass -File scripts/build_krama_exe.ps1",
+    "backfill:perishability": "node scripts/backfill_perishability.js",
+    "build:static-db": "node scripts/build_static_db.js",
+    "dashboard:local": "node local-dashboard/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "pdf-parse": "^2.4.5",
+    "playwright": "^1.60.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "postject": "^1.0.0-alpha.6"
+  }
+}

@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      :root {
+        --bg: #f5f0e4;
+        --panel: #fffaf0;
+        --panel-strong: #fffdf8;
+        --ink: #17201b;
+        --muted: #607062;
+        --line: #d8cfbf;
+        --accent: #215d3c;
+        --accent-strong: #174229;
+        --accent-soft: #e7f0e8;
+        --warm: #a0641a;
+        --gain: #1c7c43;
+        --loss: #ba3b2d;
+        --shadow: 0 22px 48px rgba(54, 42, 20, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(190, 135, 46, 0.16), transparent 28%),
+          linear-gradient(180deg, #faf5eb 0%, var(--bg) 100%);
+      }
+
+      .app-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px 18px 48px;
+      }
+
+      .hero,
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 28px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(34px, 4vw, 52px);
+        line-height: 1;
+      }
+
+      .hero p {
+        margin: 12px 0 0;
+        color: var(--muted);
+        max-width: 720px;
+        line-height: 1.5;
+      }
+
+      .cta-grid,
+      .summary-grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .cta-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-bottom: 18px;
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cta-card,
+      .summary-card {
+        background: var(--panel-strong);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 20px;
+      }
+
+      .cta-card button,
+      .summary-card button,
+      .action-button,
+      .secondary-button {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .cta-card button,
+      .action-button {
+        width: 100%;
+        padding: 16px 18px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      }
+
+      .cta-card p,
+      .summary-card p,
+      .meta-text,
+      .status {
+        color: var(--muted);
+      }
+
+      .cta-card p {
+        margin: 12px 0 0;
+        min-height: 42px;
+      }
+
+      .summary-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .summary-card.wide {
+        grid-column: 1 / -1;
+      }
+
+      .summary-card h2,
+      .panel h2 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .summary-head,
+      .panel-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: start;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-strong);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .summary-title {
+        display: grid;
+        gap: 8px;
+      }
+
+      .summary-kicker {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--accent-strong);
+      }
+
+      .summary-subtitle {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .summary-link {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        color: var(--accent-strong);
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .summary-link:hover,
+      .summary-link:focus-visible {
+        color: var(--accent);
+      }
+
+      .summary-table-wrap,
+      .table-wrap {
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fffefb;
+      }
+
+      th,
+      td {
+        padding: 12px 14px;
+        text-align: left;
+        border-bottom: 1px solid #ede5d8;
+        vertical-align: top;
+      }
+
+      th {
+        background: #f5eddf;
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: var(--muted);
+        position: sticky;
+        top: 0;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .direction {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+      }
+
+      .direction.up {
+        color: var(--gain);
+      }
+
+      .direction.down {
+        color: var(--loss);
+      }
+
+      .direction.flat {
+        color: var(--muted);
+      }
+
+      .triangle {
+        display: inline-block;
+        width: 0;
+        height: 0;
+      }
+
+      .triangle.up {
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 12px solid currentColor;
+      }
+
+      .triangle.down {
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 12px solid currentColor;
+      }
+
+      .triangle.flat {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .price-cell {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .table-hint {
+        margin: 4px 0 4px;
+        color: var(--accent-strong);
+        line-height: 1.6;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .table-note {
+        margin: 0 0 14px;
+        color: var(--muted);
+        line-height: 1.5;
+        font-size: 13px;
+        font-style: italic;
+      }
+
+      .commodity-table th,
+      .commodity-table td {
+        padding: 12px 10px;
+      }
+
+      .commodity-table th:nth-child(1),
+      .commodity-table td:nth-child(1) {
+        width: 170px;
+        min-width: 170px;
+      }
+
+      .commodity-table th:nth-child(2),
+      .commodity-table td:nth-child(2) {
+        width: 92px;
+        min-width: 92px;
+      }
+
+      .commodity-table th:nth-child(3),
+      .commodity-table td:nth-child(3) {
+        width: 150px;
+        min-width: 150px;
+      }
+
+      .commodity-table th:nth-child(4),
+      .commodity-table td:nth-child(4) {
+        width: 170px;
+        min-width: 170px;
+      }
+
+      .commodity-table th:nth-child(5),
+      .commodity-table td:nth-child(5) {
+        width: 96px;
+        min-width: 96px;
+      }
+
+      .commodity-table th:nth-child(6),
+      .commodity-table td:nth-child(6) {
+        width: 92px;
+        min-width: 92px;
+        text-align: right;
+      }
+
+      .commodity-table th:nth-child(7),
+      .commodity-table td:nth-child(7) {
+        width: 90px;
+        min-width: 90px;
+      }
+
+      .commodity-table th:nth-child(8),
+      .commodity-table td:nth-child(8),
+      .commodity-table th:nth-child(9),
+      .commodity-table td:nth-child(9),
+      .commodity-table th:nth-child(10),
+      .commodity-table td:nth-child(10) {
+        width: 118px;
+        min-width: 118px;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .commodity-table .commodity-trigger {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .type-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-strong);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .commodity-trigger {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        font: inherit;
+        color: var(--accent-strong);
+        font-weight: 700;
+        text-align: left;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .commodity-trigger:hover,
+      .commodity-trigger:focus-visible {
+        color: var(--accent);
+      }
+
+      .expanded-row td {
+        padding: 0;
+        background: #fffdf8;
+      }
+
+      .history-shell {
+        padding: 18px 20px 20px;
+        border-top: 1px solid #ede5d8;
+      }
+
+      .history-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 12px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+
+      .history-head h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .history-head p {
+        margin: 6px 0 0;
+        color: var(--muted);
+      }
+
+      .close-history {
+        appearance: none;
+        border: 1px solid var(--line);
+        background: #fffefb;
+        border-radius: 999px;
+        padding: 8px 12px;
+        font: inherit;
+        color: var(--accent-strong);
+        cursor: pointer;
+      }
+
+      .history-card {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 18px 18px 14px;
+        background: linear-gradient(180deg, #fffefb 0%, #fbf7ef 100%);
+      }
+
+      .history-tooltip {
+        position: absolute;
+        min-width: 220px;
+        max-width: 280px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(216, 207, 191, 0.95);
+        background: rgba(255, 254, 251, 0.98);
+        box-shadow: 0 18px 34px rgba(60, 47, 26, 0.16);
+        color: var(--ink);
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 120ms ease, transform 120ms ease;
+        z-index: 2;
+      }
+
+      .history-tooltip.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .history-tooltip-date {
+        margin: 0 0 10px;
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--ink);
+      }
+
+      .history-tooltip-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .history-tooltip-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+
+      .history-tooltip-dot {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        flex: 0 0 auto;
+      }
+
+      .history-tooltip-dot.max {
+        background: #b14a38;
+      }
+
+      .history-tooltip-dot.modal {
+        background: #2d6f40;
+      }
+
+      .history-tooltip-dot.min {
+        background: #d98b1e;
+      }
+
+      .history-legend {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+        color: var(--muted);
+      }
+
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .legend-line {
+        width: 24px;
+        height: 0;
+        border-top: 3px solid currentColor;
+      }
+
+      .legend-line.min {
+        color: #d98b1e;
+        border-top-style: dashed;
+      }
+
+      .legend-line.modal {
+        color: #2d6f40;
+      }
+
+      .legend-line.max {
+        color: #b14a38;
+      }
+
+      .history-svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .history-hover-target {
+        cursor: pointer;
+      }
+
+      .history-empty {
+        padding: 28px;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      .secondary-button {
+        padding: 10px 14px;
+        color: var(--accent-strong);
+        background: transparent;
+        border: 1px solid var(--line);
+      }
+
+      .panel {
+        padding: 22px;
+        margin-top: 20px;
+      }
+
+      .panel.hidden,
+      .view.hidden {
+        display: none;
+      }
+
+      .toolbar {
+        display: grid;
+        gap: 14px;
+        margin: 18px 0;
+      }
+
+      .toolbar-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .filter-grid.movers {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      select {
+        width: 100%;
+        padding: 11px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: #fffefb;
+        font: inherit;
+        color: var(--ink);
+      }
+
+      .status {
+        min-height: 24px;
+        white-space: pre-wrap;
+      }
+
+      .empty-state {
+        padding: 24px;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      .sticky-note {
+        color: var(--warm);
+        font-weight: 600;
+      }
+
+      @media (max-width: 980px) {
+        .cta-grid,
+        .summary-grid,
+        .filter-grid,
+        .filter-grid.movers {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <section class="hero">
+        <h1>Welcome</h1>
+        <p>Track Karnataka commodity pricing from the live Google Sheet with quick entry points for all commodities, perishable goods, and non-perishable goods.</p>
+      </section>
+
+      <section class="view" id="homeView">
+        <div class="cta-grid" id="ctaGrid"></div>
+        <div class="summary-grid" id="summaryGrid"></div>
+      </section>
+
+      <section class="panel view hidden" id="commodityView">
+        <div class="panel-head">
+          <div>
+            <h2 id="commodityTitle">Commodity Table</h2>
+            <p class="meta-text" id="commodityDateText"></p>
+          </div>
+          <div class="button-row">
+            <button class="secondary-button" type="button" id="commodityBackButton">Home</button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="toolbar-top">
+            <div class="sticky-note" id="commodityCount"></div>
+            <div class="button-row">
+              <button class="secondary-button" type="button" id="commodityClearButton">Clear Filters</button>
+            </div>
+          </div>
+          <div class="filter-grid" id="commodityFilters"></div>
+          <div class="status" id="commodityStatus"></div>
+        </div>
+        <p class="table-hint">Click on the commodity to see the price history.</p>
+        <p class="table-note">* P = Perishable, NP = Non-perishable</p>
+        <div class="table-wrap" id="commodityTableWrap"></div>
+      </section>
+
+      <section class="panel view hidden" id="moversView">
+        <div class="panel-head">
+          <div>
+            <h2 id="moversTitle">Top Movers</h2>
+            <p class="meta-text" id="moversDateText"></p>
+          </div>
+          <div class="button-row">
+            <button class="secondary-button" type="button" id="moversBackButton">Home</button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="toolbar-top">
+            <div class="sticky-note" id="moversCount"></div>
+            <div class="button-row">
+              <button class="secondary-button" type="button" id="moversClearButton">Clear Filters</button>
+            </div>
+          </div>
+          <div class="filter-grid movers" id="moversFilters"></div>
+          <div class="status" id="moversStatus"></div>
+        </div>
+        <div class="table-wrap" id="moversTableWrap"></div>
+      </section>
+    </div>
+
+    <script>
+      const TYPE_META = {
+        "all": {
+          label: "All Commodities",
+          description: "Browse every commodity currently available on the selected report date."
+        },
+        "perishable": {
+          label: "Perishable",
+          description: "Focus on commodities marked perishable in the mapping sheet."
+        },
+        "non-perishable": {
+          label: "Non-Perishable",
+          description: "Focus on commodities marked non-perishable in the mapping sheet."
+        }
+      };
+
+      const state = {
+        bootstrap: null,
+        currentView: "home",
+        commoditySeedType: "all",
+        moversSeedType: "all",
+        commodityFilters: {},
+        moversFilters: {},
+        expandedCommodityKey: "",
+        commodityHistoryCache: {}
+      };
+
+      const homeViewEl = document.getElementById("homeView");
+      const commodityViewEl = document.getElementById("commodityView");
+      const moversViewEl = document.getElementById("moversView");
+      const ctaGridEl = document.getElementById("ctaGrid");
+      const summaryGridEl = document.getElementById("summaryGrid");
+      const commodityTitleEl = document.getElementById("commodityTitle");
+      const commodityDateTextEl = document.getElementById("commodityDateText");
+      const commodityCountEl = document.getElementById("commodityCount");
+      const commodityFiltersEl = document.getElementById("commodityFilters");
+      const commodityStatusEl = document.getElementById("commodityStatus");
+      const commodityTableWrapEl = document.getElementById("commodityTableWrap");
+      const moversTitleEl = document.getElementById("moversTitle");
+      const moversDateTextEl = document.getElementById("moversDateText");
+      const moversCountEl = document.getElementById("moversCount");
+      const moversFiltersEl = document.getElementById("moversFilters");
+      const moversStatusEl = document.getElementById("moversStatus");
+      const moversTableWrapEl = document.getElementById("moversTableWrap");
+
+      document.getElementById("commodityBackButton").addEventListener("click", showHomeView);
+      document.getElementById("moversBackButton").addEventListener("click", showHomeView);
+      document.getElementById("commodityClearButton").addEventListener("click", clearCommodityFilters);
+      document.getElementById("moversClearButton").addEventListener("click", clearMoversFilters);
+
+      function setStatus(element, message) {
+        element.textContent = message || "";
+      }
+
+      function formatNumber(value) {
+        if (value === null || value === undefined || value === "") {
+          return "—";
+        }
+        return Number(value).toLocaleString("en-IN", {
+          maximumFractionDigits: 2
+        });
+      }
+
+      function formatCurrency(value) {
+        if (value === null || value === undefined || value === "") {
+          return "—";
+        }
+        const prefix = Number(value) > 0 ? "+" : "";
+        return prefix + formatNumber(value);
+      }
+
+      function formatPercent(value) {
+        if (value === null || value === undefined || value === "") {
+          return "—";
+        }
+        const prefix = Number(value) > 0 ? "+" : "";
+        return prefix + Number(value).toFixed(2) + "%";
+      }
+
+      function showHomeView() {
+        state.currentView = "home";
+        homeViewEl.classList.remove("hidden");
+        commodityViewEl.classList.add("hidden");
+        moversViewEl.classList.add("hidden");
+      }
+
+      function showCommodityView() {
+        state.currentView = "commodity";
+        homeViewEl.classList.add("hidden");
+        commodityViewEl.classList.remove("hidden");
+        moversViewEl.classList.add("hidden");
+      }
+
+      function showMoversView() {
+        state.currentView = "movers";
+        homeViewEl.classList.add("hidden");
+        commodityViewEl.classList.add("hidden");
+        moversViewEl.classList.remove("hidden");
+      }
+
+      function getDefaultCommodityFilters(type) {
+        return {
+          type: type,
+          commodity: "",
+          market: "",
+          variety: "",
+          grade: ""
+        };
+      }
+
+      function getDefaultMoversFilters(type) {
+        return {
+          type: type,
+          commodity: "",
+          market: "",
+          variety: "",
+          grade: ""
+        };
+      }
+
+      function renderHome() {
+        ctaGridEl.innerHTML = "";
+        summaryGridEl.innerHTML = "";
+
+        ["all", "perishable", "non-perishable"].forEach((type) => {
+          const meta = TYPE_META[type];
+          const card = document.createElement("div");
+          card.className = "cta-card";
+          card.innerHTML = "<button type=\"button\">" + meta.label + "</button><p>" + meta.description + "</p>";
+          card.querySelector("button").addEventListener("click", () => openCommodityTable(type));
+          ctaGridEl.appendChild(card);
+        });
+
+        ["perishable", "non-perishable", "all"].forEach((type) => {
+          const summary = state.bootstrap.summaryCards[type];
+          const card = document.createElement("div");
+          card.className = "summary-card";
+          if (type === "all") {
+            card.classList.add("wide");
+          }
+          card.appendChild(renderSummaryCard(type, summary));
+          summaryGridEl.appendChild(card);
+        });
+      }
+
+      function renderSummaryCard(type, summary) {
+        const meta = TYPE_META[type];
+        const container = document.createElement("div");
+        const dateText = summary.latestReportDate && summary.previousReportDate
+          ? "Comparing " + summary.latestReportDate + " vs " + summary.previousReportDate
+          : "Not enough data to compare two dates yet.";
+
+        container.innerHTML =
+          "<div class=\"summary-head\">" +
+            "<div class=\"summary-title\">" +
+              "<p class=\"summary-kicker\">Top 3 Gains &amp; Losses</p>" +
+              "<p class=\"summary-subtitle\">" + meta.label + "</p>" +
+              "<p>" + dateText + "</p>" +
+            "</div>" +
+            "<button type=\"button\" class=\"summary-link\">See more --&gt;</button>" +
+          "</div>";
+
+        container.appendChild(renderSummaryTable(summary));
+        container.querySelector(".summary-link").addEventListener("click", () => openMoversTable(type));
+        return container;
+      }
+
+      function renderSummaryTable(summary) {
+        const wrap = document.createElement("div");
+        wrap.className = "summary-table-wrap";
+
+        const rows = [];
+        (summary.gains || []).forEach((row) => {
+          rows.push(row);
+        });
+        (summary.losses || []).forEach((row) => {
+          rows.push(row);
+        });
+
+        if (!rows.length) {
+          wrap.innerHTML = "<div class=\"empty-state\">No comparable price movement available for this slice yet.</div>";
+          return wrap;
+        }
+
+        const table = document.createElement("table");
+        table.innerHTML =
+          "<thead><tr><th>Commodity</th><th>Direction</th><th>% Change</th><th>Absolute</th></tr></thead>";
+        const body = document.createElement("tbody");
+
+        rows.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td>" + escapeHtml(row.commodity) + "</td>" +
+            "<td>" + renderDirectionOnly(row.direction === "gain" ? "up" : "down") + "</td>" +
+            "<td>" + formatPercent(row.percentChange) + "</td>" +
+            "<td>" + formatCurrency(row.absoluteChange) + "</td>";
+          body.appendChild(tr);
+        });
+
+        table.appendChild(body);
+        wrap.appendChild(table);
+        return wrap;
+      }
+
+      function openCommodityTable(type) {
+        state.commoditySeedType = type;
+        state.commodityFilters = getDefaultCommodityFilters(type);
+        showCommodityView();
+        loadCommodityTable();
+      }
+
+      function openMoversTable(type) {
+        state.moversSeedType = type;
+        state.moversFilters = getDefaultMoversFilters(type);
+        showMoversView();
+        loadMoversTable();
+      }
+
+      function clearCommodityFilters() {
+        state.commodityFilters = getDefaultCommodityFilters(state.commoditySeedType);
+        loadCommodityTable();
+      }
+
+      function clearMoversFilters() {
+        state.moversFilters = getDefaultMoversFilters(state.moversSeedType);
+        loadMoversTable();
+      }
+
+      function loadCommodityTable() {
+        setStatus(commodityStatusEl, "Loading commodity table...");
+        google.script.run
+          .withSuccessHandler((payload) => {
+            state.commodityFilters = payload.effectiveFilters;
+            commodityTitleEl.textContent = TYPE_META[payload.effectiveFilters.type].label + " Table";
+            commodityDateTextEl.textContent = "Report date: " + (payload.visibleDate || "—");
+            commodityCountEl.textContent = payload.rowCount + " rows";
+            renderCommodityFilters(payload.filterOptions, payload.effectiveFilters);
+            renderCommodityTable(payload.rows);
+            setStatus(commodityStatusEl, payload.rowCount ? "" : "No rows match the current filters.");
+          })
+          .withFailureHandler((error) => {
+            setStatus(commodityStatusEl, error.message || String(error));
+          })
+          .getCommodityTableData(state.commodityFilters);
+      }
+
+      function loadMoversTable() {
+        setStatus(moversStatusEl, "Loading movers...");
+        google.script.run
+          .withSuccessHandler((payload) => {
+            state.moversFilters = payload.effectiveFilters;
+            moversTitleEl.textContent = TYPE_META[payload.effectiveFilters.type].label + " Movers";
+            moversDateTextEl.textContent = payload.latestReportDate && payload.previousReportDate
+              ? "Comparing " + payload.latestReportDate + " with previous available date " + payload.previousReportDate
+              : "Not enough dated data to compare price movement.";
+            moversCountEl.textContent = payload.rows.length + " movers";
+            renderMoversFilters(payload.filterOptions, payload.effectiveFilters);
+            renderMoversTable(payload.rows);
+            setStatus(moversStatusEl, payload.rows.length ? "" : "No comparable movers for the current filters.");
+          })
+          .withFailureHandler((error) => {
+            setStatus(moversStatusEl, error.message || String(error));
+          })
+          .getMoversTableData(state.moversFilters);
+      }
+
+      function renderCommodityFilters(options, filters) {
+        const fields = [
+          { key: "type", label: "Type", options: options.type.map((item) => ({ value: item.value, label: item.label })) },
+          { key: "commodity", label: "Commodity", options: (options.commodity || []).map((item) => ({ value: item, label: item })) },
+          { key: "market", label: "Market", options: (options.market || []).map((item) => ({ value: item, label: item })) },
+          { key: "variety", label: "Variety", options: (options.variety || []).map((item) => ({ value: item, label: item })) },
+          { key: "grade", label: "Grade", options: (options.grade || []).map((item) => ({ value: item, label: item })) }
+        ];
+        renderFilterSelects(commodityFiltersEl, fields, filters, (field, value) => {
+          state.commodityFilters[field] = value;
+          if (field === "type") {
+            state.commoditySeedType = value || "all";
+            state.commodityFilters.commodity = "";
+            state.commodityFilters.market = "";
+            state.commodityFilters.variety = "";
+            state.commodityFilters.grade = "";
+          } else {
+            resetDownstreamCommodityFields(field);
+          }
+          loadCommodityTable();
+        });
+      }
+
+      function renderMoversFilters(options, filters) {
+        const fields = [
+          { key: "type", label: "Type", options: options.type.map((item) => ({ value: item.value, label: item.label })) },
+          { key: "commodity", label: "Commodity", options: (options.commodity || []).map((item) => ({ value: item, label: item })) },
+          { key: "market", label: "Market", options: (options.market || []).map((item) => ({ value: item, label: item })) },
+          { key: "variety", label: "Variety", options: (options.variety || []).map((item) => ({ value: item, label: item })) },
+          { key: "grade", label: "Grade", options: (options.grade || []).map((item) => ({ value: item, label: item })) }
+        ];
+        renderFilterSelects(moversFiltersEl, fields, filters, (field, value) => {
+          state.moversFilters[field] = value;
+          if (field === "type") {
+            state.moversSeedType = value || "all";
+          }
+          if (field !== "type") {
+            resetDownstreamMoversFields(field);
+          }
+          loadMoversTable();
+        });
+      }
+
+      function renderFilterSelects(container, fields, filters, onChange) {
+        container.innerHTML = "";
+        fields.forEach((field) => {
+          const label = document.createElement("label");
+          label.textContent = field.label;
+          const select = document.createElement("select");
+          select.innerHTML = "<option value=\"\">All</option>";
+          field.options.forEach((option) => {
+            const optionEl = document.createElement("option");
+            optionEl.value = option.value;
+            optionEl.textContent = option.label;
+            if ((filters[field.key] || "") === option.value) {
+              optionEl.selected = true;
+            }
+            select.appendChild(optionEl);
+          });
+          select.addEventListener("change", () => onChange(field.key, select.value));
+          label.appendChild(select);
+          container.appendChild(label);
+        });
+      }
+
+      function resetDownstreamCommodityFields(changedField) {
+        const order = ["commodity", "market", "variety", "grade"];
+        const changedIndex = order.indexOf(changedField);
+        if (changedIndex === -1) {
+          return;
+        }
+        order.slice(changedIndex + 1).forEach((key) => {
+          state.commodityFilters[key] = "";
+        });
+      }
+
+      function resetDownstreamMoversFields(changedField) {
+        const order = ["commodity", "market", "variety", "grade"];
+        const changedIndex = order.indexOf(changedField);
+        if (changedIndex === -1) {
+          return;
+        }
+        order.slice(changedIndex + 1).forEach((key) => {
+          state.moversFilters[key] = "";
+        });
+      }
+
+      function renderCommodityTable(rows) {
+        if (!rows.length) {
+          commodityTableWrapEl.innerHTML = "<div class=\"empty-state\">No commodity rows match the selected filters.</div>";
+          return;
+        }
+
+        state.expandedCommodityKey = "";
+        const table = document.createElement("table");
+        table.className = "commodity-table";
+        table.innerHTML =
+          "<thead><tr>" +
+            "<th>Commodity</th>" +
+            "<th>Type</th>" +
+            "<th>Market</th>" +
+            "<th>Variety</th>" +
+            "<th>Grade</th>" +
+            "<th>Arrivals</th>" +
+            "<th>Units</th>" +
+            "<th>Min (Rs.)</th>" +
+            "<th>Max (Rs.)</th>" +
+            "<th>Modal (Rs.)</th>" +
+          "</tr></thead>";
+        const body = document.createElement("tbody");
+
+        rows.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.dataset.marketEntryKey = row.marketEntryKey;
+          tr.innerHTML =
+            "<td><button type=\"button\" class=\"commodity-trigger\" title=\"" + escapeHtml(row.commodity) + "\">" + escapeHtml(row.commodity) + "</button></td>" +
+            "<td><span class=\"type-badge\" title=\"" + escapeHtml(row.perishability) + "\">" + getCommodityTypeAbbreviation(row.perishability) + "</span></td>" +
+            "<td title=\"" + escapeHtml(row.market) + "\">" + escapeHtml(row.market) + "</td>" +
+            "<td title=\"" + escapeHtml(row.variety) + "\">" + escapeHtml(row.variety) + "</td>" +
+            "<td>" + escapeHtml(row.grade) + "</td>" +
+            "<td>" + formatNumber(row.arrivals) + "</td>" +
+            "<td>" + escapeHtml(row.units) + "</td>" +
+            "<td>" + renderPriceWithDirection(row.minPrice, row.minDirection) + "</td>" +
+            "<td>" + renderPriceWithDirection(row.maxPrice, row.maxDirection) + "</td>" +
+            "<td>" + renderPriceWithDirection(row.modalPrice, row.modalDirection) + "</td>";
+          tr.querySelector(".commodity-trigger").addEventListener("click", () => toggleCommodityHistory(row, tr, 10));
+          body.appendChild(tr);
+        });
+
+        table.appendChild(body);
+        commodityTableWrapEl.innerHTML = "";
+        commodityTableWrapEl.appendChild(table);
+      }
+
+      function toggleCommodityHistory(row, sourceRow, columnCount) {
+        const entryKey = row.marketEntryKey;
+        const existingExpanded = commodityTableWrapEl.querySelector(".expanded-row");
+
+        if (existingExpanded && state.expandedCommodityKey === entryKey) {
+          existingExpanded.remove();
+          state.expandedCommodityKey = "";
+          return;
+        }
+
+        if (existingExpanded) {
+          existingExpanded.remove();
+        }
+
+        state.expandedCommodityKey = entryKey;
+        const expandedRow = document.createElement("tr");
+        expandedRow.className = "expanded-row";
+        expandedRow.innerHTML = "<td colspan=\"" + columnCount + "\"><div class=\"history-shell\"><div class=\"history-empty\">Loading price history...</div></div></td>";
+        sourceRow.insertAdjacentElement("afterend", expandedRow);
+
+        const cached = state.commodityHistoryCache[entryKey];
+        if (cached) {
+          renderCommodityHistory(expandedRow, row, cached);
+          return;
+        }
+
+        google.script.run
+          .withSuccessHandler((payload) => {
+            state.commodityHistoryCache[entryKey] = payload;
+            if (state.expandedCommodityKey !== entryKey) {
+              return;
+            }
+            renderCommodityHistory(expandedRow, row, payload);
+          })
+          .withFailureHandler((error) => {
+            if (state.expandedCommodityKey !== entryKey) {
+              return;
+            }
+            expandedRow.querySelector(".history-shell").innerHTML = "<div class=\"history-empty\">" + escapeHtml(error.message || String(error)) + "</div>";
+          })
+          .getCommodityHistory({
+            commodity: row.commodity,
+            market: row.market,
+            variety: row.variety,
+            grade: row.grade
+          });
+      }
+
+      function renderCommodityHistory(expandedRow, row, payload) {
+        const shell = expandedRow.querySelector(".history-shell");
+        const points = payload.points || [];
+        if (!points.length) {
+          shell.innerHTML = "<div class=\"history-empty\">No price history available for this market entry.</div>";
+          return;
+        }
+
+        shell.innerHTML =
+          "<div class=\"history-head\">" +
+            "<div>" +
+              "<h3>" + escapeHtml(payload.commodity) + " Price History</h3>" +
+              "<p>" + escapeHtml(payload.market) + " • " + escapeHtml(payload.variety) + " • " + escapeHtml(payload.grade) + "</p>" +
+            "</div>" +
+            "<button type=\"button\" class=\"close-history\">Close ×</button>" +
+          "</div>" +
+          "<div class=\"history-card\">" +
+            renderHistoryChartSvg(points) +
+            "<div class=\"history-legend\">" +
+              "<span class=\"legend-item\"><span class=\"legend-line max\"></span>Max Price</span>" +
+              "<span class=\"legend-item\"><span class=\"legend-line modal\"></span>Modal Price</span>" +
+              "<span class=\"legend-item\"><span class=\"legend-line min\"></span>Min Price</span>" +
+            "</div>" +
+          "</div>";
+
+        bindHistoryTooltip(shell);
+        shell.querySelector(".close-history").addEventListener("click", () => {
+          expandedRow.remove();
+          state.expandedCommodityKey = "";
+        });
+      }
+
+      function renderHistoryChartSvg(points) {
+        const safePoints = points.filter((point) => {
+          return point.minPrice !== null || point.maxPrice !== null || point.modalPrice !== null;
+        });
+        if (!safePoints.length) {
+          return "<div class=\"history-empty\">No numeric price history available for charting.</div>";
+        }
+
+        const width = 980;
+        const height = 320;
+        const margin = { top: 18, right: 18, bottom: 48, left: 84 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+        const series = [
+          { key: "maxPrice", color: "#b14a38", dash: "", label: "Average Max Price" },
+          { key: "modalPrice", color: "#2d6f40", dash: "", label: "Average Modal Price" },
+          { key: "minPrice", color: "#d98b1e", dash: "8 6", label: "Average Min Price" }
+        ];
+        const values = [];
+        safePoints.forEach((point) => {
+          ["minPrice", "maxPrice", "modalPrice"].forEach((key) => {
+            if (point[key] !== null) {
+              values.push(point[key]);
+            }
+          });
+        });
+        const minValue = Math.min.apply(null, values);
+        const maxValue = Math.max.apply(null, values);
+        const spread = Math.max(maxValue - minValue, 1);
+        const paddedMin = Math.max(0, minValue - spread * 0.12);
+        const paddedMax = maxValue + spread * 0.12;
+        const stepX = safePoints.length === 1 ? 0 : chartWidth / (safePoints.length - 1);
+
+        function xAt(index) {
+          return margin.left + (stepX * index);
+        }
+
+        function yAt(value) {
+          const ratio = (value - paddedMin) / (paddedMax - paddedMin || 1);
+          return margin.top + chartHeight - (ratio * chartHeight);
+        }
+
+        const gridLines = [];
+        for (let index = 0; index < 4; index += 1) {
+          const value = paddedMin + ((paddedMax - paddedMin) * index / 3);
+          const y = yAt(value);
+          gridLines.push(
+            "<line x1=\"" + margin.left + "\" y1=\"" + y + "\" x2=\"" + (width - margin.right) + "\" y2=\"" + y + "\" stroke=\"#e6dccb\" stroke-width=\"1\"></line>" +
+            "<text x=\"" + (margin.left - 12) + "\" y=\"" + (y + 5) + "\" text-anchor=\"end\" fill=\"#667467\" font-size=\"14\" font-weight=\"600\">Rs " + formatNumber(Math.round(value)) + "</text>"
+          );
+        }
+
+        const xLabels = safePoints.map((point, index) => {
+          const label = point.reportDate.slice(8, 10) + "/" + point.reportDate.slice(5, 7);
+          return "<text x=\"" + xAt(index) + "\" y=\"" + (height - 16) + "\" text-anchor=\"middle\" fill=\"#667467\" font-size=\"14\" font-weight=\"600\">" + label + "</text>";
+        }).join("");
+
+        const paths = series.map((item) => {
+          const path = [];
+          const markers = [];
+          safePoints.forEach((point, index) => {
+            const value = point[item.key];
+            if (value === null) {
+              return;
+            }
+            const x = xAt(index);
+            const y = yAt(value);
+            path.push((path.length ? "L" : "M") + x + " " + y);
+            markers.push(
+              "<circle cx=\"" + x + "\" cy=\"" + y + "\" r=\"5\" fill=\"#fffefb\" stroke=\"" + item.color + "\" stroke-width=\"3\"></circle>"
+            );
+          });
+          return "<path d=\"" + path.join(" ") + "\" fill=\"none\" stroke=\"" + item.color + "\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"" +
+            (item.dash ? " stroke-dasharray=\"" + item.dash + "\"" : "") +
+            "></path>" + markers.join("");
+        }).join("");
+
+        const hoverTargets = safePoints.map((point, index) => {
+          const x = xAt(index);
+          const payload = escapeHtml(JSON.stringify({
+            reportDate: point.reportDate,
+            minPrice: point.minPrice,
+            modalPrice: point.modalPrice,
+            maxPrice: point.maxPrice
+          }));
+          const targetWidth = safePoints.length === 1 ? chartWidth : Math.max(stepX, 44);
+          const rectX = Math.max(margin.left, x - (targetWidth / 2));
+          const clampedWidth = Math.min(targetWidth, (width - margin.right) - rectX);
+          return "<g class=\"history-hover-target\" data-tooltip='" + payload + "' data-anchor-x=\"" + x + "\">" +
+            "<line x1=\"" + x + "\" y1=\"" + margin.top + "\" x2=\"" + x + "\" y2=\"" + (margin.top + chartHeight) + "\" stroke=\"#c9d8ca\" stroke-width=\"2\" stroke-dasharray=\"6 7\" opacity=\"0\"></line>" +
+            "<rect x=\"" + rectX + "\" y=\"" + margin.top + "\" width=\"" + clampedWidth + "\" height=\"" + chartHeight + "\" fill=\"#ffffff\" opacity=\"0\"></rect>" +
+          "</g>";
+        }).join("");
+
+        return "<div class=\"history-tooltip\" aria-hidden=\"true\"></div>" +
+          "<svg class=\"history-svg\" viewBox=\"0 0 " + width + " " + height + "\" role=\"img\" aria-label=\"30 day price history chart\">" +
+            gridLines.join("") +
+            "<line x1=\"" + margin.left + "\" y1=\"" + (margin.top + chartHeight) + "\" x2=\"" + (width - margin.right) + "\" y2=\"" + (margin.top + chartHeight) + "\" stroke=\"#bfb29c\" stroke-width=\"1.5\"></line>" +
+            hoverTargets +
+            paths +
+            xLabels +
+          "</svg>";
+      }
+
+      function bindHistoryTooltip(shell) {
+        const card = shell.querySelector(".history-card");
+        const svg = shell.querySelector(".history-svg");
+        const tooltip = shell.querySelector(".history-tooltip");
+        const targets = shell.querySelectorAll(".history-hover-target");
+        if (!card || !svg || !tooltip || !targets.length) {
+          return;
+        }
+
+        function hideTooltip() {
+          tooltip.classList.remove("visible");
+          tooltip.setAttribute("aria-hidden", "true");
+          targets.forEach((target) => {
+            const guide = target.querySelector("line");
+            if (guide) {
+              guide.setAttribute("opacity", "0");
+            }
+          });
+        }
+
+        function showTooltip(target) {
+          let payload = null;
+          try {
+            payload = JSON.parse(target.dataset.tooltip || "{}");
+          } catch (error) {
+            payload = null;
+          }
+          if (!payload) {
+            return;
+          }
+
+          tooltip.innerHTML =
+            "<p class=\"history-tooltip-date\">" + escapeHtml(payload.reportDate || "") + "</p>" +
+            "<div class=\"history-tooltip-list\">" +
+              renderHistoryTooltipItem("max", "Max price", payload.maxPrice) +
+              renderHistoryTooltipItem("modal", "Modal price", payload.modalPrice) +
+              renderHistoryTooltipItem("min", "Min price", payload.minPrice) +
+            "</div>";
+
+          targets.forEach((otherTarget) => {
+            const guide = otherTarget.querySelector("line");
+            if (guide) {
+              guide.setAttribute("opacity", otherTarget === target ? "1" : "0");
+            }
+          });
+
+          tooltip.classList.add("visible");
+          tooltip.setAttribute("aria-hidden", "false");
+
+          const svgRect = svg.getBoundingClientRect();
+          const cardRect = card.getBoundingClientRect();
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const anchorX = Number(target.dataset.anchorX || 0);
+          const xWithinCard = ((anchorX / svg.viewBox.baseVal.width) * svgRect.width) + (svgRect.left - cardRect.left);
+          const tooltipLeft = Math.max(
+            16,
+            Math.min(xWithinCard - (tooltipRect.width / 2), cardRect.width - tooltipRect.width - 16)
+          );
+
+          tooltip.style.left = tooltipLeft + "px";
+          tooltip.style.top = "18px";
+        }
+
+        targets.forEach((target) => {
+          target.addEventListener("mouseenter", () => showTooltip(target));
+          target.addEventListener("mousemove", () => showTooltip(target));
+          target.addEventListener("mouseleave", hideTooltip);
+        });
+
+        card.addEventListener("mouseleave", hideTooltip);
+      }
+
+      function renderHistoryTooltipItem(kind, label, value) {
+        return "<div class=\"history-tooltip-item\">" +
+          "<span class=\"history-tooltip-dot " + kind + "\"></span>" +
+          "<span>" + escapeHtml(label) + ": Rs " + formatNumber(value) + "</span>" +
+        "</div>";
+      }
+
+      function renderMoversTable(rows) {
+        if (!rows.length) {
+          moversTableWrapEl.innerHTML = "<div class=\"empty-state\">No price movement is available for the selected filters.</div>";
+          return;
+        }
+
+        const table = document.createElement("table");
+        table.innerHTML =
+          "<thead><tr>" +
+            "<th>Commodity</th>" +
+            "<th>Type</th>" +
+            "<th>Direction</th>" +
+            "<th>Previous Modal</th>" +
+            "<th>Latest Modal</th>" +
+            "<th>Absolute Change</th>" +
+            "<th>% Change</th>" +
+          "</tr></thead>";
+        const body = document.createElement("tbody");
+
+        rows.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            "<td>" + escapeHtml(row.commodity) + "</td>" +
+            "<td>" + escapeHtml(row.type) + "</td>" +
+            "<td>" + renderDirectionOnly(row.direction === "gain" ? "up" : "down") + "</td>" +
+            "<td>" + formatNumber(row.previousModalPrice) + "</td>" +
+            "<td>" + formatNumber(row.latestModalPrice) + "</td>" +
+            "<td>" + formatCurrency(row.absoluteChange) + "</td>" +
+            "<td>" + formatPercent(row.percentChange) + "</td>";
+          body.appendChild(tr);
+        });
+
+        table.appendChild(body);
+        moversTableWrapEl.innerHTML = "";
+        moversTableWrapEl.appendChild(table);
+      }
+
+      function escapeHtml(value) {
+        return String(value === null || value === undefined ? "" : value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/\"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function renderDirectionOnly(direction) {
+        const safeDirection = direction || "flat";
+        return "<span class=\"direction " + safeDirection + "\"><span class=\"triangle " + safeDirection + "\"></span></span>";
+      }
+
+      function renderPriceWithDirection(value, direction) {
+        return "<span class=\"price-cell\">" +
+          "<span>" + formatNumber(value) + "</span>" +
+          renderDirectionOnly(direction) +
+        "</span>";
+      }
+
+      function getCommodityTypeAbbreviation(value) {
+        if (value === "perishable") {
+          return "P";
+        }
+        if (value === "non-perishable") {
+          return "NP";
+        }
+        return "NA";
+      }
+
+      function bootstrapDashboard() {
+        google.script.run
+          .withSuccessHandler((payload) => {
+            state.bootstrap = payload;
+            renderHome();
+            showHomeView();
+          })
+          .withFailureHandler((error) => {
+            homeViewEl.innerHTML = "<div class=\"panel\"><h2>Dashboard unavailable</h2><p>" + escapeHtml(error.message || String(error)) + "</p></div>";
+          })
+          .getDashboardBootstrap();
+      }
+
+      bootstrapDashboard();
+    </script>
+  </body>
+</html>
