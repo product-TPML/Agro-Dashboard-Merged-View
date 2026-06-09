@@ -1030,25 +1030,6 @@ select {
   background: transparent;
 }
 
-.history-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.history-top-spacer {
-  flex: 1 1 auto;
-  min-height: 1px;
-}
-
-.history-top h3 {
-  font-family: "Libre Caslon Text", Georgia, serif;
-  font-size: 28px;
-  line-height: 1.1;
-}
-
 .history-collapse-wrap {
   display: flex;
   justify-content: center;
@@ -1079,17 +1060,6 @@ select {
   line-height: 1;
 }
 
-.window-chip {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  padding: 10px 16px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
 .chart-shell {
   border: 0;
   border-radius: 0;
@@ -1105,7 +1075,28 @@ select {
   letter-spacing: 0.02em;
 }
 
+.chart-layout {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+}
+
+.chart-axis-y {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: linear-gradient(90deg, #fff 0%, #fff 88%, rgba(255, 255, 255, 0.96) 100%);
+}
+
+.chart-axis-y svg {
+  display: block;
+  overflow: visible;
+}
+
 .chart-scroll {
+  position: relative;
+  z-index: 0;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -1115,48 +1106,6 @@ select {
 .chart-scroll > svg,
 .chart-scroll > div {
   min-width: 700px;
-}
-
-.chart-legend {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-  color: var(--muted);
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 700;
-}
-
-.legend-key {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.legend-key span {
-  width: 24px;
-  height: 2px;
-  display: inline-block;
-}
-
-.legend-min span {
-  background: var(--price-min);
-}
-
-.legend-max span {
-  background: var(--price-max);
-}
-
-.legend-modal span {
-  background: repeating-linear-gradient(
-    to right,
-    var(--price-modal) 0,
-    var(--price-modal) 10px,
-    transparent 10px,
-    transparent 16px
-  );
 }
 
 .history-grid {
@@ -1170,10 +1119,6 @@ select {
 
 .chart-point-group {
   cursor: pointer;
-}
-
-.chart-tooltip text {
-  font-family: "Inter", system-ui, sans-serif;
 }
 
 .chart-summary {
@@ -1210,12 +1155,52 @@ select {
 }
 
 .chart-metric {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  padding: 7px 12px;
+  display: grid;
+  gap: 4px;
+  min-width: 122px;
+  justify-items: center;
+  text-align: center;
+  border-radius: 22px;
+  padding: 12px 18px;
   font-size: 14px;
   font-weight: 700;
+}
+
+.chart-metric-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px;
+}
+
+.chart-metric-line {
+  width: 24px;
+  height: 0;
+  border-top-width: 3px;
+  border-top-style: solid;
+  display: inline-block;
+}
+
+.chart-metric-line-max {
+  border-color: var(--price-max);
+}
+
+.chart-metric-line-min {
+  border-color: var(--price-min);
+}
+
+.chart-metric-line-modal {
+  border-color: var(--price-modal);
+  border-top-style: dashed;
+}
+
+.chart-metric-value {
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
 .chart-metric-max {
@@ -1495,13 +1480,13 @@ select {
     gap: 8px 12px;
   }
 
-  .history-top h3 {
-    font-size: 24px;
-  }
-
   .chart-scroll-note {
     font-size: 11px;
     margin-bottom: 8px;
+  }
+
+  .chart-layout {
+    grid-template-columns: 36px minmax(0, 1fr);
   }
 
   .filter-fab {

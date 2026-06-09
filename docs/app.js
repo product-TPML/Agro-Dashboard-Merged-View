@@ -901,11 +901,7 @@
   }
 
   function restoreChartScrollState(snapshot) {
-    if (!snapshot.chartScroll) {
-      return;
-    }
-
-    if (!state.expandedRowKey || snapshot.chartScroll.rowKey !== state.expandedRowKey) {
+    if (!state.expandedRowKey) {
       return;
     }
 
@@ -914,8 +910,15 @@
       return;
     }
 
-    chartScroll.scrollLeft = snapshot.chartScroll.scrollLeft;
-    chartScroll.scrollTop = snapshot.chartScroll.scrollTop;
+    if (snapshot.chartScroll && snapshot.chartScroll.rowKey === state.expandedRowKey) {
+      chartScroll.scrollLeft = snapshot.chartScroll.scrollLeft;
+      chartScroll.scrollTop = snapshot.chartScroll.scrollTop;
+      return;
+    }
+
+    if (chartScroll.dataset.chartInitialPosition === "right") {
+      chartScroll.scrollLeft = chartScroll.scrollWidth - chartScroll.clientWidth;
+    }
   }
 
   function restoreFilterScrollState(snapshot) {
@@ -1413,27 +1416,13 @@
   }
 
   function renderHistory(row, historyRows) {
-    const windowLabel = row.perishability === "perishable" ? "Last 7 days" : "Last 30 days";
     const activePoint = getActiveHistoryPoint(historyRows);
     return `
       <section class="history-card">
-        <div class="history-top">
-          <div class="history-top-spacer"></div>
-          <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-            <span class="window-chip">${windowLabel}</span>
-          </div>
-        </div>
         <div class="chart-shell">
           <p class="chart-scroll-note">&lt;-- Scroll horizontally to see all dates --&gt;</p>
-          <div class="chart-legend">
-            <span class="legend-key legend-max"><span></span>Max price</span>
-            <span class="legend-key legend-min"><span></span>Min price</span>
-            <span class="legend-key legend-modal"><span></span>Modal price</span>
-          </div>
           <div class="history-grid">
-            <div class="chart-scroll" data-preserve-scroll-id="chart-scroll" data-chart-row-key="${escapeAttribute(row.rowKey)}">
-              ${renderChart(historyRows, activePoint)}
-            </div>
+            ${renderChart(historyRows, activePoint, row.rowKey)}
             ${renderChartSummary(activePoint)}
             <div class="axis-note">Trend is shown for this exact commodity, market, variety, and grade combination.</div>
           </div>
@@ -1447,7 +1436,7 @@
     `;
   }
 
-  function renderChart(rows, activePoint) {
+  function renderChart(rows, activePoint, rowKey) {
     if (!rows.length) {
       return `<p class="muted">No historical points are available inside the required time window.</p>`;
     }
@@ -1464,20 +1453,20 @@
       `;
     }
 
-    const width = 940;
-    const height = 280;
-    const paddingX = 54;
-    const paddingY = 24;
+    const axisWidth = 40;
+    const width = Math.max(700, 120 + (rows.length - 1) * 96);
+    const height = 320;
+    const paddingX = 38;
+    const paddingTop = 18;
+    const paddingBottom = 44;
     const values = rows.flatMap((row) => [row.minPrice, row.maxPrice, row.modalPrice]);
-    const minValue = Math.min(...values);
-    const maxValue = Math.max(...values);
-    const valueRange = maxValue - minValue || 1;
+    const chartScale = buildChartScale(values);
     const xStep = (width - paddingX * 2) / Math.max(rows.length - 1, 1);
 
     const toX = (index) => paddingX + xStep * index;
     const toY = (value) => {
-      const normalized = (value - minValue) / valueRange;
-      return height - paddingY - normalized * (height - paddingY * 2);
+      const normalized = value / chartScale.maxTick;
+      return height - paddingBottom - normalized * (height - paddingTop - paddingBottom);
     };
 
     const minPath = buildLinePath(rows.map((row, index) => [toX(index), toY(row.minPrice)]));
@@ -1485,32 +1474,24 @@
     const modalPath = buildLinePath(rows.map((row, index) => [toX(index), toY(row.modalPrice)]));
     const activeIndex = rows.findIndex((row) => row.reportDate === activePoint.reportDate);
     const activeX = toX(activeIndex);
-    const activeTopY = Math.min(toY(activePoint.maxPrice), toY(activePoint.minPrice), toY(activePoint.modalPrice));
-
-    const tooltipWidth = 176;
-    const tooltipHeight = 84;
-    const tooltipX = activeX > width * 0.6 ? activeX - tooltipWidth - 18 : activeX + 18;
-    const tooltipY = Math.max(paddingY, Math.min(activeTopY - tooltipHeight - 14, height - paddingY - tooltipHeight));
-    const tooltipAnchorX = tooltipX < activeX ? tooltipX + tooltipWidth : tooltipX;
-    const tooltipAnchorY = tooltipY + 34;
-
     const labels = rows.map((row, index) => `
-      <text x="${toX(index)}" y="${height - 4}" text-anchor="middle" fill="#5b6654" font-size="12">${escapeHtml(formatDateShort(row.reportDate))}</text>
+      <text x="${toX(index)}" y="${height - 12}" text-anchor="middle" fill="#5b6654" font-size="12">${escapeHtml(formatDateShort(row.reportDate))}</text>
     `).join("");
 
-    const tooltip = `
-      <g class="chart-tooltip" aria-hidden="true">
-        <line x1="${tooltipAnchorX}" y1="${tooltipAnchorY}" x2="${activeX}" y2="${activeTopY}" stroke="#c9cedb" stroke-width="1.5" stroke-dasharray="4 4" />
-        <rect x="${tooltipX}" y="${tooltipY}" width="${tooltipWidth}" height="${tooltipHeight}" rx="16" fill="#fffaf6" stroke="#e0c1b7" />
-        <text x="${tooltipX + 14}" y="${tooltipY + 20}" fill="#6b4a46" font-size="12" font-weight="700">${escapeHtml(formatDateFull(activePoint.reportDate))}</text>
-        <circle cx="${tooltipX + 18}" cy="${tooltipY + 38}" r="4" fill="${PRICE_COLORS.max}" />
-        <text x="${tooltipX + 30}" y="${tooltipY + 42}" fill="${PRICE_COLORS.max}" font-size="12">Max ${escapeHtml(formatCurrency(activePoint.maxPrice))}</text>
-        <circle cx="${tooltipX + 18}" cy="${tooltipY + 56}" r="4" fill="${PRICE_COLORS.min}" />
-        <text x="${tooltipX + 30}" y="${tooltipY + 60}" fill="${PRICE_COLORS.min}" font-size="12">Min ${escapeHtml(formatCurrency(activePoint.minPrice))}</text>
-        <circle cx="${tooltipX + 18}" cy="${tooltipY + 74}" r="4" fill="${PRICE_COLORS.modal}" />
-        <text x="${tooltipX + 30}" y="${tooltipY + 78}" fill="${PRICE_COLORS.modal}" font-size="12">Modal ${escapeHtml(formatCurrency(activePoint.modalPrice))}</text>
-      </g>
-    `;
+    const yAxisTicks = chartScale.ticks.map((tick) => {
+      const y = toY(tick);
+      return `
+        <g>
+          <line x1="${axisWidth - 8}" y1="${y}" x2="${axisWidth}" y2="${y}" stroke="#c2c8da" stroke-width="1.5" />
+          <text x="${axisWidth - 22}" y="${y + 14}" text-anchor="middle" fill="#5b6654" font-size="11" transform="rotate(-90 ${axisWidth - 22} ${y})">${escapeHtml(formatCurrency(tick))}</text>
+        </g>
+      `;
+    }).join("");
+
+    const gridLines = chartScale.ticks.map((tick) => {
+      const y = toY(tick);
+      return `<line x1="${paddingX}" y1="${y}" x2="${width - paddingX}" y2="${y}" stroke="${tick === 0 ? "#cfd5e3" : "#e8ebf3"}" stroke-width="${tick === 0 ? "1.6" : "1"}" />`;
+    }).join("");
 
     const pointTargets = rows.map((row, index) => {
       const x = toX(index);
@@ -1520,26 +1501,35 @@
       const isActive = row.reportDate === activePoint.reportDate;
       return `
         <g data-chart-date="${escapeAttribute(row.reportDate)}" class="chart-point-group ${isActive ? "is-active" : ""}">
-          <line x1="${x}" y1="${paddingY}" x2="${x}" y2="${height - paddingY}" stroke="${isActive ? "#adb7d8" : "transparent"}" stroke-dasharray="5 5" />
-          <circle cx="${x}" cy="${maxY}" r="${isActive ? 5 : 3.5}" fill="${PRICE_COLORS.max}" stroke="#fffaf6" stroke-width="2" />
-          <circle cx="${x}" cy="${minY}" r="${isActive ? 5 : 3.5}" fill="${PRICE_COLORS.min}" stroke="#fffaf6" stroke-width="2" />
-          <circle cx="${x}" cy="${modalY}" r="${isActive ? 5 : 3.5}" fill="${PRICE_COLORS.modal}" stroke="#fffaf6" stroke-width="2" />
-          <rect x="${x - 16}" y="${paddingY}" width="32" height="${height - paddingY * 2}" fill="transparent" />
+          <line x1="${x}" y1="${paddingTop}" x2="${x}" y2="${height - paddingBottom}" stroke="${isActive ? "#adb7d8" : "transparent"}" stroke-dasharray="5 5" />
+          ${renderChartPointCircle(x, maxY, PRICE_COLORS.max, isActive)}
+          ${renderChartPointCircle(x, minY, PRICE_COLORS.min, isActive)}
+          ${renderChartPointCircle(x, modalY, PRICE_COLORS.modal, isActive)}
+          <rect x="${x - 20}" y="${paddingTop}" width="40" height="${height - paddingTop - paddingBottom}" fill="transparent" />
         </g>
       `;
     }).join("");
 
     return `
-      <svg viewBox="0 0 ${width} ${height}" width="100%" role="img" aria-label="Price history" data-chart-root="true">
-        <line x1="${paddingX}" y1="${height - paddingY}" x2="${width - paddingX}" y2="${height - paddingY}" stroke="#d5d8e6" />
-        <line x1="${paddingX}" y1="${paddingY}" x2="${paddingX}" y2="${height - paddingY}" stroke="#d5d8e6" />
-        <path d="${minPath}" fill="none" stroke="${PRICE_COLORS.min}" stroke-width="3" />
-        <path d="${modalPath}" fill="none" stroke="${PRICE_COLORS.modal}" stroke-width="3" stroke-dasharray="10 6" />
-        <path d="${maxPath}" fill="none" stroke="${PRICE_COLORS.max}" stroke-width="3.5" />
-        ${pointTargets}
-        ${tooltip}
-        ${labels}
-      </svg>
+      <div class="chart-layout">
+        <div class="chart-axis-y" aria-hidden="true">
+          <svg viewBox="0 0 ${axisWidth} ${height}" width="${axisWidth}" height="${height}">
+            <line x1="${axisWidth}" y1="${paddingTop}" x2="${axisWidth}" y2="${height - paddingBottom}" stroke="#d5d8e6" />
+            <line x1="0" y1="${height - paddingBottom}" x2="${axisWidth}" y2="${height - paddingBottom}" stroke="#cfd5e3" stroke-width="1.6" />
+            ${yAxisTicks}
+          </svg>
+        </div>
+        <div class="chart-scroll" data-preserve-scroll-id="chart-scroll" data-chart-row-key="${escapeAttribute(rowKey)}" data-chart-initial-position="right">
+          <svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Price history" data-chart-root="true">
+            ${gridLines}
+            <path d="${minPath}" fill="none" stroke="${PRICE_COLORS.min}" stroke-width="3" />
+            <path d="${modalPath}" fill="none" stroke="${PRICE_COLORS.modal}" stroke-width="3" stroke-dasharray="10 6" />
+            <path d="${maxPath}" fill="none" stroke="${PRICE_COLORS.max}" stroke-width="3.5" />
+            ${pointTargets}
+            ${labels}
+          </svg>
+        </div>
+      </div>
     `;
   }
 
@@ -1551,16 +1541,59 @@
     return `
       <div class="chart-summary">
         <div class="chart-summary-head">
+          <span>Selected Date</span>
           <strong>${escapeHtml(formatDateFull(activePoint.reportDate))}</strong>
-          <span>Selected point</span>
         </div>
         <div class="chart-summary-grid">
-          <span class="chart-metric chart-metric-max chart-metric-slot-max">Max: ${formatCurrency(activePoint.maxPrice)}</span>
-          <span class="chart-metric chart-metric-min chart-metric-slot-min">Min: ${formatCurrency(activePoint.minPrice)}</span>
-          <span class="chart-metric chart-metric-modal chart-metric-slot-modal">Modal: ${formatCurrency(activePoint.modalPrice)}</span>
+          <span class="chart-metric chart-metric-max chart-metric-slot-max">
+            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-max"></span>Max</span>
+            <span class="chart-metric-value">${formatCurrency(activePoint.maxPrice)}</span>
+          </span>
+          <span class="chart-metric chart-metric-min chart-metric-slot-min">
+            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-min"></span>Min</span>
+            <span class="chart-metric-value">${formatCurrency(activePoint.minPrice)}</span>
+          </span>
+          <span class="chart-metric chart-metric-modal chart-metric-slot-modal">
+            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-modal"></span>Modal</span>
+            <span class="chart-metric-value">${formatCurrency(activePoint.modalPrice)}</span>
+          </span>
         </div>
       </div>
     `;
+  }
+
+  function renderChartPointCircle(x, y, color, isActive) {
+    return `<circle cx="${x}" cy="${y}" r="${isActive ? 7 : 5.5}" fill="${isActive ? color : "#fffaf6"}" stroke="${color}" stroke-width="2.5" />`;
+  }
+
+  function buildChartScale(values) {
+    const maxValue = Math.max(...values, 0);
+    const tickCount = 4;
+    const rawStep = maxValue / tickCount || 1;
+    const magnitude = Math.pow(10, Math.floor(Math.log10(rawStep)));
+    const normalized = rawStep / magnitude;
+    let niceNormalized = 1;
+
+    if (normalized > 5) {
+      niceNormalized = 10;
+    } else if (normalized > 2) {
+      niceNormalized = 5;
+    } else if (normalized > 1) {
+      niceNormalized = 2;
+    }
+
+    const step = Math.max(1, niceNormalized * magnitude);
+    const maxTick = Math.max(step, Math.ceil(maxValue / step) * step);
+    const ticks = [];
+    for (let tick = 0; tick <= maxTick; tick += step) {
+      ticks.push(tick);
+    }
+
+    if (ticks[ticks.length - 1] !== maxTick) {
+      ticks.push(maxTick);
+    }
+
+    return { step, maxTick, ticks };
   }
 
   function getActiveHistoryPoint(rows) {
