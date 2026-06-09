@@ -1456,9 +1456,9 @@
           <span>Selected point</span>
         </div>
         <div class="chart-summary-grid">
-          <span class="chart-metric chart-metric-max">Max: ${formatCurrency(activePoint.maxPrice)}</span>
-          <span class="chart-metric chart-metric-min">Min: ${formatCurrency(activePoint.minPrice)}</span>
-          <span class="chart-metric chart-metric-modal">Modal: ${formatCurrency(activePoint.modalPrice)}</span>
+          <span class="chart-metric chart-metric-max chart-metric-slot-max">Max: ${formatCurrency(activePoint.maxPrice)}</span>
+          <span class="chart-metric chart-metric-min chart-metric-slot-min">Min: ${formatCurrency(activePoint.minPrice)}</span>
+          <span class="chart-metric chart-metric-modal chart-metric-slot-modal">Modal: ${formatCurrency(activePoint.modalPrice)}</span>
         </div>
       </div>
     `;
@@ -1590,7 +1590,6 @@
 
       node.addEventListener("mouseenter", activate);
       node.addEventListener("click", activate);
-      node.addEventListener("touchstart", activate, { passive: true });
     });
 
     document.querySelectorAll("[data-chart-root]").forEach((svg) => {

@@ -1109,6 +1109,7 @@ select {
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pinch-zoom;
 }
 
 .chart-scroll > svg,
@@ -1202,9 +1203,10 @@ select {
 }
 
 .chart-summary-grid {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+  align-items: start;
 }
 
 .chart-metric {
@@ -1229,6 +1231,19 @@ select {
 .chart-metric-modal {
   background: rgba(55, 65, 81, 0.12);
   color: var(--price-modal);
+}
+
+.chart-metric-slot-max {
+  justify-self: start;
+}
+
+.chart-metric-slot-min {
+  justify-self: end;
+}
+
+.chart-metric-slot-modal {
+  grid-column: 1 / -1;
+  justify-self: center;
 }
 
 .axis-note {
