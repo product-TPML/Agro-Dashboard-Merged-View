@@ -4,6 +4,324 @@
     "en",
     "kn"
   ],
+  "ui": {
+    "app_title": {
+      "en": "Namma Agri Prices",
+      "kn": ""
+    },
+    "home_intro": {
+      "en": "Use the search bar to search for prices of commodities, markets, or varieties of your choice. Use filters to narrow down your search.",
+      "kn": ""
+    },
+    "search_label": {
+      "en": "Search commodities, markets, or varieties",
+      "kn": ""
+    },
+    "search_placeholder": {
+      "en": "Try Tomato, Mysuru, or Local",
+      "kn": ""
+    },
+    "category_title": {
+      "en": "Quick pick your commodity below.",
+      "kn": ""
+    },
+    "category_swipe_hint": {
+      "en": "\u2190 Swipe to see all options \u2192",
+      "kn": ""
+    },
+    "category_fruits": {
+      "en": "Fruits",
+      "kn": ""
+    },
+    "category_vegetables": {
+      "en": "Vegetables",
+      "kn": ""
+    },
+    "category_nuts_and_seeds": {
+      "en": "Nuts and Seeds",
+      "kn": ""
+    },
+    "category_grains_and_pulses": {
+      "en": "Grains and Pulses",
+      "kn": ""
+    },
+    "category_miscellaneous": {
+      "en": "Miscellaneous",
+      "kn": ""
+    },
+    "map_title": {
+      "en": "Tap on a district, then select the market.",
+      "kn": ""
+    },
+    "map_intro": {
+      "en": "Selecting a market will show all commodities in that market.",
+      "kn": ""
+    },
+    "district_empty_title": {
+      "en": "Select a district to view markets here",
+      "kn": ""
+    },
+    "home_button": {
+      "en": "Home",
+      "kn": ""
+    },
+    "map_loading": {
+      "en": "Loading Karnataka district map...",
+      "kn": ""
+    },
+    "results_intro_table": {
+      "en": "Use the filters to narrow the list. Click any row to view the recent price trend for that exact commodity entry.",
+      "kn": ""
+    },
+    "results_intro_cards": {
+      "en": "Use the filters to narrow the list. Expand any card to view the recent price trend for that exact commodity entry.",
+      "kn": ""
+    },
+    "results_layout_aria": {
+      "en": "Results layout",
+      "kn": ""
+    },
+    "layout_cards": {
+      "en": "Cards",
+      "kn": ""
+    },
+    "layout_table": {
+      "en": "Table",
+      "kn": ""
+    },
+    "language_aria": {
+      "en": "Language",
+      "kn": ""
+    },
+    "language_english": {
+      "en": "English",
+      "kn": ""
+    },
+    "language_kannada": {
+      "en": "Kannada",
+      "kn": ""
+    },
+    "zoom_in_aria": {
+      "en": "Zoom in",
+      "kn": ""
+    },
+    "zoom_out_aria": {
+      "en": "Zoom out",
+      "kn": ""
+    },
+    "reset": {
+      "en": "Reset",
+      "kn": ""
+    },
+    "no_mapped_markets": {
+      "en": "No mapped markets are available for this district in the current dataset.",
+      "kn": ""
+    },
+    "market_label_singular": {
+      "en": "market",
+      "kn": ""
+    },
+    "market_label_plural": {
+      "en": "markets",
+      "kn": ""
+    },
+    "mapped_to_this_district": {
+      "en": "mapped to this district.",
+      "kn": ""
+    },
+    "field_commodity": {
+      "en": "Commodity",
+      "kn": ""
+    },
+    "field_market": {
+      "en": "Market",
+      "kn": ""
+    },
+    "field_variety": {
+      "en": "Variety",
+      "kn": ""
+    },
+    "field_grade": {
+      "en": "Grade",
+      "kn": ""
+    },
+    "suggestion_meta_commodity": {
+      "en": "Opens commodity results",
+      "kn": ""
+    },
+    "suggestion_meta_market": {
+      "en": "Opens market results",
+      "kn": ""
+    },
+    "suggestion_meta_variety": {
+      "en": "Opens variety results",
+      "kn": ""
+    },
+    "filter_open_aria": {
+      "en": "Open filters",
+      "kn": ""
+    },
+    "filter_fab_label": {
+      "en": "Use filters here",
+      "kn": ""
+    },
+    "filters_label": {
+      "en": "Filters",
+      "kn": ""
+    },
+    "refine_results": {
+      "en": "Refine results",
+      "kn": ""
+    },
+    "close_filters_aria": {
+      "en": "Close filters",
+      "kn": ""
+    },
+    "clear_filters": {
+      "en": "Clear Filters",
+      "kn": ""
+    },
+    "apply_filters": {
+      "en": "Apply Filters",
+      "kn": ""
+    },
+    "filter_suffix": {
+      "en": "filter",
+      "kn": ""
+    },
+    "remove_value_prefix": {
+      "en": "Remove",
+      "kn": ""
+    },
+    "all_varieties": {
+      "en": "All varieties",
+      "kn": ""
+    },
+    "all_commodities": {
+      "en": "All commodities",
+      "kn": ""
+    },
+    "all_markets": {
+      "en": "All markets",
+      "kn": ""
+    },
+    "all_fallback_prefix": {
+      "en": "All",
+      "kn": ""
+    },
+    "type_to_search": {
+      "en": "Type to search",
+      "kn": ""
+    },
+    "no_matching_options": {
+      "en": "No matching options.",
+      "kn": ""
+    },
+    "loading_rows": {
+      "en": "Loading rows...",
+      "kn": ""
+    },
+    "no_rows_match": {
+      "en": "No rows match the current combination. The filter options stay constrained to valid combinations only, so clearing filters should broaden the result set.",
+      "kn": ""
+    },
+    "arrivals_units_header": {
+      "en": "Arrivals & Units",
+      "kn": ""
+    },
+    "max_price_rs": {
+      "en": "Max Price (Rs.)",
+      "kn": ""
+    },
+    "min_price_rs": {
+      "en": "Min Price (Rs.)",
+      "kn": ""
+    },
+    "modal_price_rs": {
+      "en": "Modal Price (Rs.)",
+      "kn": ""
+    },
+    "latest_update": {
+      "en": "Latest Update",
+      "kn": ""
+    },
+    "previous_update": {
+      "en": "Previous Update",
+      "kn": ""
+    },
+    "arrivals_and_units": {
+      "en": "Arrivals And Units",
+      "kn": ""
+    },
+    "price_updates": {
+      "en": "Price Updates",
+      "kn": ""
+    },
+    "latest": {
+      "en": "Latest",
+      "kn": ""
+    },
+    "previous": {
+      "en": "Previous",
+      "kn": ""
+    },
+    "see_price_history": {
+      "en": "See Price History",
+      "kn": ""
+    },
+    "no_earlier_update": {
+      "en": "No earlier update",
+      "kn": ""
+    },
+    "chart_scroll_note": {
+      "en": "<-- Scroll horizontally to see all dates -->",
+      "kn": ""
+    },
+    "trend_note": {
+      "en": "Trend is shown for this exact commodity, market, variety, and grade combination.",
+      "kn": ""
+    },
+    "collapse_price_history_aria": {
+      "en": "Collapse price history",
+      "kn": ""
+    },
+    "price_history_aria": {
+      "en": "Price history",
+      "kn": ""
+    },
+    "selected_date": {
+      "en": "Selected Date",
+      "kn": ""
+    },
+    "max_short": {
+      "en": "Max",
+      "kn": ""
+    },
+    "min_short": {
+      "en": "Min",
+      "kn": ""
+    },
+    "modal_short": {
+      "en": "Modal",
+      "kn": ""
+    },
+    "no_historical_points": {
+      "en": "No historical points are available inside the required time window.",
+      "kn": ""
+    },
+    "only_one_price_point_prefix": {
+      "en": "Only one price point is available on",
+      "kn": ""
+    },
+    "open_market_results_prefix": {
+      "en": "Open",
+      "kn": ""
+    },
+    "open_market_results_suffix": {
+      "en": "market results",
+      "kn": ""
+    }
+  },
   "commodities": {
     "Alasande Gram": {
       "en": "Alasande Gram",

@@ -9,13 +9,6 @@
     min: "#C2410C",
     modal: "#CC9900",
   };
-  const CATEGORY_LABELS = {
-    fruits: { en: "Fruits", kn: "ಹಣ್ಣುಗಳು" },
-    vegetables: { en: "Vegetables", kn: "ತರಕಾರಿಗಳು" },
-    nuts_and_seeds: { en: "Nuts and Seeds", kn: "ಕಾಯಿ ಮತ್ತು ಬೀಜಗಳು" },
-    grains_and_pulses: { en: "Grains and Pulses", kn: "ಧಾನ್ಯ ಮತ್ತು ಬೇಳೆಗಳು" },
-    miscellaneous: { en: "Miscellaneous", kn: "ಇತರೆ" },
-  };
   const CATEGORY_ICONS = {
     fruits: "🍎",
     vegetables: "🥕",
@@ -107,6 +100,7 @@
     searchToken: 0,
     locale: getStoredLocale(),
     translations: {
+      ui: {},
       commodities: {},
       markets: {},
       varieties: {},
@@ -220,12 +214,14 @@
     try {
       const payload = await fetchJson("./translations.json");
       state.translations = {
+        ui: payload.ui || {},
         commodities: payload.commodities || {},
         markets: payload.markets || {},
         varieties: payload.varieties || {},
       };
     } catch (error) {
       state.translations = {
+        ui: {},
         commodities: {},
         markets: {},
         varieties: {},
@@ -847,7 +843,7 @@
       return "";
     }
     return Object.entries(state.context.locked)
-      .map(([key, value]) => `<span>${capitalize(key)}: ${escapeHtml(translateEntity(key, value))}</span>`)
+      .map(([key, value]) => `<span>${escapeHtml(getFieldLabel(key))}: ${escapeHtml(translateEntity(key, value))}</span>`)
       .join("");
   }
 
@@ -868,10 +864,8 @@
             <div class="home-stack">
               <section class="panel welcome-card">
                 <div class="welcome-copy">
-                  <p class="search-label">Home</p>
-                  <h2>Home</h2>
-                  <p>Use the search bar to start with a commodity, market, or variety. After opening the results, refine the list using the available filters.</p>
-                  <p>Switch between cards and table views once the results page is open.</p>
+                  <h2>${escapeHtml(getUiText("app_title"))}</h2>
+                  <p>${escapeHtml(getUiText("home_intro"))}</p>
                 </div>
               </section>
 
@@ -881,9 +875,8 @@
 
               <aside class="panel map-card">
                 <div>
-                  <p class="search-label">Market Map</p>
-                  <h3>Browse by district and market</h3>
-                  <p class="muted">Search remains available, but you can also click a district, zoom in, and open market results directly from the map.</p>
+                  <h3>${escapeHtml(getUiText("map_title"))}</h3>
+                  <p class="muted">${escapeHtml(getUiText("map_intro"))}</p>
                 </div>
                 ${renderMapPanel()}
               </aside>
@@ -897,7 +890,6 @@
               <section class="panel table-card">
                 <div class="table-head">
                   <div>
-                    <p class="search-label">Showing Results For</p>
                     <div class="locked-headings">${formatLockedHeadings()}</div>
                     <p>${getResultsIntroCopy()}</p>
                   </div>
@@ -1116,18 +1108,17 @@
   function renderSearchPanel() {
     return `
       <section class="panel search-panel" data-search-root>
-        <label class="search-label">Search commodities, markets, or varieties</label>
+        <label class="search-label">${escapeHtml(getUiText("search_label"))}</label>
         <div class="search-box">
           <span>&#8981;</span>
           <input
             type="text"
             autocomplete="off"
-            placeholder="Try Tomato, Mysuru, or Local"
+            placeholder="${escapeAttribute(getUiText("search_placeholder"))}"
             value="${escapeAttribute(state.query)}"
             data-global-search="true"
           >
         </div>
-        <p class="search-hint">Examples: Tomato, Mysuru, or Local.</p>
         <div data-search-suggestions>${state.suggestions.length ? renderSuggestions() : ""}</div>
       </section>
     `;
@@ -1147,9 +1138,8 @@
       <section class="panel category-panel" aria-label="Commodity categories">
         <div class="category-panel-head">
           <div>
-            <p class="search-label">Browse by category</p>
-            <h3>Pick a category, then jump to a commodity</h3>
-            <p class="muted">Swipe horizontally to browse categories and commodities before opening the results view.</p>
+            <h3>${escapeHtml(getUiText("category_title"))}</h3>
+            <p class="muted category-swipe-hint">${escapeHtml(getUiText("category_swipe_hint"))}</p>
           </div>
         </div>
 
@@ -1196,9 +1186,9 @@
 
   function getResultsIntroCopy() {
     if (getActiveResultsLayout() === "table") {
-      return "Use the filters to narrow the list. Click any row to view the recent price trend for that exact commodity entry.";
+      return getUiText("results_intro_table");
     }
-    return "Use the filters to narrow the list. Expand any card to view the recent price trend for that exact commodity entry.";
+    return getUiText("results_intro_cards");
   }
 
   function renderResultsLayoutToggle() {
@@ -1208,18 +1198,18 @@
 
     const activeLayout = getActiveResultsLayout();
     return `
-      <div class="results-layout-toggle" role="group" aria-label="Results layout">
-        <button type="button" class="results-layout-button ${activeLayout === "cards" ? "is-active" : ""}" data-results-layout="cards" aria-pressed="${activeLayout === "cards" ? "true" : "false"}">Cards</button>
-        <button type="button" class="results-layout-button ${activeLayout === "table" ? "is-active" : ""}" data-results-layout="table" aria-pressed="${activeLayout === "table" ? "true" : "false"}">Table</button>
+      <div class="results-layout-toggle" role="group" aria-label="${escapeAttribute(getUiText("results_layout_aria", "Results layout"))}">
+        <button type="button" class="results-layout-button ${activeLayout === "cards" ? "is-active" : ""}" data-results-layout="cards" aria-pressed="${activeLayout === "cards" ? "true" : "false"}">${escapeHtml(getUiText("layout_cards", "Cards"))}</button>
+        <button type="button" class="results-layout-button ${activeLayout === "table" ? "is-active" : ""}" data-results-layout="table" aria-pressed="${activeLayout === "table" ? "true" : "false"}">${escapeHtml(getUiText("layout_table", "Table"))}</button>
       </div>
     `;
   }
 
   function renderLocaleToggle() {
     return `
-      <div class="locale-toggle" role="group" aria-label="Language">
-        <button type="button" class="locale-toggle-button ${state.locale === "en" ? "is-active" : ""}" data-locale-toggle="en">English</button>
-        <button type="button" class="locale-toggle-button ${state.locale === "kn" ? "is-active" : ""}" data-locale-toggle="kn">Kannada</button>
+      <div class="locale-toggle" role="group" aria-label="${escapeAttribute(getUiText("language_aria", "Language"))}">
+        <button type="button" class="locale-toggle-button ${state.locale === "en" ? "is-active" : ""}" data-locale-toggle="en">${escapeHtml(getUiText("language_english", "English"))}</button>
+        <button type="button" class="locale-toggle-button ${state.locale === "kn" ? "is-active" : ""}" data-locale-toggle="kn">${escapeHtml(getUiText("language_kannada", "Kannada"))}</button>
       </div>
     `;
   }
@@ -1228,7 +1218,7 @@
     return `
       <div class="shell-top-inner">
         <div class="shell-top-left">
-          ${state.route.view === "table" ? `<button type="button" class="back-button shell-home-button" id="backHome">Home</button>` : ""}
+          ${state.route.view === "table" ? `<button type="button" class="back-button shell-home-button" id="backHome">${escapeHtml(getUiText("home_button"))}</button>` : ""}
         </div>
         ${renderLocaleToggle()}
       </div>
@@ -1239,16 +1229,15 @@
     return `
       <div class="map-widget">
         <div class="map-controls">
-          <button type="button" class="map-control-button" data-map-zoom="in" aria-label="Zoom in">+</button>
-          <button type="button" class="map-control-button" data-map-zoom="out" aria-label="Zoom out">-</button>
-          <button type="button" class="map-control-button map-control-reset" data-map-reset="true">Reset</button>
+          <button type="button" class="map-control-button" data-map-zoom="in" aria-label="${escapeAttribute(getUiText("zoom_in_aria", "Zoom in"))}">+</button>
+          <button type="button" class="map-control-button" data-map-zoom="out" aria-label="${escapeAttribute(getUiText("zoom_out_aria", "Zoom out"))}">-</button>
+          <button type="button" class="map-control-button map-control-reset" data-map-reset="true">${escapeHtml(getUiText("reset", "Reset"))}</button>
         </div>
         <div class="map-placeholder map-viewer" data-map-viewport="true">
           <div class="map-canvas" data-map-canvas="true">
-            ${state.mapSvgMarkup || `<p>Loading Karnataka district map...</p>`}
+            ${state.mapSvgMarkup || `<p>${escapeHtml(getUiText("map_loading"))}</p>`}
           </div>
         </div>
-        <p class="map-note">Click a district to zoom in and reveal its mapped market pins. Click any market pin to open that market's results.</p>
         ${renderActiveDistrictPanel()}
       </div>
     `;
@@ -1259,8 +1248,7 @@
     if (!district) {
       return `
         <div class="map-district-panel">
-          <strong>Select a district</strong>
-          <p>Click a district to zoom in. Its markets will appear as labeled pins inside the map, with this panel acting as a quick list.</p>
+          <strong>${escapeHtml(getUiText("district_empty_title"))}</strong>
         </div>
       `;
     }
@@ -1269,12 +1257,12 @@
       ? district.markets.map((entry) => `
           <button type="button" class="market-chip" data-map-market="${escapeAttribute(entry.market)}">${escapeHtml(translateEntity("market", entry.market))}</button>
         `).join("")
-      : `<p class="muted">No mapped markets are available for this district in the current dataset.</p>`;
+      : `<p class="muted">${escapeHtml(getUiText("no_mapped_markets", "No mapped markets are available for this district in the current dataset."))}</p>`;
 
     return `
       <div class="map-district-panel">
         <strong>${escapeHtml(district.district)}</strong>
-        <p>${district.markets.length} market${district.markets.length === 1 ? "" : "s"} mapped to this district.</p>
+        <p>${escapeHtml(formatMarketCountLabel(district.markets.length))}</p>
         <div class="market-chip-list">
           ${marketButtons}
         </div>
@@ -1307,22 +1295,22 @@
 
   function getSuggestionLabel(result) {
     if (result.type === "commodity") {
-      return `${translateEntity("commodity", result.commodity)} (Commodity)`;
+      return `${translateEntity("commodity", result.commodity)} (${getUiText("field_commodity", "Commodity")})`;
     }
     if (result.type === "market") {
-      return `${translateEntity("market", result.market)} (Market)`;
+      return `${translateEntity("market", result.market)} (${getUiText("field_market", "Market")})`;
     }
     return `${translateEntity("variety", result.variety)} (${translateEntity("commodity", result.commodity)})`;
   }
 
   function getSuggestionMeta(result) {
     if (result.type === "commodity") {
-      return "Opens commodity results";
+      return getUiText("suggestion_meta_commodity", "Opens commodity results");
     }
     if (result.type === "market") {
-      return "Opens market results";
+      return getUiText("suggestion_meta_market", "Opens market results");
     }
-    return "Opens variety results";
+    return getUiText("suggestion_meta_variety", "Opens variety results");
   }
 
   function getActiveHomeCategory() {
@@ -1333,14 +1321,7 @@
   }
 
   function getCategoryLabel(categoryId, fallbackLabel) {
-    const entry = CATEGORY_LABELS[categoryId];
-    if (!entry) {
-      return fallbackLabel || categoryId;
-    }
-    if (state.locale === "kn" && entry.kn) {
-      return entry.kn;
-    }
-    return entry.en || fallbackLabel || categoryId;
+    return getUiText(`category_${categoryId}`, fallbackLabel || categoryId);
   }
 
   function getCategoryIcon(categoryId) {
@@ -1353,6 +1334,10 @@
 
   function formatCountLabel(count, singular, plural) {
     return `${count} ${count === 1 ? singular : plural}`;
+  }
+
+  function formatMarketCountLabel(count) {
+    return `${count} ${getUiText(count === 1 ? "market_label_singular" : "market_label_plural", count === 1 ? "market" : "markets")} ${getUiText("mapped_to_this_district", "mapped to this district.")}`;
   }
 
   function handleHomeCategorySelect(categoryId) {
@@ -1381,13 +1366,13 @@
     }
 
     return `
-      <button type="button" class="filter-fab ${state.showFilterHint ? "is-expanded is-highlighted" : ""}" data-open-filter-modal="true" aria-label="Open filters">
+      <button type="button" class="filter-fab ${state.showFilterHint ? "is-expanded is-highlighted" : ""}" data-open-filter-modal="true" aria-label="${escapeAttribute(getUiText("filter_open_aria", "Open filters"))}">
         <span class="filter-fab-icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 6h16l-6 7v5l-4 2v-7z" fill="currentColor"></path>
           </svg>
         </span>
-        <span class="filter-fab-label">Use filters here</span>
+        <span class="filter-fab-label">${escapeHtml(getUiText("filter_fab_label", "Use filters here"))}</span>
       </button>
     `;
   }
@@ -1399,20 +1384,20 @@
 
     return `
       <div class="filter-modal-backdrop" data-close-filter-modal="backdrop">
-        <section class="filter-modal panel" role="dialog" aria-modal="true" aria-label="Filters">
+        <section class="filter-modal panel" role="dialog" aria-modal="true" aria-label="${escapeAttribute(getUiText("filters_label", "Filters"))}">
           <div class="filter-modal-head">
             <div>
-              <p class="search-label">Filters</p>
-              <h3>Refine results</h3>
+              <p class="search-label">${escapeHtml(getUiText("filters_label", "Filters"))}</p>
+              <h3>${escapeHtml(getUiText("refine_results", "Refine results"))}</h3>
             </div>
-            <button type="button" class="filter-modal-close" data-close-filter-modal="button" aria-label="Close filters">&times;</button>
+            <button type="button" class="filter-modal-close" data-close-filter-modal="button" aria-label="${escapeAttribute(getUiText("close_filters_aria", "Close filters"))}">&times;</button>
           </div>
           <div class="filter-modal-body" data-preserve-scroll-id="filter-modal-body">
             ${state.context.filters.map((field) => renderFilterField(field)).join("")}
           </div>
           <div class="filter-modal-actions">
-            <button type="button" class="inline-button filter-clear-inline" data-clear-filter-drafts="true">Clear Filters</button>
-            <button type="button" class="clear-button filter-apply-button" data-apply-filter-drafts="true">Apply Filters</button>
+            <button type="button" class="inline-button filter-clear-inline" data-clear-filter-drafts="true">${escapeHtml(getUiText("clear_filters", "Clear Filters"))}</button>
+            <button type="button" class="clear-button filter-apply-button" data-apply-filter-drafts="true">${escapeHtml(getUiText("apply_filters", "Apply Filters"))}</button>
           </div>
         </section>
       </div>
@@ -1427,20 +1412,20 @@
 
     return `
       <div class="filter-modal-group">
-        <label>${capitalize(field)} filter</label>
+        <label>${escapeHtml(`${getFieldLabel(field)} ${getUiText("filter_suffix", "filter")}`)}</label>
         <div class="filter-multiselect">
           <div class="filter-chip-row">
             ${selected.length ? selected.map((value) => `
               <span class="filter-chip">
                 <span>${escapeHtml(translateEntity(field, value))}</span>
-                <button type="button" class="filter-chip-remove" data-remove-draft-filter="${field}" data-remove-draft-value="${escapeAttribute(value)}" aria-label="Remove ${escapeAttribute(value)}">&times;</button>
+                <button type="button" class="filter-chip-remove" data-remove-draft-filter="${field}" data-remove-draft-value="${escapeAttribute(value)}" aria-label="${escapeAttribute(`${getUiText("remove_value_prefix", "Remove")} ${translateEntity(field, value)}`)}">&times;</button>
               </span>
             `).join("") : `<span class="filter-chip-placeholder">${escapeHtml(getAllLabel(field))}</span>`}
           </div>
           <input
             type="text"
             class="filter-search-input"
-            placeholder="Type to search"
+            placeholder="${escapeAttribute(getUiText("type_to_search", "Type to search"))}"
             value="${escapeAttribute(query)}"
             data-filter-search="${field}"
           >
@@ -1455,7 +1440,7 @@
                 <span>${escapeHtml(translateEntity(field, value))}</span>
                 ${selected.includes(value) ? `<span class="filter-option-check">&#10003;</span>` : ""}
               </button>
-            `).join("") : `<p class="muted filter-empty-note">No matching options.</p>`) : ""}
+            `).join("") : `<p class="muted filter-empty-note">${escapeHtml(getUiText("no_matching_options", "No matching options."))}</p>`) : ""}
           </div>
         </div>
       </div>
@@ -1468,7 +1453,7 @@
     const options = getDraftFilterOptions(field, query);
 
     if (!options.length) {
-      return `<p class="muted filter-empty-note">No matching options.</p>`;
+      return `<p class="muted filter-empty-note">${escapeHtml(getUiText("no_matching_options", "No matching options."))}</p>`;
     }
 
     return options.map((value) => `
@@ -1521,11 +1506,11 @@
 
   function renderResults(rows) {
     if (!state.context) {
-      return `<div class="empty-state">Loading rows...</div>`;
+      return `<div class="empty-state">${escapeHtml(getUiText("loading_rows", "Loading rows..."))}</div>`;
     }
 
     if (!rows.length) {
-      return `<div class="empty-state">No rows match the current combination. The filter options stay constrained to valid combinations only, so clearing filters should broaden the result set.</div>`;
+      return `<div class="empty-state">${escapeHtml(getUiText("no_rows_match", "No rows match the current combination. The filter options stay constrained to valid combinations only, so clearing filters should broaden the result set."))}</div>`;
     }
 
     if (getActiveResultsLayout() === "table") {
@@ -1585,12 +1570,12 @@
   function renderResultsTableHeaderCells(columns) {
     return `
       ${columns.headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}
-      <th>Arrivals &amp; Units</th>
-      <th>Max Price (Rs.)</th>
-      <th>Min Price (Rs.)</th>
-      <th>Modal Price (Rs.)</th>
-      <th>Latest Update</th>
-      <th>Previous Update</th>
+      <th>${escapeHtml(getUiText("arrivals_units_header", "Arrivals & Units"))}</th>
+      <th>${escapeHtml(getUiText("max_price_rs", "Max Price (Rs.)"))}</th>
+      <th>${escapeHtml(getUiText("min_price_rs", "Min Price (Rs.)"))}</th>
+      <th>${escapeHtml(getUiText("modal_price_rs", "Modal Price (Rs.)"))}</th>
+      <th>${escapeHtml(getUiText("latest_update", "Latest Update"))}</th>
+      <th>${escapeHtml(getUiText("previous_update", "Previous Update"))}</th>
     `;
   }
 
@@ -1600,7 +1585,7 @@
 
     if (type === "market") {
       return {
-        headers: ["Commodity", "Variety", "Grade"],
+        headers: [getUiText("field_commodity", "Commodity"), getUiText("field_variety", "Variety"), getUiText("field_grade", "Grade")],
         getCells: (row) => [
           `<td class="result-col-primary">${escapeHtml(translateEntity("commodity", row.commodity))}</td>`,
           `<td>${escapeHtml(translateEntity("variety", row.variety))}</td>`,
@@ -1612,7 +1597,7 @@
 
     if (type === "commodity") {
       return {
-        headers: ["Market", "Variety", "Grade"],
+        headers: [getUiText("field_market", "Market"), getUiText("field_variety", "Variety"), getUiText("field_grade", "Grade")],
         getCells: (row) => [
           `<td class="result-col-primary">${escapeHtml(translateEntity("market", row.market))}</td>`,
           `<td>${escapeHtml(translateEntity("variety", row.variety))}</td>`,
@@ -1624,7 +1609,7 @@
 
     if (type === "variety") {
       return {
-        headers: ["Market", "Grade"],
+        headers: [getUiText("field_market", "Market"), getUiText("field_grade", "Grade")],
         getCells: (row) => [
           `<td class="result-col-primary">${escapeHtml(translateEntity("market", row.market))}</td>`,
           `<td>${escapeHtml(row.grade)}</td>`,
@@ -1634,7 +1619,7 @@
     }
 
     return {
-      headers: ["Market", "Variety", "Grade"],
+      headers: [getUiText("field_market", "Market"), getUiText("field_variety", "Variety"), getUiText("field_grade", "Grade")],
       getCells: (row) => [
         `<td class="result-col-primary">${escapeHtml(translateEntity("market", row.market))}</td>`,
         `<td>${escapeHtml(translateEntity("variety", row.variety))}</td>`,
@@ -1649,44 +1634,44 @@
 
     if (type === "market") {
       return {
-        titleLabel: "Commodity",
+        titleLabel: getUiText("field_commodity", "Commodity"),
         titleValue: translateEntity("commodity", row.commodity),
         meta: [
-          { label: "Variety", value: translateEntity("variety", row.variety) },
-          { label: "Grade", value: row.grade },
+          { label: getUiText("field_variety", "Variety"), value: translateEntity("variety", row.variety) },
+          { label: getUiText("field_grade", "Grade"), value: row.grade },
         ],
       };
     }
 
     if (type === "commodity") {
       return {
-        titleLabel: "Market",
+        titleLabel: getUiText("field_market", "Market"),
         titleValue: translateEntity("market", row.market),
         meta: [
-          { label: "Variety", value: translateEntity("variety", row.variety) },
-          { label: "Grade", value: row.grade },
+          { label: getUiText("field_variety", "Variety"), value: translateEntity("variety", row.variety) },
+          { label: getUiText("field_grade", "Grade"), value: row.grade },
         ],
       };
     }
 
     if (type === "variety") {
       return {
-        titleLabel: "Market",
+        titleLabel: getUiText("field_market", "Market"),
         titleValue: translateEntity("market", row.market),
         meta: [
-          { label: "Variety", value: translateEntity("variety", row.variety) },
-          { label: "Grade", value: row.grade },
+          { label: getUiText("field_variety", "Variety"), value: translateEntity("variety", row.variety) },
+          { label: getUiText("field_grade", "Grade"), value: row.grade },
         ],
       };
     }
 
     return {
-      titleLabel: "Market",
+      titleLabel: getUiText("field_market", "Market"),
       titleValue: translateEntity("market", row.market),
       meta: [
-        { label: "Commodity", value: translateEntity("commodity", row.commodity) },
-        { label: "Variety", value: translateEntity("variety", row.variety) },
-        { label: "Grade", value: row.grade },
+        { label: getUiText("field_commodity", "Commodity"), value: translateEntity("commodity", row.commodity) },
+        { label: getUiText("field_variety", "Variety"), value: translateEntity("variety", row.variety) },
+        { label: getUiText("field_grade", "Grade"), value: row.grade },
       ],
     };
   }
@@ -1714,25 +1699,25 @@
           </section>
 
           <section class="result-card-prices">
-            ${renderPriceGroup("max", "Max Price (Rs.)", row.maxPrice, getPreviousPriceDelta(row, "maxPrice", previousRow))}
-            ${renderPriceGroup("min", "Min Price (Rs.)", row.minPrice, getPreviousPriceDelta(row, "minPrice", previousRow))}
-            ${renderPriceGroup("modal", "Modal Price (Rs.)", row.modalPrice, getPreviousPriceDelta(row, "modalPrice", previousRow))}
+            ${renderPriceGroup("max", getUiText("max_price_rs", "Max Price (Rs.)"), row.maxPrice, getPreviousPriceDelta(row, "maxPrice", previousRow))}
+            ${renderPriceGroup("min", getUiText("min_price_rs", "Min Price (Rs.)"), row.minPrice, getPreviousPriceDelta(row, "minPrice", previousRow))}
+            ${renderPriceGroup("modal", getUiText("modal_price_rs", "Modal Price (Rs.)"), row.modalPrice, getPreviousPriceDelta(row, "modalPrice", previousRow))}
           </section>
 
           <section class="result-card-details">
             <div class="result-detail-block">
-              <span class="result-detail-label">Arrivals And Units</span>
+              <span class="result-detail-label">${escapeHtml(getUiText("arrivals_and_units", "Arrivals And Units"))}</span>
               <span class="result-detail-value">${escapeHtml(`${formatNumber(row.arrivals)} ${row.unit}`)}</span>
             </div>
             <div class="result-detail-block">
-              <span class="result-detail-label">Price Updates</span>
+              <span class="result-detail-label">${escapeHtml(getUiText("price_updates", "Price Updates"))}</span>
               <div class="date-stack">
                 <div class="date-stack-item">
-                  <span class="date-stack-label">Latest</span>
+                  <span class="date-stack-label">${escapeHtml(getUiText("latest", "Latest"))}</span>
                   <span>${escapeHtml(formatDateFull(row.reportDate))}</span>
                 </div>
                 <div class="date-stack-item">
-                  <span class="date-stack-label">Previous</span>
+                  <span class="date-stack-label">${escapeHtml(getUiText("previous", "Previous"))}</span>
                   <span>${escapeHtml(previousRow ? formatDateFull(previousRow.reportDate) : "-")}</span>
                 </div>
               </div>
@@ -1741,7 +1726,7 @@
         </div>
 
         <button type="button" class="result-card-toggle" data-toggle-history="${escapeAttribute(row.rowKey)}" aria-expanded="${isExpanded ? "true" : "false"}">
-          <span class="result-card-toggle-label">See Price History</span>
+          <span class="result-card-toggle-label">${escapeHtml(getUiText("see_price_history", "See Price History"))}</span>
           <span class="result-card-toggle-chevron">${isExpanded ? "&#9652;" : "&#9662;"}</span>
         </button>
 
@@ -1825,7 +1810,7 @@
 
   function renderPriceDelta(delta) {
     if (delta === null) {
-      return `<span class="price-delta price-delta-flat">No earlier update</span>`;
+      return `<span class="price-delta price-delta-flat">${escapeHtml(getUiText("no_earlier_update", "No earlier update"))}</span>`;
     }
 
     if (delta === 0) {
@@ -1869,7 +1854,7 @@
     return `
       <section class="history-card">
         <div class="chart-shell">
-          <p class="chart-scroll-note">&lt;-- Scroll horizontally to see all dates --&gt;</p>
+          <p class="chart-scroll-note">${escapeHtml(getUiText("chart_scroll_note", "<-- Scroll horizontally to see all dates -->"))}</p>
           <div class="history-layout">
             <div class="history-chart-panel">
               ${renderChart(historyRows, activePoint, row.rowKey)}
@@ -1877,11 +1862,11 @@
             <div class="chart-summary-shell">
               ${renderChartSummary(activePoint)}
             </div>
-            <div class="axis-note">Trend is shown for this exact commodity, market, variety, and grade combination.</div>
+            <div class="axis-note">${escapeHtml(getUiText("trend_note", "Trend is shown for this exact commodity, market, variety, and grade combination."))}</div>
           </div>
         </div>
         <div class="history-collapse-wrap">
-          <button type="button" class="history-collapse-button" data-close-history="${escapeAttribute(row.rowKey)}" aria-label="Collapse price history">
+          <button type="button" class="history-collapse-button" data-close-history="${escapeAttribute(row.rowKey)}" aria-label="${escapeAttribute(getUiText("collapse_price_history_aria", "Collapse price history"))}">
             <span class="history-collapse-arrow">&#9652;</span>
           </button>
         </div>
@@ -1891,17 +1876,17 @@
 
   function renderChart(rows, activePoint, rowKey) {
     if (!rows.length) {
-      return `<p class="muted">No historical points are available inside the required time window.</p>`;
+      return `<p class="muted">${escapeHtml(getUiText("no_historical_points", "No historical points are available inside the required time window."))}</p>`;
     }
 
     if (rows.length === 1) {
       const point = rows[0];
       return `
         <div class="footer-note">
-          Only one price point is available on ${escapeHtml(formatDateFull(point.reportDate))}.
-          Min: ${formatCurrency(point.minPrice)},
-          Max: ${formatCurrency(point.maxPrice)},
-          Modal: ${formatCurrency(point.modalPrice)}.
+          ${escapeHtml(getUiText("only_one_price_point_prefix", "Only one price point is available on"))} ${escapeHtml(formatDateFull(point.reportDate))}.
+          ${escapeHtml(getUiText("min_short", "Min"))}: ${formatCurrency(point.minPrice)},
+          ${escapeHtml(getUiText("max_short", "Max"))}: ${formatCurrency(point.maxPrice)},
+          ${escapeHtml(getUiText("modal_short", "Modal"))}: ${formatCurrency(point.modalPrice)}.
         </div>
       `;
     }
@@ -1981,7 +1966,7 @@
           data-chart-x-step="${xStep}"
           data-chart-point-count="${rows.length}"
         >
-          <svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Price history" data-chart-root="true">
+          <svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${escapeAttribute(getUiText("price_history_aria", "Price history"))}" data-chart-root="true">
             ${gridLines}
             <path d="${minPath}" fill="none" stroke="${PRICE_COLORS.min}" stroke-width="3" />
             <path d="${modalPath}" fill="none" stroke="${PRICE_COLORS.modal}" stroke-width="3" stroke-dasharray="10 6" />
@@ -2002,20 +1987,20 @@
     return `
       <div class="chart-summary">
         <div class="chart-summary-date">
-          <span class="chart-summary-date-label">Selected Date</span>
+          <span class="chart-summary-date-label">${escapeHtml(getUiText("selected_date", "Selected Date"))}</span>
           <strong class="chart-summary-date-value">${escapeHtml(formatDateFull(activePoint.reportDate))}</strong>
         </div>
         <div class="chart-summary-metrics">
           <span class="chart-metric chart-metric-max chart-metric-slot-max">
-            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-max"></span>Max</span>
+            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-max"></span>${escapeHtml(getUiText("max_short", "Max"))}</span>
             <span class="chart-metric-value">${formatCurrency(activePoint.maxPrice)}</span>
           </span>
           <span class="chart-metric chart-metric-min chart-metric-slot-min">
-            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-min"></span>Min</span>
+            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-min"></span>${escapeHtml(getUiText("min_short", "Min"))}</span>
             <span class="chart-metric-value">${formatCurrency(activePoint.minPrice)}</span>
           </span>
           <span class="chart-metric chart-metric-modal chart-metric-slot-modal">
-            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-modal"></span>Modal</span>
+            <span class="chart-metric-label"><span class="chart-metric-line chart-metric-line-modal"></span>${escapeHtml(getUiText("modal_short", "Modal"))}</span>
             <span class="chart-metric-value">${formatCurrency(activePoint.modalPrice)}</span>
           </span>
         </div>
@@ -2875,7 +2860,7 @@
     marker.setAttribute("data-map-market", marketName);
     marker.setAttribute("role", "button");
     marker.setAttribute("tabindex", "0");
-    marker.setAttribute("aria-label", `Open ${marketName} market results`);
+    marker.setAttribute("aria-label", `${getUiText("open_market_results_prefix", "Open")} ${marketName} ${getUiText("open_market_results_suffix", "market results")}`);
     marker.setAttribute("transform", `translate(${position.x} ${position.y})`);
 
     const stem = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -3390,15 +3375,30 @@
 
   function getAllLabel(field) {
     if (field === "variety") {
-      return "All varieties";
+      return getUiText("all_varieties", "All varieties");
     }
     if (field === "commodity") {
-      return "All commodities";
+      return getUiText("all_commodities", "All commodities");
     }
     if (field === "market") {
-      return "All markets";
+      return getUiText("all_markets", "All markets");
     }
-    return `All ${field}`;
+    return `${getUiText("all_fallback_prefix", "All")} ${field}`;
+  }
+
+  function getUiText(key, fallback) {
+    const entry = (state.translations.ui || {})[key];
+    if (!entry) {
+      return fallback || key;
+    }
+    if (state.locale === "kn" && entry.kn) {
+      return entry.kn;
+    }
+    return entry.en || fallback || key;
+  }
+
+  function getFieldLabel(field) {
+    return getUiText(`field_${field}`, capitalize(field));
   }
 
   function setLocale(locale) {

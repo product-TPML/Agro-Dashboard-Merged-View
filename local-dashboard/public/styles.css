@@ -103,7 +103,7 @@ select {
 
 .search-panel {
   position: relative;
-  padding: 18px;
+  padding: 16px 18px;
   width: 100%;
   min-width: 0;
 }
@@ -190,7 +190,7 @@ select {
 .home-stack,
 .table-stack {
   display: grid;
-  gap: 24px;
+  gap: 20px;
   min-width: 0;
 }
 
@@ -206,8 +206,13 @@ select {
   display: block;
 }
 
+.welcome-copy {
+  display: grid;
+  gap: 10px;
+}
+
 .welcome-copy h2 {
-  margin: 0 0 8px;
+  margin: 0;
   font-family: "Libre Caslon Text", Georgia, serif;
   font-size: clamp(30px, 4vw, 44px);
   line-height: 1.05;
@@ -249,6 +254,10 @@ select {
 
 .category-panel-head p:last-child {
   margin: 0;
+}
+
+.category-swipe-hint {
+  text-align: center;
 }
 
 .category-rail,
@@ -403,7 +412,7 @@ select {
 .map-card {
   display: grid;
   align-content: space-between;
-  gap: 20px;
+  gap: 16px;
   background:
     linear-gradient(145deg, rgba(63, 102, 83, 0.08), rgba(228, 226, 255, 0.72)),
     #fffefc;
@@ -638,11 +647,11 @@ select {
   gap: 20px;
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .table-head p {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   color: var(--muted);
   max-width: 760px;
 }
@@ -1744,7 +1753,7 @@ select {
 
 @media (max-width: 720px) {
   .shell {
-    padding: 12px 8px 30px;
+    padding: 10px 8px 24px;
   }
 
   .welcome-card,
@@ -1753,7 +1762,7 @@ select {
   .table-card,
   .history-card,
   .search-panel {
-    padding: 14px;
+    padding: 12px;
     border-radius: 18px;
   }
 
@@ -1764,7 +1773,7 @@ select {
 
   .table-stack,
   .home-stack {
-    gap: 16px;
+    gap: 12px;
   }
 
   .search-panel,
@@ -1776,12 +1785,17 @@ select {
   }
 
   .category-panel {
-    gap: 14px;
-    padding: 16px;
+    gap: 10px;
+    padding: 12px;
   }
 
   .category-panel h3 {
-    font-size: 22px;
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  .category-panel-head {
+    gap: 8px;
   }
 
   .category-pill {
@@ -1803,8 +1817,8 @@ select {
   }
 
   .commodity-rail-wrap {
-    gap: 8px;
-    padding: 2px 0;
+    gap: 6px;
+    padding: 0;
   }
 
   .commodity-rail-head strong {
@@ -1833,13 +1847,58 @@ select {
   }
 
   .table-head {
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
   }
 
   .table-head p {
     max-width: none;
+    font-size: 14px;
+  }
+
+  .search-panel {
+    padding: 12px;
+  }
+
+  .search-label {
+    margin-bottom: 8px;
+  }
+
+  .search-box input {
+    padding: 14px 0;
+    font-size: 16px;
+  }
+
+  .welcome-copy {
+    gap: 8px;
+  }
+
+  .welcome-copy h2 {
+    font-size: clamp(26px, 8vw, 34px);
+  }
+
+  .welcome-copy p {
     font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .map-card {
+    gap: 12px;
+  }
+
+  .map-card h3 {
+    font-size: 22px;
+  }
+
+  .map-card .muted,
+  .map-district-panel p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .map-district-panel {
+    gap: 6px;
+    padding: 12px 14px;
   }
 
   .shell-top-inner {

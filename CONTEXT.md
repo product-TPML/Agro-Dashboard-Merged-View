@@ -33,6 +33,7 @@ Current development shape:
 
 - `Agro Dashboard - new data.xlsx` -> `data/agro_dashboard.db` -> `local-dashboard/server.js` -> browser UI
 - `Agro Dashboard - new data.xlsx` -> `data/agro_dashboard.db` -> `scripts/build_pages_site.js` -> `docs/` static site
+- `scripts/commodity_category_mapping.json` -> `data/agro_dashboard.db` -> category-aware home UI and API payloads
 
 Current runtime commands:
 
@@ -79,6 +80,9 @@ If the workbook changes, the database is rebuilt from scratch.
 - `scripts/build_static_db.js`
   Recreates the SQLite database from the workbook.
 
+- `scripts/commodity_category_mapping.json`
+  Source file for commodity category metadata used to group commodities into the home-screen category rails.
+
 - `scripts/karnataka_market_district_mapping.json`
   Source file for district metadata and market-to-district geography used by the local DB.
 
@@ -92,7 +96,7 @@ If the workbook changes, the database is rebuilt from scratch.
   Dashboard styling.
 
 - `local-dashboard/public/app.js`
-  Client-side dashboard logic, routing, search, custom filter dropdowns, card rendering, inline history, and map interactions.
+  Client-side dashboard logic, routing, search, category rails, custom filter dropdowns, card rendering, inline history, and map interactions.
 
 - `local-dashboard/public/translations.json`
   Active translation source for commodity, market, and variety labels in English and Kannada.
@@ -183,6 +187,25 @@ The flattened read view now also includes:
 
 1. `district`
 2. `district_slug`
+3. `category`
+
+### Commodity metadata
+
+Commodity metadata is now split across two active sources:
+
+- workbook `commodity_mapping`
+  provides perishability and update timestamps
+
+- `scripts/commodity_category_mapping.json`
+  provides one category for every commodity in the static dataset
+
+Current category values:
+
+- `fruits`
+- `vegetables`
+- `nuts_and_seeds`
+- `grains_and_pulses`
+- `miscellaneous`
 
 ## Implemented Dashboard Flow
 
@@ -192,11 +215,35 @@ The current dashboard follows the wireframe direction as a **search-first flow**
 
 The home screen currently includes:
 
-- dashboard branding/header
 - global search bar
+- horizontally scrollable category rail
+- horizontally scrollable commodity rail for the selected category
 - interactive Karnataka district map
 
-Search remains the active primary navigation path, but the district map is now wired into the home screen.
+Search remains the primary navigation path. The category browser and district map now act as secondary discovery paths from the same landing screen.
+
+### Home category rail behavior
+
+The home screen now includes a category-first browsing layer below the search bar and above the district map.
+
+Current behavior:
+
+- first category is preselected on load
+- category chips scroll horizontally
+- the selected category stays in view when changed
+- commodity chips for the active category scroll horizontally in a second rail
+- commodity count is shown as a fixed label above the commodity rail
+- tapping a commodity chip routes directly to the existing commodity results view
+- category labels are localized for English and Kannada
+- commodity labels in the rail use the existing translation system
+- category and commodity chips both include lightweight icons
+
+Current layout details:
+
+- the selected category chip carries the main visual emphasis
+- the commodity rail is intentionally lighter and does not repeat the selected category title
+- the commodity rail shows a fixed commodity-count label above the scroller
+- horizontal scrolling is isolated to the two rails and should not expand page-level width
 
 ### Search behavior
 
@@ -395,6 +442,7 @@ The local server currently exposes:
 
 - `/api/health`
 - `/api/map`
+- `/api/categories`
 - `/api/search?q=...`
 - `/api/search-index`
 - `/api/context?type=commodity&commodity=...`
@@ -408,6 +456,9 @@ The local server currently exposes:
 
 - `/api/search-index`
   returns the raw commodity, market, and variety catalog used for client-side bilingual search matching
+
+- `/api/categories`
+  returns fixed-order category buckets with localized-UI-friendly ids, labels, counts, and commodity lists for the home-screen browsing rails
 
 - `/api/map`
   returns district-level market mapping for the home-screen map
@@ -426,6 +477,10 @@ Implemented and working:
 - static Pages build generated into `docs/`
 - home screen
 - search suggestion flow
+- home-screen category rail
+- home-screen commodity rail for the active category
+- fixed commodity-count label above the commodity rail
+- direct commodity-route navigation from the home category browser
 - route into shared results page
 - locked context headings
 - cascading filters
@@ -448,7 +503,8 @@ Implemented and working:
 - chart horizontal scroll preserved when selecting a different chart point
 - local district and market geography used by the home-screen map
 - English/Kannada toggle persisted in browser storage
-- translated commodity, market, and variety labels across suggestions, headings, filters, table cells, history titles, and map market labels
+- translated commodity, market, and variety labels across suggestions, headings, filters, table cells, history titles, map market labels, and home commodity chips
+- translated category labels across the home category rail
 - bilingual search matching so Kannada and English input both resolve while results render in the active language
 
 Not implemented yet:
@@ -463,10 +519,12 @@ Not implemented yet:
 
 - use SQLite as the active datastore
 - use the workbook as the rebuild source
+- use a repo-side JSON file as the source of truth for commodity categories
 - keep the current dataset static
 - build a local Node-served HTML dashboard
 - generate a GitHub Pages-friendly static build from the same source UI
 - make search the primary navigation path
+- add category-first browsing as a secondary home-screen discovery path
 - keep row history inline in the results cards
 - use the local district map as a secondary navigation path from home
 
@@ -511,6 +569,9 @@ Reference-only files from that workflow:
 - DB path:
   - `data/agro_dashboard.db`
 
+- commodity category mapping path:
+  - `scripts/commodity_category_mapping.json`
+
 - for simple row reads, prefer:
   - `price_observations_flat`
 
@@ -545,4 +606,4 @@ Current source limitation:
 
 ## Immediate Next Step
 
-The next practical work is to continue refining the local dashboard UI, expand any remaining localization coverage beyond commodity, market, and variety names if needed, and iterate on the card/history experience as more mobile usage feedback comes in.
+The next practical work is to continue refining the local dashboard UI, validate the new home category browser against more mobile usage feedback, and expand any remaining localization coverage beyond commodity, market, variety, and category labels if needed.
