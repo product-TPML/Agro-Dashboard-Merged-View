@@ -1,6 +1,6 @@
 # Commodity Dashboard
 
-Local commodity dashboard project built from a static May 2026 snapshot.
+Local commodity dashboard project built from a static May-June 2026 snapshot.
 
 ## Current stack
 

@@ -9,6 +9,7 @@ const MARKET_DISTRICT_MAPPING_FILE = path.join(__dirname, "karnataka_market_dist
 const COMMODITY_CATEGORY_MAPPING_FILE = path.join(__dirname, "commodity_category_mapping.json");
 const DATA_DIR = path.join(ROOT_DIR, "data");
 const DB_PATH = path.join(DATA_DIR, "agro_dashboard.db");
+const FALLBACK_OBSERVATIONS_FILE = path.join(ROOT_DIR, "local-dashboard", "public", "data", "observations.json");
 
 const REQUIRED_SHEETS = ["prices", "commodity_mapping", "runs"];
 const PERISHABILITY_VALUES = new Set(["perishable", "non-perishable"]);
@@ -22,19 +23,21 @@ const CATEGORY_VALUES = new Set([
 
 function main() {
   ensureWorkbookExists();
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-  if (fs.existsSync(DB_PATH)) {
-    fs.unlinkSync(DB_PATH);
-  }
-
   const workbook = XLSX.readFile(SOURCE_WORKBOOK);
   validateSheets(workbook);
   const geography = readMarketDistrictMapping();
   const categoryMetadata = readCommodityCategoryMapping();
-
-  const prices = readRows(workbook.Sheets.prices);
+  const workbookPrices = readRows(workbook.Sheets.prices);
   const mappings = readRows(workbook.Sheets.commodity_mapping);
-  const runs = readRows(workbook.Sheets.runs);
+  const workbookRuns = readRows(workbook.Sheets.runs);
+  const existingData = readExistingSnapshotData();
+  const prices = mergePriceRows(existingData.prices, workbookPrices);
+  const runs = mergeRunRows(existingData.runs, workbookRuns);
+
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (fs.existsSync(DB_PATH)) {
+    fs.unlinkSync(DB_PATH);
+  }
 
   const db = new Database(DB_PATH);
   try {
@@ -46,6 +49,94 @@ function main() {
   } finally {
     db.close();
   }
+}
+
+function readExistingSnapshotData() {
+  const fallbackPrices = readFallbackObservationRows();
+
+  if (!fs.existsSync(DB_PATH)) {
+    return {
+      prices: fallbackPrices,
+      runs: [],
+    };
+  }
+
+  const db = new Database(DB_PATH, { readonly: true, fileMustExist: true });
+  try {
+    const prices = db.prepare(`
+      SELECT
+        row_key,
+        report_date,
+        heading,
+        commodity,
+        perishability,
+        market AS "Market",
+        variety AS "Variety",
+        grade AS "Grade",
+        arrivals AS "Arrivals",
+        unit AS "Units",
+        min_price AS "Min (Rs.)",
+        max_price AS "Max (Rs.)",
+        modal_price AS "Modal (Rs.)",
+        scraped_at
+      FROM price_observations_flat
+      ORDER BY report_date ASC, commodity ASC, market ASC, variety ASC, grade ASC
+    `).all().map(trimObjectStrings);
+
+    const runs = db.prepare(`
+      SELECT
+        run_id,
+        started_at,
+        finished_at,
+        report_date,
+        status,
+        commodity_count,
+        row_count,
+        output_dir,
+        json_path,
+        csv_path,
+        log_path,
+        notes
+      FROM scrape_runs
+      ORDER BY report_date ASC, started_at ASC
+    `).all().map(trimObjectStrings);
+
+    return {
+      prices: mergePriceRows(fallbackPrices, prices),
+      runs,
+    };
+  } finally {
+    db.close();
+  }
+}
+
+function readFallbackObservationRows() {
+  if (!fs.existsSync(FALLBACK_OBSERVATIONS_FILE)) {
+    return [];
+  }
+
+  const payload = fs.readFileSync(FALLBACK_OBSERVATIONS_FILE, "utf8").replace(/^\uFEFF/, "");
+  const rows = JSON.parse(payload);
+  if (!Array.isArray(rows) || !rows.length) {
+    return [];
+  }
+
+  return rows.map((row) => trimObjectStrings({
+    row_key: row.rowKey,
+    report_date: row.reportDate,
+    heading: row.commodity,
+    commodity: row.commodity,
+    perishability: row.perishability || "",
+    Market: row.market,
+    Variety: row.variety,
+    Grade: row.grade,
+    Arrivals: row.arrivals,
+    Units: row.unit,
+    "Min (Rs.)": row.minPrice,
+    "Max (Rs.)": row.maxPrice,
+    "Modal (Rs.)": row.modalPrice,
+    scraped_at: row.scrapedAt || row.reportDate || "",
+  }));
 }
 
 function ensureWorkbookExists() {
@@ -102,6 +193,77 @@ function readRows(sheet) {
     defval: "",
     raw: false,
   }).map(trimObjectStrings);
+}
+
+function mergePriceRows(existingRows, workbookRows) {
+  const merged = [...existingRows];
+  const existingRowKeys = new Set(existingRows.map((row) => row.row_key));
+
+  workbookRows.forEach((row) => {
+    if (!existingRowKeys.has(row.row_key)) {
+      merged.push(row);
+    }
+  });
+
+  merged.sort(comparePriceRows);
+  return merged;
+}
+
+function mergeRunRows(existingRuns, workbookRuns) {
+  const merged = [...existingRuns];
+  const existingRunIds = new Set(existingRuns.map((row) => row.run_id));
+
+  workbookRuns.forEach((row) => {
+    if (!existingRunIds.has(row.run_id)) {
+      merged.push(row);
+    }
+  });
+
+  merged.sort(compareRunRows);
+  return merged;
+}
+
+function comparePriceRows(left, right) {
+  const dateCompare = String(left.report_date).localeCompare(String(right.report_date));
+  if (dateCompare !== 0) {
+    return dateCompare;
+  }
+
+  const commodityCompare = String(left.commodity).localeCompare(String(right.commodity));
+  if (commodityCompare !== 0) {
+    return commodityCompare;
+  }
+
+  const marketCompare = String(left.Market).localeCompare(String(right.Market));
+  if (marketCompare !== 0) {
+    return marketCompare;
+  }
+
+  const varietyCompare = String(left.Variety).localeCompare(String(right.Variety));
+  if (varietyCompare !== 0) {
+    return varietyCompare;
+  }
+
+  const gradeCompare = String(left.Grade).localeCompare(String(right.Grade));
+  if (gradeCompare !== 0) {
+    return gradeCompare;
+  }
+
+  return String(left.row_key).localeCompare(String(right.row_key));
+}
+
+function compareRunRows(left, right) {
+  const dateCompare = String(left.report_date).localeCompare(String(right.report_date));
+  if (dateCompare !== 0) {
+    return dateCompare;
+  }
+
+  const startedCompare = String(left.started_at).localeCompare(String(right.started_at));
+  if (startedCompare !== 0) {
+    return startedCompare;
+  }
+
+  return String(left.run_id).localeCompare(String(right.run_id));
 }
 
 function trimObjectStrings(row) {
@@ -402,6 +564,9 @@ function importStaticData(db, prices, mappings, runs, geography, categoryMetadat
     validateCommodityCategoryCoverage(commodityIds, categoryLookup);
 
     for (const row of geography.marketMappings) {
+      if (!marketIds.has(row.market)) {
+        continue;
+      }
       insertMarketDistrictMapping.run(
         marketIds.get(row.market),
         districtIds.get(row.district),
@@ -454,7 +619,7 @@ function importStaticData(db, prices, mappings, runs, geography, categoryMetadat
     }
 
     insertSnapshot.run(
-      path.basename(SOURCE_WORKBOOK),
+      `${path.basename(SOURCE_WORKBOOK)} + preserved historical DB rows`,
       new Date().toISOString(),
       prices.length,
       mappings.length,
@@ -499,11 +664,11 @@ function validateMarketDistrictCoverage(marketIds, marketMappings, districtIds) 
   const mappedMarkets = new Set();
 
   for (const row of marketMappings) {
-    if (!marketIds.has(row.market)) {
-      throw new Error(`District mapping refers to unknown market: ${row.market}`);
-    }
     if (!districtIds.has(row.district)) {
       throw new Error(`District mapping refers to unknown district: ${row.district}`);
+    }
+    if (!marketIds.has(row.market)) {
+      continue;
     }
     mappedMarkets.add(row.market);
   }
@@ -515,12 +680,6 @@ function validateMarketDistrictCoverage(marketIds, marketMappings, districtIds) 
 }
 
 function validateCommodityCategoryCoverage(commodityIds, categoryLookup) {
-  for (const commodity of categoryLookup.keys()) {
-    if (!commodityIds.has(commodity)) {
-      throw new Error(`Commodity category mapping refers to unknown commodity: ${commodity}`);
-    }
-  }
-
   const missingCommodities = [...commodityIds.keys()].filter((commodity) => !categoryLookup.has(commodity));
   if (missingCommodities.length) {
     throw new Error(`Missing commodity category mappings for commodities: ${missingCommodities.join(", ")}`);

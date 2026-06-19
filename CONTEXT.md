@@ -6,7 +6,7 @@ This repo is currently being used to build a **local commodity dashboard** backe
 
 The active goal is:
 
-- use the May 2026 snapshot as a fixed development dataset
+- use the current May-June 2026 workbook snapshot as the development dataset
 - serve a local dashboard without Google Sheets dependencies
 - keep the dataset read-only during the current phase
 - implement the search-first dashboard flow from the wireframes
@@ -140,16 +140,16 @@ The SQLite database is normalized for clean reads.
 
 Current static snapshot:
 
-- `price_observations`: 20,041 rows
-- `commodity_mapping`: 133 rows
+- `price_observations`: 34,503 rows
+- `commodity_mapping`: 135 rows
 - `districts`: 31 rows
-- `market_district_mapping`: 163 rows
-- `scrape_runs`: 45 rows
-- 133 commodities
-- 163 markets
-- 236 varieties
+- `market_district_mapping`: 164 rows
+- `scrape_runs`: 64 rows
+- 137 commodities
+- 164 markets
+- 251 varieties
 - 6 grades
-- report dates from `2026-05-02` through `2026-05-31`
+- report dates from `2026-05-02` through `2026-06-19`
 
 ## Data Semantics
 

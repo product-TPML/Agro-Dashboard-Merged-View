@@ -26,8 +26,8 @@
       "kn": "ನಿಮ್ಮ ಸರಕನ್ನು ಕೆಳಗೆ ತ್ವರಿತವಾಗಿ ಆಯ್ಕೆ ಮಾಡಿ."
     },
     "category_swipe_hint": {
-      "en": "\u2190 Swipe to see all options \u2192",
-      "kn": "\u2190 ಎಲ್ಲಾ ಆಯ್ಕೆಗಳನ್ನು ನೋಡಲು ಸ್ವೈಪ್ ಮಾಡಿ \u2192"
+      "en": "← Swipe to see all options →",
+      "kn": "← ಎಲ್ಲಾ ಆಯ್ಕೆಗಳನ್ನು ನೋಡಲು ಸ್ವೈಪ್ ಮಾಡಿ →"
     },
     "category_fruits": {
       "en": "Fruits",
@@ -155,7 +155,7 @@
     },
     "suggestion_meta_commodity": {
       "en": "Opens commodity results",
-      "kn": "ಸರಕಿನ ಫಲಿತಾಂಶಗಳನ್ನು ತೆರೆಯುತ್ತದೆ"
+      "kn": "ಸರಕಿನ ಫಲಿತಾಂಶಗಳನ್ನು... ತೆರೆಯುತ್ತದೆ"
     },
     "suggestion_meta_market": {
       "en": "Opens market results",
@@ -191,7 +191,7 @@
     },
     "apply_filters": {
       "en": "Apply Filters",
-      "kn": "ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಅನ್ವಯಿಸಿ"
+      "kn": "ಫಿಲ್ಟರ್‌ಗಳನ್ನು அನ್ವಯಿಸಿ"
     },
     "filter_suffix": {
       "en": "filter",
@@ -862,6 +862,22 @@
     "White Pumpkin": {
       "en": "White Pumpkin",
       "kn": "ಬೂದು ಗುಂಬಳಕಾಯಿ"
+    },
+    "Cotton Seed": {
+      "en": "Cotton Seed",
+      "kn": "ಹತ್ತಿ ಬೀಜ"
+    },
+    "Cumminseed": {
+      "en": "Cumminseed",
+      "kn": "ಜೀರಿಗೆ"
+    },
+    "Green Avare (W)": {
+      "en": "Green Avare (W)",
+      "kn": "ಹಸಿ ಅವರೆಕಾಳು (ಇಡೀ)"
+    },
+    "Neem Seed": {
+      "en": "Neem Seed",
+      "kn": "ಬೇವಿನ ಬೀಜ"
     }
   },
   "markets": {
@@ -1223,7 +1239,7 @@
     },
     "KUDLIGI": {
       "en": "KUDLIGI",
-      "kn": "ಕೂಡ್ಲಿಗಿ"
+      "kn": "கூಡ್ಲಿಗಿ"
     },
     "KUMTA": {
       "en": "KUMTA",
@@ -1516,6 +1532,10 @@
     "YELLAPURA": {
       "en": "YELLAPURA",
       "kn": "ಯೆಲ್ಲಾಪುರ"
+    },
+    "AFZALPUR": {
+      "en": "AFZALPUR",
+      "kn": "ಅಫಜಲಪುರ"
     }
   },
   "varieties": {
@@ -1653,7 +1673,7 @@
     },
     "Bombay (U.P.)": {
       "en": "Bombay (U.P.)",
-      "kn": "ಬಾಂಬೆ (ಯು.ಪಿ.)"
+      "kn": "ಬಾಂಬೆ (ಯು.批.)"
     },
     "Bottle Gourd": {
       "en": "Bottle Gourd",
@@ -2193,7 +2213,7 @@
     },
     "Padma": {
       "en": "Padma",
-      "kn": "ಪದ್ಮಾ"
+      "kn": "پದ್ಮಾ"
     },
     "Papaya": {
       "en": "Papaya",
@@ -2389,7 +2409,7 @@
     },
     "Sweet Potato": {
       "en": "Sweet Potato",
-      "kn": "ಗೆಣಸು"
+      "kn": "गेણಸು"
     },
     "Sweet Pumpkin": {
       "en": "Sweet Pumpkin",
@@ -2462,6 +2482,66 @@
     "Yellow": {
       "en": "Yellow",
       "kn": "ಹಳದಿ"
+    },
+    "Basumathi": {
+      "en": "Basumathi",
+      "kn": "ಬಾಸುಮತಿ"
+    },
+    "Common": {
+      "en": "Common",
+      "kn": "ಸಾಮಾನ್ಯ"
+    },
+    "Cotton Seed": {
+      "en": "Cotton Seed",
+      "kn": "ಹತ್ತಿ ಬೀಜ"
+    },
+    "Feeds (Poultry Quality)": {
+      "en": "Feeds (Poultry Quality)",
+      "kn": "ಮೇವು (ಕೋಳಿ ಸಾಕಣೆ ಗುಣಮಟ್ಟ)"
+    },
+    "Fresh Unbleached": {
+      "en": "Fresh Unbleached",
+      "kn": "ತಾಜಾ ಬ್ಲೀಚ್ ಮಾಡದ"
+    },
+    "Green Avare (W)": {
+      "en": "Green Avare (W)",
+      "kn": "ಹಸಿ ಅವರೆಕಾಳು (ಇಡೀ)"
+    },
+    "Green Pepper": {
+      "en": "Green Pepper",
+      "kn": "ಹಸಿರು ಮೆಣಸು"
+    },
+    "IR 20 Medium Boiled": {
+      "en": "IR 20 Medium Boiled",
+      "kn": "ಐ.ಆರ್. ೨೦ ಮಧ್ಯಮ ಕುಸುಬಲಕ್ಕಿ"
+    },
+    "Jaydhar": {
+      "en": "Jaydhar",
+      "kn": "ಜಯಧರ್"
+    },
+    "Jowar (Yellow)": {
+      "en": "Jowar (Yellow)",
+      "kn": "ಹಳದಿ ಜೋಳ"
+    },
+    "Kemputu": {
+      "en": "Kemputu",
+      "kn": "ಕೆಂಪುಟು"
+    },
+    "Neelam": {
+      "en": "Neelam",
+      "kn": "ನೀಲಂ"
+    },
+    "Neem Seed": {
+      "en": "Neem Seed",
+      "kn": "ಬೇವಿನ ಬೀಜ"
+    },
+    "Sanna Bhatta": {
+      "en": "Sanna Bhatta",
+      "kn": "ಸಣ್ಣ ಭತ್ತ"
+    },
+    "Sona Mansoori Non Basmati": {
+      "en": "Sona Mansoori Non Basmati",
+      "kn": "ಸೋನಾ ಮಸೂರಿ ನಾನ್ ಬಾಸುಮತಿ"
     }
   }
 }
