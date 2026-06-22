@@ -128,6 +128,7 @@
   let searchInputTimer = null;
   let renderFrameId = null;
   let stickyTableHeaderCleanup = null;
+  let lockedBodyScrollY = null;
 
   const MAP_DISTRICT_COLORS = [
     "#d85f52",
@@ -684,15 +685,33 @@
     scheduleRender();
   }
 
-  function applyFilterDrafts() {
+  function commitFilterDrafts(options = {}) {
+    const shouldCloseModal = options.closeModal !== false;
     state.filters = cloneFilters(state.filterDrafts);
     invalidateDerivedDataCaches();
     state.pendingFilterSelection = null;
-    state.activeFilterField = "";
-    state.isFilterModalOpen = false;
+    if (shouldCloseModal) {
+      state.activeFilterField = "";
+      state.isFilterModalOpen = false;
+    }
     state.activeChartDate = null;
     state.expandedRowKey = null;
     scheduleRender();
+  }
+
+  function removeAppliedFilterValue(name, value) {
+    state.filters[name] = (state.filters[name] || []).filter((entry) => entry !== value);
+    state.filterDrafts = cloneFilters(state.filters);
+    state.pendingFilterSelection = null;
+    state.activeFilterField = "";
+    invalidateDerivedDataCaches();
+    state.activeChartDate = null;
+    state.expandedRowKey = null;
+    scheduleRender();
+  }
+
+  function applyFilterDrafts() {
+    commitFilterDrafts();
   }
 
   function clearFilterDrafts() {
@@ -700,14 +719,7 @@
       state.filterDrafts[name] = [];
       state.filterSearches[name] = "";
     });
-    state.filters = cloneFilters(state.filterDrafts);
-    invalidateDerivedDataCaches();
-    state.pendingFilterSelection = null;
-    state.activeFilterField = "";
-    state.isFilterModalOpen = false;
-    state.activeChartDate = null;
-    state.expandedRowKey = null;
-    scheduleRender();
+    commitFilterDrafts();
   }
 
   function setActiveChartDate(date) {
@@ -921,6 +933,7 @@
                 </div>
 
                 ${renderResultsLayoutToggle()}
+                ${renderActiveFilterSummary()}
                 ${renderFilterLauncher()}
                 ${getActiveResultsLayout() === "table" ? renderStickyTableHeader(rows) : ""}
 
@@ -1015,7 +1028,7 @@
     const homeCommodityRail = document.querySelector("[data-home-commodity-rail]");
     return {
       windowX: window.scrollX,
-      windowY: window.scrollY,
+      windowY: lockedBodyScrollY !== null ? lockedBodyScrollY : window.scrollY,
       homeCategoryRail: homeCategoryRail ? {
         scrollLeft: homeCategoryRail.scrollLeft,
       } : null,
@@ -1403,6 +1416,31 @@
         </span>
         <span class="filter-fab-label">${escapeHtml(getUiText("filter_fab_label", "Use filters here"))}</span>
       </button>
+    `;
+  }
+
+  function renderActiveFilterSummary() {
+    if (!state.context) {
+      return "";
+    }
+
+    const activeChips = state.context.filters.flatMap((field) => {
+      return (state.filters[field] || []).map((value) => ({ field, value }));
+    });
+
+    if (!activeChips.length) {
+      return "";
+    }
+
+    return `
+      <div class="active-filter-summary" aria-label="${escapeAttribute(getUiText("filters_label", "Filters"))}">
+        ${activeChips.map(({ field, value }) => `
+          <span class="filter-chip filter-chip-active">
+            <span>${escapeHtml(`${getFieldLabel(field)}: ${translateEntity(field, value)}`)}</span>
+            <button type="button" class="filter-chip-remove" data-remove-active-filter="${field}" data-remove-active-value="${escapeAttribute(value)}" aria-label="${escapeAttribute(`${getUiText("remove_value_prefix", "Remove")} ${getFieldLabel(field)} ${translateEntity(field, value)}`)}">&times;</button>
+          </span>
+        `).join("")}
+      </div>
     `;
   }
 
@@ -2164,6 +2202,17 @@
       button.addEventListener("click", (event) => {
         event.stopPropagation();
         removeDraftFilterValue(button.dataset.removeDraftFilter, button.dataset.removeDraftValue);
+        commitFilterDrafts({ closeModal: false });
+      });
+    });
+
+    document.querySelectorAll("[data-remove-active-filter]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        removeAppliedFilterValue(
+          button.dataset.removeActiveFilter,
+          button.dataset.removeActiveValue
+        );
       });
     });
 
@@ -2352,6 +2401,7 @@
   }
 
   function runPostRenderEffects() {
+    syncFilterModalPageLock();
     updateTableWrapHeight();
     syncFilterHintAnimation();
     syncActiveHomeCategoryViewport();
@@ -2368,6 +2418,24 @@
         state.shouldScrollTableIntoView = false;
         updateTableWrapHeight();
       }
+    }
+  }
+
+  function syncFilterModalPageLock() {
+    if (state.isFilterModalOpen) {
+      if (lockedBodyScrollY === null) {
+        lockedBodyScrollY = window.scrollY;
+      }
+      document.body.classList.add("filter-modal-open");
+      document.body.style.top = `-${lockedBodyScrollY}px`;
+      return;
+    }
+
+    document.body.classList.remove("filter-modal-open");
+    document.body.style.top = "";
+    if (lockedBodyScrollY !== null) {
+      window.scrollTo(window.scrollX, lockedBodyScrollY);
+      lockedBodyScrollY = null;
     }
   }
 

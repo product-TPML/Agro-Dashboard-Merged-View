@@ -311,10 +311,19 @@ Clicking that button opens a popup with:
 - typed search within each filter field
 - multi-select results
 - selected values shown as removable chips
+- top-of-page overlay positioning instead of a bottom sheet
+- background page scroll locked while the popup is open
 - explicit `Apply Filters`
 - `Clear Filters`
 
-The popup uses staged draft selections, so table results only change after `Apply Filters` is clicked.
+The results page now also shows active selected-filter chips outside the popup, directly below the cards/table toggle.
+
+Current filter interaction behavior:
+
+- staged option toggles inside the popup still wait for `Apply Filters`
+- removing a selected chip inside the popup immediately applies that single removal while keeping the popup open
+- removing a selected chip from the outside chip row immediately applies that single removal and refreshes results
+- popup layout is constrained to the visual viewport so focused filter inputs stay reachable when the mobile keyboard is open
 
 ### Geography layer
 
@@ -384,6 +393,7 @@ The results UI also currently uses:
 - a top-left `Home` button beside the language toggle area
 - desktop-first `table` default with mobile-first `cards` default on first arrival
 - a floating filter action button with an onboarding hint animation
+- an outside active-filter chip row below the cards/table toggle
 
 For each result card, the price block also shows the absolute change from the previous comparable update for the exact:
 
@@ -493,7 +503,10 @@ Implemented and working:
 - cascading filters
 - custom filter dropdown menus contained within the card on mobile
 - floating filter action button on the table screen
-- popup-based staged multi-select filters with typed search, removable chips, explicit apply, and clear actions
+- top-anchored popup-based multi-select filters with typed search, removable chips, explicit apply, and clear actions
+- background scroll lock while the filter popup is open
+- outside active-filter chip row below the results layout toggle
+- immediate auto-apply when removing a selected filter chip from inside or outside the popup
 - latest-row-only results cards
 - card price deltas against the previous comparable update
 - inline card expansion
