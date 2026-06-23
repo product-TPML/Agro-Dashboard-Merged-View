@@ -663,10 +663,7 @@
   }
 
   function activateFilterField(name) {
-    if (state.activeFilterField === name) {
-      return;
-    }
-    state.activeFilterField = name;
+    state.activeFilterField = state.activeFilterField === name ? "" : name;
     syncAllFilterFieldUis();
   }
 
@@ -1454,7 +1451,6 @@
         <section class="filter-modal panel" role="dialog" aria-modal="true" aria-label="${escapeAttribute(getUiText("filters_label", "Filters"))}">
           <div class="filter-modal-head">
             <div>
-              <p class="search-label">${escapeHtml(getUiText("filters_label", "Filters"))}</p>
               <h3>${escapeHtml(getUiText("refine_results", "Refine results"))}</h3>
             </div>
             <button type="button" class="filter-modal-close" data-close-filter-modal="button" aria-label="${escapeAttribute(getUiText("close_filters_aria", "Close filters"))}">&times;</button>
@@ -1473,29 +1469,32 @@
 
   function renderFilterField(field) {
     const selected = state.filterDrafts[field] || [];
-    const query = state.filterSearches[field] || "";
-    const options = getDraftFilterOptions(field, query);
+    const options = getDraftFilterOptions(field, "");
     const isOpen = state.activeFilterField === field;
 
     return `
       <div class="filter-modal-group">
         <label>${escapeHtml(`${getFieldLabel(field)} ${getUiText("filter_suffix", "filter")}`)}</label>
         <div class="filter-multiselect">
+          ${selected.length ? `
           <div class="filter-chip-row">
-            ${selected.length ? selected.map((value) => `
+            ${selected.map((value) => `
               <span class="filter-chip">
                 <span>${escapeHtml(translateEntity(field, value))}</span>
                 <button type="button" class="filter-chip-remove" data-remove-draft-filter="${field}" data-remove-draft-value="${escapeAttribute(value)}" aria-label="${escapeAttribute(`${getUiText("remove_value_prefix", "Remove")} ${translateEntity(field, value)}`)}">&times;</button>
               </span>
-            `).join("") : `<span class="filter-chip-placeholder">${escapeHtml(getAllLabel(field))}</span>`}
+            `).join("")}
           </div>
-          <input
-            type="text"
-            class="filter-search-input"
-            placeholder="${escapeAttribute(getUiText("type_to_search", "Type to search"))}"
-            value="${escapeAttribute(query)}"
-            data-filter-search="${field}"
+          ` : ""}
+          <button
+            type="button"
+            class="filter-dropdown-trigger ${isOpen ? "is-open" : ""}"
+            data-filter-toggle="${field}"
+            aria-expanded="${isOpen ? "true" : "false"}"
           >
+            <span>${escapeHtml(getUiText("tap_to_select", "Tap to Select"))}</span>
+            <span class="filter-trigger-chevron" aria-hidden="true">${isOpen ? "&#9650;" : "&#9660;"}</span>
+          </button>
           <div class="filter-search-results ${isOpen ? "is-open" : ""}" data-preserve-scroll-id="filter-search-results" data-filter-results="${field}" data-filter-field="${field}">
             ${isOpen ? (options.length ? options.map((value) => `
               <button
@@ -2181,18 +2180,9 @@
       });
     });
 
-    document.querySelectorAll("[data-filter-search]").forEach((input) => {
-      input.addEventListener("focus", () => {
-        activateFilterField(input.dataset.filterSearch);
-        scheduleFilterFieldIntoView(input);
-      });
-      input.addEventListener("input", () => {
-        updateFilterSearch(
-          input.dataset.filterSearch,
-          input.value,
-          input.selectionStart,
-          input.selectionEnd
-        );
+    document.querySelectorAll("[data-filter-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        activateFilterField(button.dataset.filterToggle);
       });
     });
 
