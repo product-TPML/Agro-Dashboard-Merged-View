@@ -937,6 +937,23 @@ select {
   box-shadow: 0 12px 24px rgba(1, 45, 29, 0.18);
 }
 
+.back-to-top-fab {
+  bottom: 92px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.back-to-top-fab.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 @keyframes filterHintSwipe {
   0% {
     transform: translateX(-180%) skewX(-18deg);
@@ -2341,6 +2358,10 @@ select {
     width: 52px;
     height: 52px;
     max-width: calc(100vw - 28px);
+  }
+
+  .back-to-top-fab {
+    bottom: 78px;
   }
 
   .filter-fab.is-expanded {

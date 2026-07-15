@@ -133,6 +133,7 @@
   let searchInputTimer = null;
   let renderFrameId = null;
   let stickyTableHeaderCleanup = null;
+  let backToTopButtonCleanup = null;
   let lockedBodyScrollY = null;
 
   const MAP_DISTRICT_COLORS = [
@@ -1259,6 +1260,7 @@
 
                 ${renderResultsLayoutToggle()}
                 ${renderActiveFilterSummary()}
+                ${renderBackToTopButton(rows)}
                 ${renderFilterLauncher()}
                 ${getActiveResultsLayout() === "table" ? renderStickyTableHeader(rows) : ""}
 
@@ -1764,6 +1766,22 @@
           </svg>
         </span>
         <span class="filter-fab-label">${escapeHtml(getUiText("filter_fab_label", "Use filters here"))}</span>
+      </button>
+    `;
+  }
+
+  function renderBackToTopButton(rows) {
+    if (state.route.view !== "table" || getActiveResultsLayout() !== "cards" || rows.length < 5) {
+      return "";
+    }
+
+    return `
+      <button type="button" class="filter-fab back-to-top-fab" data-back-to-top="true" aria-label="${escapeAttribute(getUiText("back_to_top_aria", "Back to top"))}" aria-hidden="true" tabindex="-1">
+        <span class="filter-fab-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5l-7 7 2.12 2.12 3.38-3.38V19h3v-8.26l3.38 3.38L19 12z" fill="currentColor"></path>
+          </svg>
+        </span>
       </button>
     `;
   }
@@ -2568,6 +2586,15 @@
       button.addEventListener("click", openFilterModal);
     });
 
+    document.querySelectorAll("[data-back-to-top]").forEach((button) => {
+      button.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    });
+
     document.querySelectorAll("[data-close-filter-modal]").forEach((node) => {
       node.addEventListener("click", (event) => {
         const mode = node.dataset.closeFilterModal;
@@ -2792,6 +2819,7 @@
     syncFilterModalPageLock();
     updateTableWrapHeight();
     syncFilterHintAnimation();
+    syncBackToTopButton();
     syncActiveHomeCategoryViewport();
     if (getActiveResultsLayout() === "table") {
       syncStickyTableHeader();
@@ -2895,6 +2923,63 @@
     const top = tableWrap.getBoundingClientRect().top;
     const available = Math.max(240, Math.floor(viewportHeight - top - 12));
     tableWrap.style.setProperty("--table-wrap-height", `${available}px`);
+  }
+
+  function syncBackToTopButton() {
+    teardownBackToTopButton();
+
+    const button = document.querySelector("[data-back-to-top]");
+    const cards = document.querySelectorAll(".results-list .result-card");
+    if (!button || cards.length < 5) {
+      return;
+    }
+
+    const triggerCard = cards[4];
+    let frameId = null;
+
+    const syncVisibility = () => {
+      frameId = null;
+      const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const triggerTop = triggerCard.getBoundingClientRect().top;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+      const isVisible = scrollTop > 0 && triggerTop <= viewportHeight;
+
+      button.classList.toggle("is-visible", isVisible);
+      button.setAttribute("aria-hidden", isVisible ? "false" : "true");
+      button.tabIndex = isVisible ? 0 : -1;
+    };
+
+    const scheduleSync = () => {
+      if (frameId !== null) {
+        return;
+      }
+      frameId = window.requestAnimationFrame(syncVisibility);
+    };
+
+    window.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener("resize", scheduleSync);
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("scroll", scheduleSync, { passive: true });
+      window.visualViewport.addEventListener("resize", scheduleSync);
+    }
+
+    scheduleSync();
+
+    backToTopButtonCleanup = () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+
+      window.removeEventListener("scroll", scheduleSync);
+      window.removeEventListener("resize", scheduleSync);
+
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("scroll", scheduleSync);
+        window.visualViewport.removeEventListener("resize", scheduleSync);
+      }
+    };
   }
 
   function primeExpandedHistoryScroll() {
@@ -3119,6 +3204,15 @@
 
     stickyTableHeaderCleanup();
     stickyTableHeaderCleanup = null;
+  }
+
+  function teardownBackToTopButton() {
+    if (!backToTopButtonCleanup) {
+      return;
+    }
+
+    backToTopButtonCleanup();
+    backToTopButtonCleanup = null;
   }
 
   function wireMapInteractions() {
