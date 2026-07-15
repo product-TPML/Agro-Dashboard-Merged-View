@@ -9,6 +9,11 @@
     min: "#C2410C",
     modal: "#CC9900",
   };
+  const SEARCH_RESULT_TYPE_LABELS = {
+    commodity: "Commodity",
+    market: "Market",
+    variety: "Variety",
+  };
   const CATEGORY_ICONS = {
     fruits: "🍎",
     vegetables: "🥕",
@@ -273,7 +278,8 @@
 
   async function loadObservations() {
     try {
-      state.allRows = await fetchJson("./data/observations.json");
+      const rows = await fetchJson("./data/observations.json");
+      state.allRows = Array.isArray(rows) ? rows.map(normalizeObservationRow) : [];
     } catch (error) {
       state.allRows = [];
     }
@@ -923,6 +929,46 @@
       && String(row.unit || "").trim();
   }
 
+  function getPriceUnitLabel(row) {
+    const rawUnit = String(
+      (row && row.priceDisplayUnit)
+      || (row && row.unit)
+      || "Quintal"
+    ).trim();
+    const normalized = rawUnit.toLowerCase();
+
+    if (!normalized) {
+      return "q";
+    }
+    if (normalized === "quintal") {
+      return "q";
+    }
+    if (normalized === "kg" || normalized === "per kg") {
+      return "kg";
+    }
+    if (normalized === "50 kg") {
+      return "50 kg";
+    }
+    if (normalized === "per 100 kg" || normalized === "100 kg") {
+      return "100 kg";
+    }
+    if (normalized === "100 eggs" || normalized === "100 pieces") {
+      return "100 pieces";
+    }
+    if (normalized === "numbers" || normalized === "number") {
+      return "piece";
+    }
+    if (normalized === "thousands" || normalized === "thousand") {
+      return "1000 pieces";
+    }
+
+    return rawUnit;
+  }
+
+  function formatPriceUnit(unit) {
+    return `₹/${unit}`;
+  }
+
   function getRowPriceProfile(row) {
     if (row && row.sourceId === "necc_egg") {
       return {
@@ -973,7 +1019,7 @@
     }
 
     if (row && row.sourceId === "coffee_board") {
-      const priceUnit = row.priceDisplayUnit || row.unit || "50 Kg";
+      const priceUnit = getPriceUnitLabel(row);
       return {
         mode: "range",
         columns: [
@@ -998,7 +1044,7 @@
     }
 
     if (row && row.sourceId === "csb_silk") {
-      const priceUnit = row.priceDisplayUnit || "Kg";
+      const priceUnit = getPriceUnitLabel(row);
       return {
         mode: "triple",
         columns: [
@@ -1030,13 +1076,14 @@
       };
     }
 
+    const priceUnit = getPriceUnitLabel(row);
     return {
       mode: "triple",
       columns: [
         {
           kind: "max",
           key: "maxPrice",
-          label: getUiText("max_price_rs", "Max Price (Rs.)"),
+          label: buildRsPerUnitLabel("Max Price", priceUnit),
           color: PRICE_COLORS.max,
           strokeWidth: "3.5",
           dashArray: "",
@@ -1044,7 +1091,7 @@
         {
           kind: "min",
           key: "minPrice",
-          label: getUiText("min_price_rs", "Min Price (Rs.)"),
+          label: buildRsPerUnitLabel("Min Price", priceUnit),
           color: PRICE_COLORS.min,
           strokeWidth: "3",
           dashArray: "",
@@ -1052,7 +1099,7 @@
         {
           kind: "modal",
           key: "modalPrice",
-          label: getUiText("modal_price_rs", "Modal Price (Rs.)"),
+          label: buildRsPerUnitLabel("Modal Price", priceUnit),
           color: PRICE_COLORS.modal,
           strokeWidth: "3",
           dashArray: "10 6",
@@ -1062,12 +1109,12 @@
   }
 
   function buildRsPerUnitLabel(baseLabel, unit) {
-    return `${baseLabel} (Rs./${unit})`;
+    return `${baseLabel} (${formatPriceUnit(unit)})`;
   }
 
   function getSinglePriceLabel(row) {
-    const unit = row && row.priceDisplayUnit ? row.priceDisplayUnit : "";
-    return unit ? `Price (${unit})` : getUiText("price_label", "Price");
+    const unit = getPriceUnitLabel(row);
+    return `Price (${formatPriceUnit(unit)})`;
   }
 
   function getRowPriceMode(row) {
@@ -1154,8 +1201,9 @@
     if (!state.context) {
       return "";
     }
+    const tone = getResultTypeTone(state.context.type);
     return Object.entries(state.context.locked)
-      .map(([key, value]) => `<span>${escapeHtml(getFieldLabel(key))}: ${escapeHtml(translateEntity(key, value))}</span>`)
+      .map(([key, value]) => `<span class="locked-heading-pill locked-heading-pill-${escapeAttribute(tone)}">${escapeHtml(getFieldLabel(key))}: ${escapeHtml(translateEntity(key, value))}</span>`)
       .join("");
   }
 
@@ -1593,10 +1641,16 @@
     return `
       <div class="suggestions">
         ${state.suggestions.map((result, index) => {
+          const tone = getResultTypeTone(result.type);
           return `
-            <button type="button" data-suggestion-index="${index}">
-              <span>${highlightMatch(getSuggestionLabel(result), state.query)}</span>
-              <small>${getSuggestionMeta(result)}</small>
+            <button type="button" class="suggestion-item suggestion-item-${escapeAttribute(tone)}" data-suggestion-index="${index}">
+              <span class="suggestion-copy">
+                <strong class="suggestion-title">${highlightMatch(getSuggestionLabel(result), state.query)}</strong>
+                <span class="suggestion-meta-row">
+                  <span class="suggestion-tag suggestion-tag-${escapeAttribute(tone)}">${escapeHtml(getSuggestionTypeLabel(result.type))}</span>
+                  <small>${escapeHtml(getSuggestionMeta(result))}</small>
+                </span>
+              </span>
             </button>
           `;
         }).join("")}
@@ -1614,22 +1668,40 @@
 
   function getSuggestionLabel(result) {
     if (result.type === "commodity") {
-      return `${translateEntity("commodity", result.commodity)} (${getUiText("field_commodity", "Commodity")})`;
+      return translateEntity("commodity", result.commodity);
     }
     if (result.type === "market") {
-      return `${translateEntity("market", result.market)} (${getUiText("field_market", "Market")})`;
+      return translateEntity("market", result.market);
     }
-    return `${translateEntity("variety", result.variety)} (${translateEntity("commodity", result.commodity)})`;
+    return translateEntity("variety", result.variety);
   }
 
   function getSuggestionMeta(result) {
-    if (result.type === "commodity") {
-      return getUiText("suggestion_meta_commodity", "Opens commodity results");
+    const actionText = result.type === "commodity"
+      ? getUiText("suggestion_meta_commodity", "Opens commodity results")
+      : result.type === "market"
+        ? getUiText("suggestion_meta_market", "Opens market results")
+        : getUiText("suggestion_meta_variety", "Opens variety results");
+
+    if (result.type !== "variety") {
+      return actionText;
     }
-    if (result.type === "market") {
-      return getUiText("suggestion_meta_market", "Opens market results");
+
+    return `${translateEntity("commodity", result.commodity)} - ${actionText}`;
+  }
+
+  function getSuggestionTypeLabel(type) {
+    return getUiText(`field_${type}`, SEARCH_RESULT_TYPE_LABELS[type] || type);
+  }
+
+  function getResultTypeTone(type) {
+    if (type === "market") {
+      return "market";
     }
-    return getUiText("suggestion_meta_variety", "Opens variety results");
+    if (type === "variety") {
+      return "variety";
+    }
+    return "commodity";
   }
 
   function getActiveHomeCategory() {
@@ -2100,7 +2172,7 @@
 
           <section class="result-card-details">
             ${hasArrivalsData(row) ? `
-            <div class="result-detail-block">
+            <div class="result-detail-block result-detail-block-arrivals">
               <span class="result-detail-label">${escapeHtml(getUiText("arrivals_and_units", "Arrivals And Units"))}</span>
               <span class="result-detail-value">${escapeHtml(formatArrivalsUnits(row))}</span>
             </div>
@@ -3854,14 +3926,72 @@
     return Number(value).toLocaleString("en-IN");
   }
 
+  function normalizeObservationRow(row) {
+    return {
+      ...row,
+      reportDate: normalizeReportDateValue(row ? row.reportDate : ""),
+    };
+  }
+
+  function normalizeReportDateValue(value) {
+    const raw = String(value || "").trim();
+    if (!raw) {
+      return "";
+    }
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+      return raw;
+    }
+
+    let match = raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+    if (match) {
+      return `${match[3]}-${padDatePart(match[2])}-${padDatePart(match[1])}`;
+    }
+
+    match = raw.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+    if (match) {
+      return `${match[3]}-${padDatePart(match[2])}-${padDatePart(match[1])}`;
+    }
+
+    match = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (match) {
+      return `${match[3]}-${padDatePart(match[2])}-${padDatePart(match[1])}`;
+    }
+
+    return raw;
+  }
+
+  function padDatePart(value) {
+    return String(value || "").padStart(2, "0");
+  }
+
+  function getDisplayDateParts(value) {
+    const normalized = normalizeReportDateValue(value);
+    const match = normalized.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) {
+      return null;
+    }
+    return {
+      year: match[1],
+      month: match[2],
+      day: match[3],
+    };
+  }
+
   function formatDateShort(value) {
-    const [year, month, day] = String(value).split("-");
-    return `${day}-${month}`;
+    const parts = getDisplayDateParts(value);
+    if (!parts) {
+      return String(value || "");
+    }
+    return `${parts.day}-${parts.month}`;
   }
 
   function formatDateFull(value) {
-    const [year, month, day] = String(value).split("-");
-    return `${day}-${month}-${year}`;
+    const parts = getDisplayDateParts(value);
+    if (!parts) {
+      return String(value || "");
+    }
+    return `${parts.day}-${parts.month}-${parts.year}`;
   }
 
   function clamp(value, min, max) {

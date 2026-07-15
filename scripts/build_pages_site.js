@@ -87,7 +87,7 @@ function main() {
 function mapObservationRow(row) {
   return {
     rowKey: row.row_key,
-    reportDate: row.report_date,
+    reportDate: normalizeReportDateValue(row.report_date),
     sourceId: row.source_id,
     commodity: row.commodity,
     perishability: row.perishability,
@@ -104,6 +104,37 @@ function mapObservationRow(row) {
     canonicalPriceUnit: row.canonical_price_unit,
     priceDisplayUnit: getPriceDisplayUnit(row),
   };
+}
+
+function normalizeReportDateValue(value) {
+  const raw = String(value || "").trim();
+  if (!raw) {
+    return "";
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+    return raw;
+  }
+
+  let match = raw.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  if (match) {
+    return `${match[3]}-${padDatePart(match[2])}-${padDatePart(match[1])}`;
+  }
+
+  match = raw.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+  if (match) {
+    return `${match[3]}-${padDatePart(match[2])}-${padDatePart(match[1])}`;
+  }
+
+  match = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (match) {
+    return `${match[3]}-${padDatePart(match[2])}-${padDatePart(match[1])}`;
+  }
+
+  return raw;
+}
+
+function padDatePart(value) {
+  return String(value || "").padStart(2, "0");
 }
 
 function getPriceDisplayUnit(row) {
